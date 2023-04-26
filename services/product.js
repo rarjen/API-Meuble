@@ -1,5 +1,7 @@
 const { Product } = require("../models");
 const { BadRequestError } = require("../errors");
+const Sequelize = require("sequelize");
+const Op = Sequelize.Op;
 
 const createProduct = async (req) => {
   const {
@@ -111,13 +113,24 @@ const getOneProduct = async (req) => {
 };
 
 const getAllProducts = async (req) => {
-  const { status } = req.query;
+  const { status, search } = req.query;
 
   if (status) {
     const result = await Product.findAll({ where: { status } });
 
     return result;
   }
+
+  // if (search) {
+  //   const result = await Product.findAll({
+  //     where: {
+  //       nama: { [Op.like]: `%${search}%` },
+  //       brand: { [Op.like]: `%${search}%` },
+  //     },
+  //   });
+
+  //   return result;
+  // }
 
   const result = await Product.findAll({});
 
@@ -137,6 +150,7 @@ const deleteProduct = async (req) => {
 
   return result;
 };
+
 module.exports = {
   createProduct,
   updateProduct,
