@@ -124,10 +124,24 @@ const getAllProducts = async (req) => {
   return result;
 };
 
+const deleteProduct = async (req) => {
+  const { product_id } = req.params;
+
+  const checkProduct = await Product.findOne({ where: { id: product_id } });
+
+  if (!checkProduct) {
+    throw new BadRequestError(`Tidak ada product dengan id: ${product_id}`);
+  }
+
+  const result = await Product.destroy({ where: { id: product_id } });
+
+  return result;
+};
 module.exports = {
   createProduct,
   updateProduct,
   updateStatusProduct,
   getOneProduct,
   getAllProducts,
+  deleteProduct,
 };
