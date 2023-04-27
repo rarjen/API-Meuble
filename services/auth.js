@@ -1,4 +1,4 @@
-const { User } = require("../models");
+const { User, Role } = require("../models");
 const { BadRequestError } = require("../errors");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -63,7 +63,15 @@ const login = async (req) => {
     throw new BadRequestError("Email tidak valid");
   }
 
-  const user = await User.findOne({ where: { email } });
+  const user = await User.findOne({
+    where: { email },
+    include: [
+      {
+        model: Role,
+        as: "role",
+      },
+    ],
+  });
 
   if (!user) {
     throw new BadRequestError("Email atau password salah");
@@ -78,7 +86,7 @@ const login = async (req) => {
   const payload = {
     id: user.id,
     email: user.email,
-    role: user.role,
+    role: user.role.role,
   };
 
   const token = jwt.sign(payload, JWT_SECRET_KEY);
