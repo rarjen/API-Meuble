@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const product = require("../controllers/admin/product");
+const product = require("../controllers/product");
 const authorize = require("../middlewares/authorize");
 
 router.post("/create", authorize("ADMIN"), product.create);
