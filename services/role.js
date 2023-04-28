@@ -1,4 +1,4 @@
-const { Role, User } = require("../models");
+const { Role } = require("../models");
 const { BadRequestError } = require("../errors");
 const { StatusCodes } = require("http-status-codes");
 
@@ -76,24 +76,10 @@ const deleteRole = async (req) => {
   return result;
 };
 
-const getUser = async () => {
-  const result = await User.findAll({
-    include: [
-      {
-        model: Role,
-        as: "role",
-      },
-    ],
-  });
-
-  return result;
-};
-
 module.exports = {
   createRole,
   updateRole,
   deleteRole,
   getAllRole,
   getOneRole,
-  getUser,
 };
