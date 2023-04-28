@@ -3,4 +3,10 @@ const PRODUCT = {
   INACTIVE: "INACTIVE",
 };
 
-module.exports = { PRODUCT };
+const ROLES = {
+  OWNER: "OWNER",
+  ADMIN: "ADMIN",
+  BUYER: "BUYER",
+};
+
+module.exports = { PRODUCT, ROLES };
