@@ -42,8 +42,7 @@ const updateBio = async (req) => {
 const getAllUser = async (req) => {
   let { page = 1, limit } = req.query;
 
-  if (!page & !limit) {
-    page = 1;
+  if (!limit) {
     limit = 10;
 
     const pageNumber = parseInt(page);
@@ -70,7 +69,6 @@ const getAllUser = async (req) => {
       totalPage: totalPage,
     };
   }
-
   const pageNumber = parseInt(page);
   const limitPage = parseInt(limit);
   const offset = pageNumber * limitPage - limitPage;
