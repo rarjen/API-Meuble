@@ -1,5 +1,8 @@
 const { Product } = require("../models");
 const { BadRequestError } = require("../errors");
+const Sequelize = require("sequelize");
+const { PRODUCT } = require("../utils/enum");
+const Op = Sequelize.Op;
 
 const createProduct = async (req) => {
   const {
@@ -71,15 +74,14 @@ const updateProduct = async (req) => {
 
 const updateStatusProduct = async (req) => {
   const { product_id } = req.params;
-  const { status } = req.body;
-
+  let status;
   const checkProduct = await Product.findOne({ where: { id: product_id } });
   if (!checkProduct) {
     throw new BadRequestError(`Tidak ada product dengan id ${product_id}`);
   }
 
-  if (checkProduct.status === true) {
-    status = false;
+  if (checkProduct.status === PRODUCT.ACTIVE) {
+    status = PRODUCT.INACTIVE;
     const result = await Product.update(
       { status },
       { where: { id: product_id } }
@@ -88,7 +90,7 @@ const updateStatusProduct = async (req) => {
     return result;
   }
 
-  status = true;
+  status = PRODUCT.ACTIVE;
   const result = await Product.update(
     { status },
     { where: { id: product_id } }
@@ -111,15 +113,69 @@ const getOneProduct = async (req) => {
 };
 
 const getAllProducts = async (req) => {
-  const { status } = req.query;
+  const { status, search, page, limit } = req.query;
+
+  const pageNumber = parseInt(page);
+  const limitPage = parseInt(limit);
+  const offset = pageNumber * limitPage - limitPage;
+  const allProducts = await Product.count();
+  const totalPage = Math.ceil(allProducts / limit);
 
   if (status) {
-    const result = await Product.findAll({ where: { status } });
+    const result = await Product.findAll({
+      offset: offset,
+      limit: limitPage,
+      where: { status },
+    });
 
-    return result;
+    return {
+      data: result,
+      pageNumber: pageNumber,
+      limitPage: limitPage,
+      totalRows: allProducts,
+      totalPage: totalPage,
+    };
   }
 
-  const result = await Product.findAll({});
+  if (flightPagination <= 0) {
+    return res.status(400).json({
+      status: false,
+      message: "No Flight",
+    });
+  }
+
+  // if (search) {
+  //   const result = await Product.findAll({
+  //     where: {
+  //       nama: { [Op.like]: `%${search}%` },
+  //       brand: { [Op.like]: `%${search}%` },
+  //     },
+  //   });
+
+  //   return result;
+  // }
+
+  const result = await Product.findAll({ offset: offset, limit: limitPage });
+
+  return {
+    data: result,
+    pageNumber: pageNumber,
+    limitPage: limitPage,
+    totalRows: allProducts,
+    totalPage: totalPage,
+  };
+};
+
+const deleteProduct = async (req) => {
+  const { product_id } = req.params;
+
+  const checkProduct = await Product.findOne({ where: { id: product_id } });
+
+  if (!checkProduct) {
+    throw new BadRequestError(`Tidak ada product dengan id: ${product_id}`);
+  }
+
+  const result = await Product.destroy({ where: { id: product_id } });
 
   return result;
 };
@@ -130,4 +186,5 @@ module.exports = {
   updateStatusProduct,
   getOneProduct,
   getAllProducts,
+  deleteProduct,
 };
