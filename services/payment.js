@@ -56,10 +56,23 @@ const editPayment = async (req) => {
     throw new BadRequestError("Payment sudah terdaftar!");
   }
 
-  const url = await uploadImgPayment(file);
+  const getImageKitId = await Payment.findOne({
+    where: { id: payment_id },
+  });
+
+  if (!getImageKitId) {
+    throw new NotFoundError(`Tidak ada payment dengan id: ${payment_id}`);
+  }
+
+  await deleteSingleImg(getImageKitId.imagekit_id);
+  const dataUpload = await uploadImgPayment(file);
 
   const result = await Payment.update(
-    { payment, img_url: url.url },
+    {
+      payment,
+      img_url: dataUpload.url,
+      imagekit_id: dataUpload.uploadFile.fileId,
+    },
     { where: { id: payment_id } }
   );
 
