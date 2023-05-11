@@ -9,4 +9,10 @@ const ROLES = {
   BUYER: "BUYER",
 };
 
-module.exports = { PRODUCT, ROLES };
+const TRANSACTION = {
+  CANCELLED: "CANCELLED",
+  PAID: "PAID",
+  PENDING: "PENDING",
+};
+
+module.exports = { TRANSACTION, PRODUCT, ROLES };
