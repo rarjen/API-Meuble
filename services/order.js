@@ -1,5 +1,6 @@
 const { Order, Product, Order_detail, Transaction } = require("../models");
-const { BadRequestError, NotFoundError } = require("../errors");
+const { NotFoundError } = require("../errors");
+const { Op } = require("sequelize");
 
 const createOrder = async (req) => {
   const user = req.user;
@@ -46,7 +47,24 @@ const deleteOrder = async (req) => {
 const readOrderByAdmin = async (req) => {
   const { start_date, end_date } = req.query;
 
-  // const result = await Order.
+  if (start_date && end_date) {
+    const result = await Order.findAll({
+      where: {
+        createdAt: {
+          [Op.between]: [
+            new Date(start_date).setHours(0, 0, 0),
+            new Date(end_date).setHours(23, 59, 59),
+          ],
+        },
+      },
+    });
+
+    return result;
+  }
+
+  const result = await Order.findAll({});
+
+  return result;
 };
 
 const readOrderByUser = async (req) => {
