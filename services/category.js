@@ -37,12 +37,17 @@ const editCategory = async (req) => {
   const { category_id } = req.params;
   const { category } = req.body;
 
-  const checkCategory = await Category.findOne({
+  const checkCategory = await Category.findOne({ where: { id: category_id } });
+  if (!checkCategory) {
+    throw new NotFoundError(`Tidak ada Category dengan id: ${category_id}`);
+  }
+
+  const checkDuplicate = await Category.findOne({
     where: { category },
     id: { [Op.ne]: category_id },
   });
 
-  if (checkCategory) {
+  if (checkDuplicate) {
     throw new NotFoundError(`Category sudah ada!`);
   }
 
