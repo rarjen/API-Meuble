@@ -1,8 +1,8 @@
-const { Product } = require("../models");
+const { Product, Category } = require("../models");
 const { BadRequestError } = require("../errors");
-const Sequelize = require("sequelize");
+// const Sequelize = require("sequelize");
 const { PRODUCT } = require("../utils/enum");
-const Op = Sequelize.Op;
+// const { Op } = require("sequelize");
 
 const createProduct = async (req) => {
   const {
@@ -121,11 +121,17 @@ const getAllProducts = async (req) => {
   const allProducts = await Product.count();
   const totalPage = Math.ceil(allProducts / limit);
 
-  if (status) {
+  if (status && page && limit) {
     const result = await Product.findAll({
       offset: offset,
       limit: limitPage,
       where: { status },
+      include: [
+        {
+          model: Category,
+          as: "category",
+        },
+      ],
     });
 
     return {
@@ -135,13 +141,6 @@ const getAllProducts = async (req) => {
       totalRows: allProducts,
       totalPage: totalPage,
     };
-  }
-
-  if (flightPagination <= 0) {
-    return res.status(400).json({
-      status: false,
-      message: "No Flight",
-    });
   }
 
   // if (search) {
@@ -155,7 +154,15 @@ const getAllProducts = async (req) => {
   //   return result;
   // }
 
-  const result = await Product.findAll({ offset: offset, limit: limitPage });
+  const result = await Product.findAll({
+    where: { status },
+    include: [
+      {
+        model: Category,
+        as: "category",
+      },
+    ],
+  });
 
   return {
     data: result,
