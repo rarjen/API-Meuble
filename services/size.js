@@ -41,9 +41,9 @@ const editSize = async (req) => {
     throw new BadRequestError(`Size sudah ada!`);
   }
 
-  const result = await Category.update(
-    { category },
-    { where: { id: category_id } }
+  const result = await Size.update(
+    { category_id, size },
+    { where: { id: size_id } }
   );
 
   return result;
