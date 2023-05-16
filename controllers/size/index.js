@@ -4,6 +4,7 @@ const {
   readOneSize,
   editSize,
   destroySize,
+  readByCategory,
 } = require("../../services/size");
 
 const { StatusCodes } = require("http-status-codes");
@@ -78,4 +79,18 @@ const destroy = async (req, res, next) => {
   }
 };
 
-module.exports = { create, index, show, update, destroy };
+const readSizeByCategory = async (req, res, next) => {
+  try {
+    const result = await readByCategory(req);
+
+    return res.status(StatusCodes.OK).json({
+      status: true,
+      message: "Success Get Size!",
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { create, index, show, update, destroy, readSizeByCategory };
