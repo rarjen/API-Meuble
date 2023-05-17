@@ -12,6 +12,11 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "user_id",
         as: "order",
       });
+
+      User.hasMany(models.Custom_order, {
+        foreignKey: "user_id",
+        as: "custom_order",
+      });
     }
   }
   User.init(

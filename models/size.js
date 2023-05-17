@@ -8,7 +8,15 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Size.belongsTo(models.Category, {
+        foreignKey: "category_id",
+        as: "category",
+      });
+
+      Size.hasMany(models.Custom_order, {
+        foreignKey: "size_id",
+        as: "custom_order",
+      });
     }
   }
   Size.init(

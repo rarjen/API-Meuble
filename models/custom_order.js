@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Custom_order extends Model {
     /**
@@ -10,20 +8,41 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Custom_order.belongsTo(models.User, {
+        foreignKey: "user_id",
+        as: "user",
+      });
+
+      Custom_order.belongsTo(models.Category, {
+        foreignKey: "category_id",
+        as: "category",
+      });
+
+      Custom_order.belongsTo(models.Size, {
+        foreignKey: "size_id",
+        as: "size",
+      });
+
+      Custom_order.belongsTo(models.Material, {
+        foreignKey: "material_id",
+        as: "material",
+      });
     }
   }
-  Custom_order.init({
-    user_id: DataTypes.INTEGER,
-    category_id: DataTypes.INTEGER,
-    size_id: DataTypes.INTEGER,
-    color_id: DataTypes.INTEGER,
-    material_id: DataTypes.INTEGER,
-    keterangan: DataTypes.TEXT,
-    status: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'Custom_order',
-  });
+  Custom_order.init(
+    {
+      user_id: DataTypes.INTEGER,
+      category_id: DataTypes.INTEGER,
+      size_id: DataTypes.INTEGER,
+      color_id: DataTypes.INTEGER,
+      material_id: DataTypes.INTEGER,
+      keterangan: DataTypes.TEXT,
+      status: DataTypes.STRING,
+    },
+    {
+      sequelize,
+      modelName: "Custom_order",
+    }
+  );
   return Custom_order;
 };

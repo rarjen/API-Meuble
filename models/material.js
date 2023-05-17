@@ -8,7 +8,15 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Material.belongsTo(models.Category, {
+        foreignKey: "category_id",
+        as: "category",
+      });
+
+      Material.hasMany(models.Custom_order, {
+        foreignKey: "material_id",
+        as: "custom_order",
+      });
     }
   }
   Material.init(
