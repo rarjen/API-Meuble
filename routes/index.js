@@ -8,6 +8,8 @@ const category = require("./category");
 const order = require("./order");
 const sale = require("./sale");
 const size = require("./size");
+const material = require("./material");
+const customOrder = require("./customOrder");
 
 router.get("/", (req, res) => {
   return res.status(200).json({
@@ -26,5 +28,7 @@ router.use("/category", category);
 router.use("/order", order);
 router.use("/sale", sale);
 router.use("/size", size);
+router.use("/material", material);
+router.use("/custom-order", customOrder);
 
 module.exports = router;
