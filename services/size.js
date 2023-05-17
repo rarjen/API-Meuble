@@ -1,4 +1,4 @@
-const { Size } = require("../models");
+const { Size, Category } = require("../models");
 const { BadRequestError, NotFoundError } = require("../errors");
 const { VARIANT } = require("../utils/enum");
 const { Op } = require("sequelize");
@@ -50,7 +50,15 @@ const editSize = async (req) => {
 };
 
 const readAllSize = async () => {
-  const result = await Size.findAll({ where: { status: VARIANT.ACTIVE } });
+  const result = await Size.findAll({
+    where: { status: VARIANT.ACTIVE },
+    include: [
+      {
+        model: Category,
+        as: "category",
+      },
+    ],
+  });
 
   return result;
 };
@@ -60,6 +68,12 @@ const readOneSize = async (req) => {
 
   const result = await Size.findOne({
     where: { id: size_id, status: VARIANT.ACTIVE },
+    include: [
+      {
+        model: Category,
+        as: "category",
+      },
+    ],
   });
 
   if (!result) {
@@ -85,10 +99,29 @@ const destroySize = async (req) => {
   return result;
 };
 
+const readByCategory = async (req) => {
+  const { category_id } = req.params;
+
+  console.log(category_id);
+
+  const result = await Size.findAll({
+    where: { category_id, status: VARIANT.ACTIVE },
+  });
+
+  if (result <= 0) {
+    throw new NotFoundError(
+      `Tidak ada size dengan kategori id: ${category_id}`
+    );
+  }
+
+  return result;
+};
+
 module.exports = {
   createSize,
   editSize,
   readAllSize,
   readOneSize,
   destroySize,
+  readByCategory,
 };
