@@ -7,6 +7,7 @@ router.post("/create", authorize(ROLES.ADMIN), size.create);
 router.put("/:size_id", authorize(ROLES.ADMIN), size.destroy);
 router.put("/edit/:size_id", authorize(ROLES.ADMIN), size.update);
 router.get("/all-sizes", size.index);
+router.get("/size-categories/:category_id", size.readSizeByCategory);
 router.get("/:size_id", size.show);
 
 module.exports = router;
