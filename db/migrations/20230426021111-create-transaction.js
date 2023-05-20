@@ -15,6 +15,9 @@ module.exports = {
       order_id: {
         type: Sequelize.INTEGER,
       },
+      courrier_id: {
+        type: Sequelize.INTEGER,
+      },
       payment_id: {
         type: Sequelize.INTEGER,
       },
