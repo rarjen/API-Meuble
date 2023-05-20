@@ -32,6 +32,17 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "custom_order_id",
         as: "custom_order_detail",
       });
+
+      Custom_order.hasOne(models.Transaction_custom_order, {
+        foreignKey: "custom_order_id",
+        as: "transaction_custom_order",
+      });
+
+      Custom_order.belongsToMany(models.Payment, {
+        through: models.Transaction_custom_order,
+        foreignKey: "custom_order_id",
+        as: "payment",
+      });
     }
   }
   Custom_order.init(

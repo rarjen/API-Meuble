@@ -13,6 +13,12 @@ module.exports = (sequelize, DataTypes) => {
         as: "order",
         through: models.Transaction,
       });
+
+      Payment.belongsToMany(models.Custom_order, {
+        foreignKey: "payment_id",
+        as: "custom_order",
+        through: models.Transaction_custom_order,
+      });
     }
   }
   Payment.init(
