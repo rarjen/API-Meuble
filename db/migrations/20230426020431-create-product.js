@@ -18,6 +18,9 @@ module.exports = {
       nama: {
         type: Sequelize.STRING,
       },
+      weight: {
+        type: Sequelize.DOUBLE,
+      },
       deskripsi: {
         type: Sequelize.STRING,
       },
