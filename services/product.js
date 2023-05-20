@@ -1,5 +1,5 @@
 const { Product, Category } = require("../models");
-const { BadRequestError } = require("../errors");
+const { BadRequestError, NotFoundError } = require("../errors");
 // const Sequelize = require("sequelize");
 const { PRODUCT } = require("../utils/enum");
 // const { Op } = require("sequelize");
@@ -125,7 +125,7 @@ const getAllProducts = async (req) => {
     const result = await Product.findAll({
       offset: offset,
       limit: limitPage,
-      where: { status },
+      where: { status: PRODUCT.ACTIVE },
       include: [
         {
           model: Category,
@@ -173,6 +173,19 @@ const getAllProducts = async (req) => {
   };
 };
 
+const getByCategory = async (req) => {
+  const { category_id } = req.params;
+
+  const checkCategory = await Category.findOne({ where: { id: category_id } });
+  if (!checkCategory) {
+    throw new NotFoundError(`Tidak ada category dengan id: ${category_id}`);
+  }
+
+  const result = await Product.findAll({ where: { category_id } });
+
+  return result;
+};
+
 const deleteProduct = async (req) => {
   const { product_id } = req.params;
 
@@ -194,4 +207,5 @@ module.exports = {
   getOneProduct,
   getAllProducts,
   deleteProduct,
+  getByCategory,
 };
