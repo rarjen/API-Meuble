@@ -27,6 +27,11 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "material_id",
         as: "material",
       });
+
+      Custom_order.hasOne(models.Custom_order_detail, {
+        foreignKey: "custom_order_id",
+        as: "custom_order_detail",
+      });
     }
   }
   Custom_order.init(
