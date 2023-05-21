@@ -49,6 +49,7 @@ const createAddress = async (req) => {
   }
 
   const result = await Address.create({
+    user_id: user.id,
     province_id,
     city_id,
     address,
@@ -72,6 +73,14 @@ const editAddress = async (req) => {
     { province_id, city_id, address },
     { where: { id: address_id } }
   );
+
+  return result;
+};
+
+const getAddressUser = async (req) => {
+  const user = req.user;
+
+  const result = await Address.findOne({ where: { user_id: user.id } });
 
   return result;
 };
@@ -168,4 +177,5 @@ module.exports = {
   resetPassword,
   createAddress,
   editAddress,
+  getAddressUser,
 };
