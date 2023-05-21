@@ -24,8 +24,6 @@ const createOrder = async (req) => {
 
   const checkProduct = await Product.findOne({ where: { id: product_id } });
 
-  console.log(checkProduct);
-
   if (!checkProduct) {
     throw new NotFoundError(`Tidak ada product dengan id: ${product_id}`);
   }

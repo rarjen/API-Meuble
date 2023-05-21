@@ -7,7 +7,14 @@ const v = new Validator();
 const { JWT_SECRET_KEY } = process.env;
 
 const register = async (req) => {
-  const { first_name, last_name, email, password, confirm_password } = req.body;
+  const {
+    first_name,
+    last_name,
+    email,
+    password,
+    confirm_password,
+    role_id = 3,
+  } = req.body;
   const schema = {
     email: { type: "email", label: "Email Address" },
     password: { type: "string", min: 6 },
@@ -42,8 +49,9 @@ const register = async (req) => {
     first_name,
     last_name,
     email,
+    address: null,
     password: passwordHashed,
-    role_id: 3,
+    role_id,
   });
 
   return result;

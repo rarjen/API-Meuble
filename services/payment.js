@@ -25,7 +25,7 @@ const createPayment = async (req) => {
 };
 
 const getAllPayments = async () => {
-  const result = await Payment.findAll({});
+  const result = await Payment.findOne({ where: { payment: "COD" } });
 
   return result;
 };

@@ -113,7 +113,13 @@ const getOneProduct = async (req) => {
 };
 
 const getAllProducts = async (req) => {
-  const { status, search, page, limit } = req.query;
+  const { status, search, page = 1, limit = 10 } = req.query;
+
+  let where = {};
+
+  if (status) {
+    where.status = PRODUCT.ACTIVE;
+  }
 
   const pageNumber = parseInt(page);
   const limitPage = parseInt(limit);
@@ -121,41 +127,10 @@ const getAllProducts = async (req) => {
   const allProducts = await Product.count();
   const totalPage = Math.ceil(allProducts / limit);
 
-  if (status && page && limit) {
-    const result = await Product.findAll({
-      offset: offset,
-      limit: limitPage,
-      where: { status: PRODUCT.ACTIVE },
-      include: [
-        {
-          model: Category,
-          as: "category",
-        },
-      ],
-    });
-
-    return {
-      data: result,
-      pageNumber: pageNumber,
-      limitPage: limitPage,
-      totalRows: allProducts,
-      totalPage: totalPage,
-    };
-  }
-
-  // if (search) {
-  //   const result = await Product.findAll({
-  //     where: {
-  //       nama: { [Op.like]: `%${search}%` },
-  //       brand: { [Op.like]: `%${search}%` },
-  //     },
-  //   });
-
-  //   return result;
-  // }
-
   const result = await Product.findAll({
-    where: { status },
+    offset: offset,
+    limit: limitPage,
+    where,
     include: [
       {
         model: Category,
@@ -171,6 +146,17 @@ const getAllProducts = async (req) => {
     totalRows: allProducts,
     totalPage: totalPage,
   };
+
+  // if (search) {
+  //   const result = await Product.findAll({
+  //     where: {
+  //       nama: { [Op.like]: `%${search}%` },
+  //       brand: { [Op.like]: `%${search}%` },
+  //     },
+  //   });
+
+  //   return result;
+  // }
 };
 
 const getByCategory = async (req) => {
