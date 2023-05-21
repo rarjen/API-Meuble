@@ -17,6 +17,12 @@ module.exports = {
           createdAt: new Date(),
           updatedAt: new Date(),
         },
+        {
+          id: 3,
+          category: "Lemari",
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
       ],
       {}
     );
