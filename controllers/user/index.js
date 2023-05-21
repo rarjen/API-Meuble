@@ -4,6 +4,7 @@ const {
   resetPassword,
   createAddress,
   editAddress,
+  getAddressUser,
 } = require("../../services/user");
 const { StatusCodes } = require("http-status-codes");
 
@@ -77,10 +78,25 @@ const resetPasswordUser = async (req, res, next) => {
   }
 };
 
+const getAddress = async (req, res, next) => {
+  try {
+    const result = await getAddressUser(req);
+
+    return res.status(StatusCodes.OK).json({
+      status: true,
+      message: "Success get address!",
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   index,
   createBio,
   resetPasswordUser,
   createAddressUser,
   updateAddressUser,
+  getAddress,
 };
