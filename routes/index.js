@@ -10,6 +10,7 @@ const sale = require("./sale");
 const size = require("./size");
 const material = require("./material");
 const customOrder = require("./customOrder");
+const province = require("./province");
 
 router.get("/", (req, res) => {
   return res.status(200).json({
@@ -30,5 +31,6 @@ router.use("/sale", sale);
 router.use("/size", size);
 router.use("/material", material);
 router.use("/custom-order", customOrder);
+router.use("/province", province);
 
 module.exports = router;
