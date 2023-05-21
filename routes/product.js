@@ -5,6 +5,7 @@ const { ROLES } = require("../utils/enum");
 
 router.get("/", product.index);
 router.get("/:product_id", product.show);
+router.get("/category/:category_id", product.getProductByCategory);
 router.post("/create", authorize(ROLES.ADMIN), product.create);
 router.put("/edit/:product_id", authorize(ROLES.ADMIN), product.updateProducts);
 router.put("/:product_id", authorize(ROLES.ADMIN), product.updateStatus);

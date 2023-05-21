@@ -24,5 +24,20 @@ router.put(
   authorize(ROLES.ADMIN),
   customOrder.cancelOrderByAdmin
 );
+router.put(
+  "/accept-order/:custom_order_id",
+  authorize(ROLES.ADMIN),
+  customOrder.acceptOrderByAdmin
+);
+router.put(
+  "/shipping-order/:custom_order_id",
+  authorize(ROLES.ADMIN),
+  customOrder.updateShippingByAdmin
+);
+router.put(
+  "/price/:custom_order_id",
+  authorize(ROLES.ADMIN),
+  customOrder.createPriceByAdmin
+);
 
 module.exports = router;
