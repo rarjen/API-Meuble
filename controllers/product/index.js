@@ -5,6 +5,7 @@ const {
   getAllProducts,
   getOneProduct,
   deleteProduct,
+  getByCategory,
 } = require("../../services/product");
 
 const { StatusCodes } = require("http-status-codes");
@@ -93,4 +94,26 @@ const destroy = async (req, res, next) => {
   }
 };
 
-module.exports = { create, updateProducts, updateStatus, index, show, destroy };
+const getProductByCategory = async (req, res, next) => {
+  try {
+    const result = await getByCategory(req);
+
+    return res.status(StatusCodes.OK).json({
+      status: true,
+      message: "Success get product",
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = {
+  create,
+  updateProducts,
+  updateStatus,
+  index,
+  show,
+  destroy,
+  getProductByCategory,
+};
