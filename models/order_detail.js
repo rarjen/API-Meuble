@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
   Order_detail.init(
     {
       order_id: DataTypes.INTEGER,
+      total_weight: DataTypes.DOUBLE,
       total: DataTypes.DOUBLE,
     },
     {

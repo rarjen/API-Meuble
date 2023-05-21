@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
   Custom_order_detail.init(
     {
       custom_order_id: DataTypes.INTEGER,
+      total_weight: DataTypes.DOUBLE,
       price: DataTypes.DOUBLE,
     },
     {
