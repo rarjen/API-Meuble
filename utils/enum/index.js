@@ -3,6 +3,11 @@ const PRODUCT = {
   INACTIVE: "INACTIVE",
 };
 
+const COURRIER = {
+  ACTIVE: "ACTIVE",
+  INACTIVE: "INACTIVE",
+};
+
 const ROLES = {
   OWNER: "OWNER",
   ADMIN: "ADMIN",
@@ -29,4 +34,11 @@ const VARIANT = {
   INACTIVE: "INACTIVE",
 };
 
-module.exports = { TRANSACTION, PRODUCT, ROLES, CUSTOM_ORDER, VARIANT };
+module.exports = {
+  COURRIER,
+  TRANSACTION,
+  PRODUCT,
+  ROLES,
+  CUSTOM_ORDER,
+  VARIANT,
+};
