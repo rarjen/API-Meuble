@@ -2,7 +2,7 @@ const { Product, Category } = require("../models");
 const { BadRequestError, NotFoundError } = require("../errors");
 // const Sequelize = require("sequelize");
 const { PRODUCT } = require("../utils/enum");
-// const { Op } = require("sequelize");
+const { Op } = require("sequelize");
 
 const createProduct = async (req) => {
   const {
@@ -74,25 +74,23 @@ const updateProduct = async (req) => {
 
 const updateStatusProduct = async (req) => {
   const { product_id } = req.params;
-  let status;
+
   const checkProduct = await Product.findOne({ where: { id: product_id } });
   if (!checkProduct) {
     throw new BadRequestError(`Tidak ada product dengan id ${product_id}`);
   }
 
   if (checkProduct.status === PRODUCT.ACTIVE) {
-    status = PRODUCT.INACTIVE;
     const result = await Product.update(
-      { status },
+      { status: PRODUCT.INACTIVE },
       { where: { id: product_id } }
     );
 
     return result;
   }
 
-  status = PRODUCT.ACTIVE;
   const result = await Product.update(
-    { status },
+    { status: PRODUCT.ACTIVE },
     { where: { id: product_id } }
   );
 
@@ -118,7 +116,26 @@ const getAllProducts = async (req) => {
   let where = {};
 
   if (status) {
-    where.status = PRODUCT.ACTIVE;
+    where.status = status;
+  }
+
+  if (search) {
+    where = {
+      [Op.or]: [
+        { nama: { [Op.like]: "%" + search + "%" } },
+        { brand: { [Op.like]: "%" + search + "%" } },
+      ],
+    };
+  }
+
+  if (search && status) {
+    where = {
+      status: status,
+      [Op.or]: [
+        { nama: { [Op.like]: "%" + search + "%" } },
+        { brand: { [Op.like]: "%" + search + "%" } },
+      ],
+    };
   }
 
   const pageNumber = parseInt(page);
@@ -167,7 +184,9 @@ const getByCategory = async (req) => {
     throw new NotFoundError(`Tidak ada category dengan id: ${category_id}`);
   }
 
-  const result = await Product.findAll({ where: { category_id } });
+  const result = await Product.findAll({
+    where: { category_id, status: PRODUCT.ACTIVE },
+  });
 
   return result;
 };
