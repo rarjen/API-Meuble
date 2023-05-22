@@ -11,6 +11,7 @@ const size = require("./size");
 const material = require("./material");
 const customOrder = require("./customOrder");
 const province = require("./province");
+const courrier = require("./courrier");
 
 router.get("/", (req, res) => {
   return res.status(200).json({
@@ -32,5 +33,6 @@ router.use("/size", size);
 router.use("/material", material);
 router.use("/custom-order", customOrder);
 router.use("/province", province);
+router.use("/courrier", courrier);
 
 module.exports = router;
