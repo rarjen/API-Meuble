@@ -13,7 +13,7 @@ const uploadImgPayment = async (file) => {
       url: uploadFile.url,
     };
 
-    console.log(data.uploadFile.fileId);
+    // console.log(data.uploadFile.fileId);
     return data;
   } catch (error) {
     throw new error();
