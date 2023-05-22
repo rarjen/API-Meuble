@@ -37,6 +37,7 @@ const createOrder = async (req) => {
 
   await Order_detail.create({
     order_id: result.id,
+    total_weight: checkProduct.weight * qty,
     total: checkProduct.harga * qty,
   });
 
@@ -44,6 +45,7 @@ const createOrder = async (req) => {
     user_id: user.id,
     order_id: result.id,
     payment_id: null,
+    courrier_id: null,
     status: TRANSACTION.PENDING,
   });
 
