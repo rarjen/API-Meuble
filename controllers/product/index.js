@@ -2,10 +2,11 @@ const {
   createProduct,
   updateProduct,
   updateStatusProduct,
-  getAllProducts,
+  getAllProductsByAdmin,
   getOneProduct,
   deleteProduct,
   getByCategory,
+  getAllProductsByUser,
 } = require("../../services/product");
 
 const { StatusCodes } = require("http-status-codes");
@@ -52,9 +53,23 @@ const updateStatus = async (req, res, next) => {
   }
 };
 
-const index = async (req, res, next) => {
+const getByAdmin = async (req, res, next) => {
   try {
-    const result = await getAllProducts(req);
+    const result = await getAllProductsByAdmin(req);
+
+    return res.status(StatusCodes.OK).json({
+      status: true,
+      message: "Success show data",
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getByUser = async (req, res, next) => {
+  try {
+    const result = await getAllProductsByUser(req);
 
     return res.status(StatusCodes.OK).json({
       status: true,
@@ -112,8 +127,9 @@ module.exports = {
   create,
   updateProducts,
   updateStatus,
-  index,
+  getByAdmin,
   show,
   destroy,
   getProductByCategory,
+  getByUser,
 };
