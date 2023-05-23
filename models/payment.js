@@ -26,6 +26,7 @@ module.exports = (sequelize, DataTypes) => {
       payment: DataTypes.STRING,
       img_url: DataTypes.STRING,
       imagekit_id: DataTypes.STRING,
+      status: DataTypes.STRING,
     },
     {
       sequelize,

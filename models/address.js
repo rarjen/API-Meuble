@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Address extends Model {
     /**
@@ -10,17 +8,27 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Address.belongsTo(models.Province, {
+        foreignKey: "province_id",
+        as: "province",
+      });
+      Address.belongsTo(models.City, {
+        foreignKey: "city_id",
+        as: "city",
+      });
     }
   }
-  Address.init({
-    user_id: DataTypes.INTEGER,
-    province_id: DataTypes.INTEGER,
-    city_id: DataTypes.INTEGER,
-    address: DataTypes.TEXT
-  }, {
-    sequelize,
-    modelName: 'Address',
-  });
+  Address.init(
+    {
+      user_id: DataTypes.INTEGER,
+      province_id: DataTypes.INTEGER,
+      city_id: DataTypes.INTEGER,
+      address: DataTypes.TEXT,
+    },
+    {
+      sequelize,
+      modelName: "Address",
+    }
+  );
   return Address;
 };

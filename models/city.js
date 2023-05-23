@@ -12,6 +12,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "province_id",
         as: "province_name",
       });
+      City.hasOne(models.Address, {
+        foreignKey: "city_id",
+        as: "address",
+      });
     }
   }
   City.init(

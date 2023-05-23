@@ -17,12 +17,17 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "user_id",
         as: "custom_order",
       });
+
+      User.hasOne(models.Address, {
+        foreignKey: "user_id",
+        as: "address",
+      });
     }
   }
   User.init(
     {
       role_id: DataTypes.INTEGER,
-      address: DataTypes.INTEGER,
+      address_id: DataTypes.INTEGER,
       first_name: DataTypes.STRING,
       last_name: DataTypes.STRING,
       email: DataTypes.STRING,
