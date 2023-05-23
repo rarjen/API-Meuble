@@ -3,7 +3,7 @@ const {
   getAllPayments,
   getOnePayment,
   editPayment,
-  deletePayment,
+  editStatusPayment,
 } = require("../../services/payment");
 const { StatusCodes } = require("http-status-codes");
 
@@ -23,7 +23,7 @@ const create = async (req, res, next) => {
 
 const index = async (req, res, next) => {
   try {
-    const result = await getAllPayments();
+    const result = await getAllPayments(req);
 
     return res.status(StatusCodes.OK).json({
       status: true,
@@ -63,13 +63,13 @@ const update = async (req, res, next) => {
   }
 };
 
-const destroy = async (req, res, next) => {
+const updateStatus = async (req, res, next) => {
   try {
-    const result = await deletePayment(req);
+    const result = await editStatusPayment(req);
 
     return res.status(StatusCodes.OK).json({
       status: true,
-      message: "Success delete payment",
+      message: "Success update status payment",
       data: result,
     });
   } catch (error) {
@@ -77,4 +77,4 @@ const destroy = async (req, res, next) => {
   }
 };
 
-module.exports = { create, index, show, update, destroy };
+module.exports = { create, index, show, update, updateStatus };
