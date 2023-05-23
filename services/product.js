@@ -5,15 +5,8 @@ const { PRODUCT } = require("../utils/enum");
 const { Op } = require("sequelize");
 
 const createProduct = async (req) => {
-  const {
-    category_id,
-    brand,
-    nama,
-    deskripsi,
-    stock,
-    harga,
-    status = true,
-  } = req.body;
+  const { category_id, brand, nama, deskripsi, stock, harga, weight, status } =
+    req.body;
 
   const result = await Product.create({
     category_id,
@@ -22,21 +15,22 @@ const createProduct = async (req) => {
     deskripsi,
     stock,
     harga,
-    status,
+    weight,
+    status: PRODUCT.ACTIVE,
   });
 
   return result;
 };
 
 const updateProduct = async (req) => {
-  const { id_product } = req.params;
-  const { category_id, brand, nama, deskripsi, stock, harga, status } =
+  const { product_id } = req.params;
+  const { category_id, brand, nama, deskripsi, stock, weight, harga, status } =
     req.body;
 
-  const productExist = await Product.findOne({ where: { id: id_product } });
+  const productExist = await Product.findOne({ where: { id: product_id } });
 
   if (!productExist) {
-    throw new BadRequestError(`Tidak ada product dengan id: ${id_product}`);
+    throw new NotFoundError(`Tidak ada product dengan id: ${product_id}`);
   }
 
   if (stock <= 0) {
@@ -48,9 +42,10 @@ const updateProduct = async (req) => {
         deskripsi,
         stock,
         harga,
-        status: false,
+        weight,
+        status,
       },
-      { where: { id: id_product } }
+      { where: { id: product_id } }
     );
 
     return result;
@@ -66,7 +61,7 @@ const updateProduct = async (req) => {
       harga,
       status,
     },
-    { where: { id: id_product } }
+    { where: { id: product_id } }
   );
 
   return result;
@@ -110,7 +105,7 @@ const getOneProduct = async (req) => {
   return result;
 };
 
-const getAllProducts = async (req) => {
+const getAllProductsByAdmin = async (req) => {
   const { status, search, page = 1, limit = 10 } = req.query;
 
   let where = {};
@@ -163,17 +158,48 @@ const getAllProducts = async (req) => {
     totalRows: allProducts,
     totalPage: totalPage,
   };
+};
 
-  // if (search) {
-  //   const result = await Product.findAll({
-  //     where: {
-  //       nama: { [Op.like]: `%${search}%` },
-  //       brand: { [Op.like]: `%${search}%` },
-  //     },
-  //   });
+const getAllProductsByUser = async (req) => {
+  const { status, search, page = 1, limit = 10 } = req.query;
 
-  //   return result;
-  // }
+  let where = {};
+
+  if (search) {
+    where = {
+      status: PRODUCT.ACTIVE,
+      [Op.or]: [
+        { nama: { [Op.like]: "%" + search + "%" } },
+        { brand: { [Op.like]: "%" + search + "%" } },
+      ],
+    };
+  }
+
+  const pageNumber = parseInt(page);
+  const limitPage = parseInt(limit);
+  const offset = pageNumber * limitPage - limitPage;
+  const allProducts = await Product.count();
+  const totalPage = Math.ceil(allProducts / limit);
+
+  const result = await Product.findAll({
+    offset: offset,
+    limit: limitPage,
+    where,
+    include: [
+      {
+        model: Category,
+        as: "category",
+      },
+    ],
+  });
+
+  return {
+    data: result,
+    pageNumber: pageNumber,
+    limitPage: limitPage,
+    totalRows: allProducts,
+    totalPage: totalPage,
+  };
 };
 
 const getByCategory = async (req) => {
@@ -210,7 +236,8 @@ module.exports = {
   updateProduct,
   updateStatusProduct,
   getOneProduct,
-  getAllProducts,
+  getAllProductsByAdmin,
   deleteProduct,
   getByCategory,
+  getAllProductsByUser,
 };
