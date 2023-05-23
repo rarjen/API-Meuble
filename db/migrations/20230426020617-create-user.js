@@ -12,7 +12,7 @@ module.exports = {
       role_id: {
         type: Sequelize.INTEGER,
       },
-      address: {
+      address_id: {
         type: Sequelize.INTEGER,
       },
       first_name: {
