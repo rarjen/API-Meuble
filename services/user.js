@@ -1,5 +1,5 @@
-const { Role, User, Address } = require("../models");
-const { BadRequestError, NotFoundError } = require("../errors");
+const { Role, User, Address, City, Province } = require("../models");
+const { BadRequestError } = require("../errors");
 const bcrypt = require("bcrypt");
 const Validator = require("fastest-validator");
 const v = new Validator();
@@ -39,82 +39,21 @@ const updateBio = async (req) => {
   return result;
 };
 
-const createAddress = async (req) => {
-  const user = req.user;
-  const { province_id, city_id, address } = req.body;
-
-  const checkAddress = await Address.findOne({ where: { user_id: user.id } });
-  if (checkAddress) {
-    throw new BadRequestError(`Anda hanya boleh memiliki 1 alamat`);
-  }
-
-  const result = await Address.create({
-    user_id: user.id,
-    province_id,
-    city_id,
-    address,
-  });
-
-  await User.update({ address_id: result.id }, { where: { id: user.id } });
-
-  return result;
-};
-
-const editAddress = async (req) => {
-  const { address_id } = req.query;
-  const { province_id, city_id, address } = req.body;
-
-  const checkAddress = await Address.findOne({ where: { id: address_id } });
-  if (!checkAddress) {
-    throw new NotFoundError(`Tidak ada address dengan id: ${address_id}`);
-  }
-
-  const result = await Address.update(
-    { province_id, city_id, address },
-    { where: { id: address_id } }
-  );
-
-  return result;
-};
-
-const getAddressUser = async (req) => {
-  const user = req.user;
-
-  const result = await Address.findOne({ where: { user_id: user.id } });
-
-  return result;
-};
-
 const getAllUser = async (req) => {
-  let { page = 1, limit } = req.query;
+  const { search, page = 1, limit = 10 } = req.query;
 
-  if (!limit) {
-    limit = 10;
-
-    const pageNumber = parseInt(page);
-    const limitPage = parseInt(limit);
-    const offset = pageNumber * limitPage - limitPage;
-    const allUser = await User.count();
-    const totalPage = Math.ceil(allUser / limit);
-    const result = await User.findAll({
-      offset: offset,
-      limit: limitPage,
-      include: [
-        {
-          model: Role,
-          as: "role",
-        },
+  let where = {};
+  if (search) {
+    where = {
+      [Op.or]: [
+        { email: { [Op.like]: "%" + search + "%" } },
+        { first_name: { [Op.like]: "%" + search + "%" } },
+        { last_name: { [Op.like]: "%" + search + "%" } },
+        { mobile: { [Op.like]: "%" + search + "%" } },
       ],
-    });
-
-    return {
-      data: result,
-      pageNumber: pageNumber,
-      limitPage: limitPage,
-      totalRows: allUser,
-      totalPage: totalPage,
     };
   }
+
   const pageNumber = parseInt(page);
   const limitPage = parseInt(limit);
   const offset = pageNumber * limitPage - limitPage;
@@ -124,13 +63,29 @@ const getAllUser = async (req) => {
   const result = await User.findAll({
     offset: offset,
     limit: limitPage,
+    where,
     include: [
       {
         model: Role,
         as: "role",
       },
+      {
+        model: Address,
+        as: "address",
+        include: [
+          {
+            model: Province,
+            as: "province",
+          },
+          {
+            model: City,
+            as: "city",
+          },
+        ],
+      },
     ],
   });
+
   return {
     data: result,
     pageNumber: pageNumber,
@@ -175,7 +130,4 @@ module.exports = {
   getAllUser,
   updateBio,
   resetPassword,
-  createAddress,
-  editAddress,
-  getAddressUser,
 };
