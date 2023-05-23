@@ -8,6 +8,11 @@ const COURRIER = {
   INACTIVE: "INACTIVE",
 };
 
+const PAYMENT = {
+  ACTIVE: "ACTIVE",
+  INACTIVE: "INACTIVE",
+};
+
 const ROLES = {
   OWNER: "OWNER",
   ADMIN: "ADMIN",
@@ -41,4 +46,5 @@ module.exports = {
   ROLES,
   CUSTOM_ORDER,
   VARIANT,
+  PAYMENT,
 };
