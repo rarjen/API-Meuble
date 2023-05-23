@@ -36,34 +36,6 @@ const createBio = async (req, res, next) => {
   }
 };
 
-const createAddressUser = async (req, res, next) => {
-  try {
-    const result = await createAddress(req);
-
-    return res.status(StatusCodes.CREATED).json({
-      status: true,
-      message: "Success create addresss!",
-      data: result,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
-const updateAddressUser = async (req, res, next) => {
-  try {
-    const result = await editAddress(req);
-
-    return res.status(StatusCodes.OK).json({
-      status: true,
-      message: "Success update addresss!",
-      data: result,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
 const resetPasswordUser = async (req, res, next) => {
   try {
     const result = await resetPassword(req);
@@ -78,25 +50,8 @@ const resetPasswordUser = async (req, res, next) => {
   }
 };
 
-const getAddress = async (req, res, next) => {
-  try {
-    const result = await getAddressUser(req);
-
-    return res.status(StatusCodes.OK).json({
-      status: true,
-      message: "Success get address!",
-      data: result,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
 module.exports = {
   index,
   createBio,
   resetPasswordUser,
-  createAddressUser,
-  updateAddressUser,
-  getAddress,
 };
