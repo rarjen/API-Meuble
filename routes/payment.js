@@ -18,6 +18,6 @@ router.put(
 );
 router.get("/", authorize(), payment.index);
 router.get("/:payment_id", authorize(), payment.show);
-router.delete("/:payment_id", authorize(ROLES.ADMIN), payment.destroy);
+router.put("/status/:payment_id", authorize(ROLES.ADMIN), payment.updateStatus);
 
 module.exports = router;
