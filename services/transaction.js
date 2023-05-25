@@ -7,7 +7,6 @@ const {
   Image_transaction,
 } = require("../models");
 const { NotFoundError, BadRequestError } = require("../errors");
-const uploadImgPayment = require("../utils/media/uploadImgPayment");
 const { TRANSACTION } = require("../utils/enum");
 const { Op } = require("sequelize");
 
