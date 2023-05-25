@@ -13,6 +13,9 @@ const customOrder = require("./customOrder");
 const province = require("./province");
 const courrier = require("./courrier");
 const address = require("./address");
+const transaction = require("./transaction");
+const ongkir = require("./ongkir");
+const uploadTransactionPicture = require("./uploadTransactionPicture");
 
 router.get("/", (req, res) => {
   return res.status(200).json({
@@ -36,5 +39,8 @@ router.use("/custom-order", customOrder);
 router.use("/province", province);
 router.use("/courrier", courrier);
 router.use("/address", address);
+router.use("/transaction", transaction);
+router.use("/ongkir", ongkir);
+router.use("/uploadTransactionPicture", uploadTransactionPicture);
 
 module.exports = router;
