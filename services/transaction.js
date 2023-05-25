@@ -149,6 +149,70 @@ const readTransaction = async (req) => {
   };
 };
 
+const readTransactionUser = async (req) => {
+  const { status } = req.query;
+  const user = req.user;
+
+  let where = {};
+
+  if (status) {
+    where = {
+      status: status,
+      user_id: user.id,
+    };
+  }
+
+  const result = await Transaction.findAll({
+    where,
+    include: [
+      {
+        model: User,
+        as: "user",
+      },
+      {
+        model: Product,
+        as: "product",
+      },
+      {
+        model: Courrier,
+        as: "courrier",
+      },
+      {
+        model: Payment,
+        as: "payment",
+      },
+      {
+        model: Image_transaction,
+        as: "img_transaction",
+      },
+    ],
+  });
+
+  return result;
+};
+
+const cancelTransaction = async (req) => {
+  const { transaction_id } = req.params;
+
+  const checkTransaction = await Transaction.findOne({
+    where: { id: transaction_id },
+  });
+  if (!checkTransaction) {
+    throw new NotFoundError(`Tidak ada Transaksi dengan id: ${transaction_id}`);
+  }
+
+  if (checkTransaction.status !== TRANSACTION.PENDING) {
+    throw new BadRequestError(`Tidak dapat melakukan cancel!`);
+  }
+
+  const result = await Transaction.update(
+    { status: TRANSACTION.CANCELLED },
+    { where: { id: transaction_id } }
+  );
+
+  return result;
+};
+
 const inputResi = async (req) => {
   const { transaction_id } = req.params;
   const { nomerResi } = req.body;
@@ -168,4 +232,10 @@ const inputResi = async (req) => {
   return result;
 };
 
-module.exports = { createTransaction, readTransaction, inputResi };
+module.exports = {
+  createTransaction,
+  readTransaction,
+  inputResi,
+  readTransactionUser,
+  cancelTransaction,
+};
