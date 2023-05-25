@@ -41,14 +41,6 @@ const createOrder = async (req) => {
     total: checkProduct.harga * qty,
   });
 
-  await Transaction.create({
-    user_id: user.id,
-    order_id: result.id,
-    payment_id: null,
-    courrier_id: null,
-    status: TRANSACTION.PENDING,
-  });
-
   return result;
 };
 
