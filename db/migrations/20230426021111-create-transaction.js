@@ -12,14 +12,41 @@ module.exports = {
       user_id: {
         type: Sequelize.INTEGER,
       },
-      order_id: {
+      invoice_number: {
+        type: Sequelize.STRING,
+      },
+      product_id: {
         type: Sequelize.INTEGER,
+      },
+      qty: {
+        type: Sequelize.INTEGER,
+      },
+      note: {
+        type: Sequelize.TEXT,
       },
       courrier_id: {
         type: Sequelize.INTEGER,
       },
+      service: {
+        type: Sequelize.STRING,
+      },
       payment_id: {
         type: Sequelize.INTEGER,
+      },
+      total_weight: {
+        type: Sequelize.DOUBLE,
+      },
+      total: {
+        type: Sequelize.DOUBLE,
+      },
+      ongkir: {
+        type: Sequelize.DOUBLE,
+      },
+      grandTotal: {
+        type: Sequelize.DOUBLE,
+      },
+      nomerResi: {
+        type: Sequelize.STRING,
       },
       status: {
         type: Sequelize.STRING,
