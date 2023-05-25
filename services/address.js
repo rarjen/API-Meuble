@@ -33,8 +33,13 @@ const createAddress = async (req) => {
 };
 
 const editAddress = async (req) => {
-  const { address_id } = req.query;
+  const { address_id } = req.params;
   const { province_id, city_id, address } = req.body;
+
+  const checkAddress = await Address.findOne({ where: { id: address_id } });
+  if (!checkAddress) {
+    throw new NotFoundError(`Tidak ada address dengan id: ${address_id}`);
+  }
 
   const checkProvince = await Province.findOne({ where: { id: province_id } });
   if (!checkProvince) {
@@ -44,11 +49,6 @@ const editAddress = async (req) => {
   const checkCity = await City.findOne({ where: { id: city_id } });
   if (!checkCity) {
     throw new NotFoundError(`Tidak ada city dengan id: ${city_id}`);
-  }
-
-  const checkAddress = await Address.findOne({ where: { id: address_id } });
-  if (!checkAddress) {
-    throw new NotFoundError(`Tidak ada address dengan id: ${address_id}`);
   }
 
   const result = await Address.update(
@@ -62,7 +62,13 @@ const editAddress = async (req) => {
 const getAddressUser = async (req) => {
   const user = req.user;
 
-  const result = await Address.findOne({ where: { user_id: user.id } });
+  const result = await Address.findOne({
+    where: { user_id: user.id },
+    include: [
+      { model: Province, as: "province" },
+      { model: City, as: "city" },
+    ],
+  });
 
   return result;
 };
