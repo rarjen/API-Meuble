@@ -8,9 +8,9 @@ module.exports = (sequelize, DataTypes) => {
         as: "role",
       });
 
-      User.hasMany(models.Order, {
+      User.hasMany(models.Transaction, {
         foreignKey: "user_id",
-        as: "order",
+        as: "transaction",
       });
 
       User.hasMany(models.Custom_order, {
