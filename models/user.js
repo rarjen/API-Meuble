@@ -7,17 +7,32 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "role_id",
         as: "role",
       });
+
+      User.hasMany(models.Transaction, {
+        foreignKey: "user_id",
+        as: "transaction",
+      });
+
+      User.hasMany(models.Custom_order, {
+        foreignKey: "user_id",
+        as: "custom_order",
+      });
+
+      User.hasOne(models.Address, {
+        foreignKey: "user_id",
+        as: "address",
+      });
     }
   }
   User.init(
     {
       role_id: DataTypes.INTEGER,
+      address_id: DataTypes.INTEGER,
       first_name: DataTypes.STRING,
       last_name: DataTypes.STRING,
       email: DataTypes.STRING,
       password: DataTypes.STRING,
       mobile: DataTypes.STRING,
-      address: DataTypes.TEXT,
     },
     {
       sequelize,

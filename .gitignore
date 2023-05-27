@@ -1,2 +1,5 @@
 /node_modules
+/report
 *.env
+data.json
+province.json

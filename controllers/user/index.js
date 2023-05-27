@@ -1,4 +1,11 @@
-const { updateBio, getAllUser, resetPassword } = require("../../services/user");
+const {
+  updateBio,
+  getAllUser,
+  resetPassword,
+  createAddress,
+  editAddress,
+  getAddressUser,
+} = require("../../services/user");
 const { StatusCodes } = require("http-status-codes");
 
 const index = async (req, res, next) => {
@@ -43,4 +50,8 @@ const resetPasswordUser = async (req, res, next) => {
   }
 };
 
-module.exports = { index, createBio, resetPasswordUser };
+module.exports = {
+  index,
+  createBio,
+  resetPasswordUser,
+};
