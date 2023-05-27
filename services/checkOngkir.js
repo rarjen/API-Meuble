@@ -1,6 +1,5 @@
 const { Address, Courrier } = require("../models");
 const { NotFoundError } = require("../errors");
-
 const { API_KEY_COST } = process.env;
 const fetch = (...args) =>
   import("node-fetch").then(({ default: fetch }) => fetch(...args));
