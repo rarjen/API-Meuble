@@ -224,12 +224,48 @@ const inputResi = async (req) => {
     throw new NotFoundError(`Tidak ada Transaksi dengan id: ${transaction_id}`);
   }
 
-  const result = await Transaction.update({
-    nomerResi,
-    status: TRANSACTION.PAID,
-  });
+  if (checkTransaction.status !== TRANSACTION.PAID) {
+    throw new BadRequestError(`Nomer resi tidak dapat diinput!`);
+  }
+
+  const result = await Transaction.update(
+    {
+      nomerResi,
+    },
+    { where: { id: transaction_id } }
+  );
 
   return result;
+};
+
+const updateTransactionStatus = async (req) => {
+  const { transaction_id } = req.params;
+
+  const checkTransaction = await Transaction.findOne({
+    where: { id: transaction_id },
+  });
+
+  if (!checkTransaction) {
+    throw new NotFoundError(`Tidak ada transaksi dengan id: ${transaction_id}`);
+  }
+
+  const checkProduct = await Product.findOne({
+    where: { id: checkTransaction.product_id },
+  });
+
+  const result = await Transaction.update(
+    { status: TRANSACTION.PAID },
+    { where: { id: transaction_id } }
+  );
+
+  let total = checkProduct.stock - checkTransaction.qty;
+
+  await Product.update(
+    { stock: total },
+    { where: { id: checkTransaction.product_id } }
+  );
+
+  // return result;
 };
 
 module.exports = {
@@ -238,4 +274,5 @@ module.exports = {
   inputResi,
   readTransactionUser,
   cancelTransaction,
+  updateTransactionStatus,
 };
