@@ -3,6 +3,8 @@ const {
   readTransaction,
   readTransactionUser,
   cancelTransaction,
+  updateTransactionStatus,
+  inputResi,
 } = require("../../services/transaction");
 const { StatusCodes } = require("http-status-codes");
 
@@ -62,4 +64,31 @@ const cancel = async (req, res, next) => {
   }
 };
 
-module.exports = { create, indexAdmin, indexUser, cancel };
+const update = async (req, res, next) => {
+  try {
+    const result = await updateTransactionStatus(req);
+
+    return res.status(StatusCodes.OK).json({
+      status: true,
+      message: "Success Update Transaction!",
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+const resi = async (req, res, next) => {
+  try {
+    const result = await inputResi(req);
+
+    return res.status(StatusCodes.OK).json({
+      status: true,
+      message: "Success Input Resi!",
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { create, indexAdmin, indexUser, cancel, update, resi };
