@@ -1,4 +1,4 @@
-const { Payment } = require("../models");
+const { Payment, Rekening } = require("../models");
 const { BadRequestError, NotFoundError } = require("../errors");
 const uploadImgPayment = require("../utils/media/uploadImgPayment");
 const { deleteSingleImg } = require("../utils/media/deleteImage");
@@ -36,7 +36,10 @@ const getAllPayments = async (req) => {
     };
   }
 
-  const result = await Payment.findAll({ where });
+  const result = await Payment.findAll({
+    where,
+    include: [{ model: Rekening, as: "rekening" }],
+  });
 
   return result;
 };
@@ -44,7 +47,10 @@ const getAllPayments = async (req) => {
 const getOnePayment = async (req) => {
   const { payment_id } = req.params;
 
-  const result = await Payment.findOne({ where: { id: payment_id } });
+  const result = await Payment.findOne({
+    where: { id: payment_id },
+    include: [{ model: Rekening, as: "rekening" }],
+  });
 
   if (!result) {
     throw new NotFoundError(`Tidak ada payment dengan id: ${payment_id}`);
