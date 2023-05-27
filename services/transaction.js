@@ -265,7 +265,7 @@ const updateTransactionStatus = async (req) => {
     { where: { id: checkTransaction.product_id } }
   );
 
-  // return result;
+  return result;
 };
 
 module.exports = {
