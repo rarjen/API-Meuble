@@ -1,4 +1,4 @@
-const { checkOngkir } = require("../../services/checkOngkir");
+const { checkOngkir, checkOngkirCod } = require("../../services/checkOngkir");
 const { StatusCodes } = require("http-status-codes");
 
 const ongkir = async (req, res, next) => {
@@ -7,7 +7,21 @@ const ongkir = async (req, res, next) => {
 
     return res.status(StatusCodes.OK).json({
       status: true,
-      message: "Success create Custom Order",
+      message: "Success check ongkir",
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const cod = async (req, res, next) => {
+  try {
+    const result = await checkOngkirCod(req);
+
+    return res.status(StatusCodes.OK).json({
+      status: true,
+      message: "Success check ongkir",
       data: result,
     });
   } catch (error) {
@@ -17,4 +31,5 @@ const ongkir = async (req, res, next) => {
 
 module.exports = {
   ongkir,
+  cod,
 };
