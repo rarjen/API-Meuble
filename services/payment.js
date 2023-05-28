@@ -6,7 +6,7 @@ const { Op } = require("sequelize");
 const { PAYMENT, ROLES } = require("../utils/enum");
 
 const createPayment = async (req) => {
-  const { payment } = req.body;
+  const { payment, rekening } = req.body;
   const file = req.file.buffer.toString("base64");
 
   const checkPayment = await Payment.findOne({ where: { payment } });
@@ -18,6 +18,7 @@ const createPayment = async (req) => {
 
   const result = await Payment.create({
     payment,
+    rekening,
     img_url: dataUpload.url,
     imagekit_id: dataUpload.uploadFile.fileId,
     status: PAYMENT.ACTIVE,
@@ -61,7 +62,7 @@ const getOnePayment = async (req) => {
 
 const editPayment = async (req) => {
   const { payment_id } = req.params;
-  const { payment } = req.body;
+  const { payment, rekening } = req.body;
   const file = req.file.buffer.toString("base64");
 
   const checkPayment = await Payment.findOne({
@@ -87,6 +88,7 @@ const editPayment = async (req) => {
   const result = await Payment.update(
     {
       payment,
+      rekening,
       img_url: dataUpload.url,
       imagekit_id: dataUpload.uploadFile.fileId,
     },
