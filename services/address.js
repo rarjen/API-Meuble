@@ -1,5 +1,5 @@
-const { Address, User, Province, City } = require("../models");
-const { NotFoundError, BadRequestError } = require("../errors");
+const { Address, User, Province, City, Coordinate } = require("../models");
+const { NotFoundError } = require("../errors");
 
 const createAddress = async (req) => {
   const user = req.user;
@@ -43,6 +43,7 @@ const getAddressUser = async (req) => {
   const result = await Address.findOne({
     where: { user_id: user.id },
     include: [
+      { model: Coordinate, as: "coordinate" },
       { model: Province, as: "province" },
       { model: City, as: "city" },
     ],
