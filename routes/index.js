@@ -17,6 +17,7 @@ const ongkir = require("./ongkir");
 const uploadTransactionPicture = require("./uploadTransactionPicture");
 const reportTransaction = require("./reportTransaction");
 const coordinate = require("./coordinate");
+const uploadProductPicture = require("./uploadProductPicture");
 
 router.get("/", (req, res) => {
   return res.status(200).json({
@@ -44,5 +45,6 @@ router.use("/ongkir", ongkir);
 router.use("/uploadTransactionPicture", uploadTransactionPicture);
 router.use("/reportTransaction", reportTransaction);
 router.use("/coordinate", coordinate);
+router.use("/uploadProductPicture", uploadProductPicture);
 
 module.exports = router;
