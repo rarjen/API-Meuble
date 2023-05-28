@@ -18,16 +18,12 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "payment_id",
         as: "transaction",
       });
-
-      Payment.hasOne(models.Rekening, {
-        foreignKey: "payment_id",
-        as: "rekening",
-      });
     }
   }
   Payment.init(
     {
       payment: DataTypes.STRING,
+      rekening: DataTypes.STRING,
       img_url: DataTypes.STRING,
       imagekit_id: DataTypes.STRING,
       status: DataTypes.STRING,
