@@ -12,6 +12,9 @@ module.exports = {
       payment: {
         type: Sequelize.STRING,
       },
+      rekening: {
+        type: Sequelize.STRING,
+      },
       img_url: {
         type: Sequelize.STRING,
       },
