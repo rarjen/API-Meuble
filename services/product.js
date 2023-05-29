@@ -1,4 +1,9 @@
-const { Product, Category } = require("../models");
+const {
+  Product,
+  Category,
+  Product_img,
+  Thumbnail_product_img,
+} = require("../models");
 const { BadRequestError, NotFoundError } = require("../errors");
 // const Sequelize = require("sequelize");
 const { PRODUCT } = require("../utils/enum");
@@ -147,6 +152,14 @@ const getAllProductsByAdmin = async (req) => {
       {
         model: Category,
         as: "category",
+      },
+      {
+        model: Product_img,
+        as: "images",
+      },
+      {
+        model: Thumbnail_product_img,
+        as: "thumbnail",
       },
     ],
   });
