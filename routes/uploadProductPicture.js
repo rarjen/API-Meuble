@@ -11,4 +11,11 @@ router.post(
   uploadProductPicture.upload
 );
 
+router.post(
+  "/thumbnail",
+  authorize(ROLES.ADMIN),
+  mediaValidation.image.single("picture"),
+  uploadProductPicture.uploadThumbnail
+);
+
 module.exports = router;
