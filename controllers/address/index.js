@@ -19,20 +19,6 @@ const createAddressUser = async (req, res, next) => {
   }
 };
 
-const updateAddressUser = async (req, res, next) => {
-  try {
-    const result = await editAddress(req);
-
-    return res.status(StatusCodes.OK).json({
-      status: true,
-      message: "Success update addresss!",
-      data: result,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
 const getAddress = async (req, res, next) => {
   try {
     const result = await getAddressUser(req);
@@ -47,4 +33,4 @@ const getAddress = async (req, res, next) => {
   }
 };
 
-module.exports = { createAddressUser, updateAddressUser, getAddress };
+module.exports = { createAddressUser, getAddress };

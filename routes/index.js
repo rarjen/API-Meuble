@@ -5,7 +5,6 @@ const auth = require("./auth");
 const user = require("./user");
 const payment = require("./payment");
 const category = require("./category");
-const order = require("./order");
 const sale = require("./sale");
 const size = require("./size");
 const material = require("./material");
@@ -17,6 +16,8 @@ const transaction = require("./transaction");
 const ongkir = require("./ongkir");
 const uploadTransactionPicture = require("./uploadTransactionPicture");
 const reportTransaction = require("./reportTransaction");
+const coordinate = require("./coordinate");
+const uploadProductPicture = require("./uploadProductPicture");
 
 router.get("/", (req, res) => {
   return res.status(200).json({
@@ -32,7 +33,6 @@ router.use("/role", role);
 router.use("/user", user);
 router.use("/payment", payment);
 router.use("/category", category);
-router.use("/order", order);
 router.use("/sale", sale);
 router.use("/size", size);
 router.use("/material", material);
@@ -44,5 +44,7 @@ router.use("/transaction", transaction);
 router.use("/ongkir", ongkir);
 router.use("/uploadTransactionPicture", uploadTransactionPicture);
 router.use("/reportTransaction", reportTransaction);
+router.use("/coordinate", coordinate);
+router.use("/uploadProductPicture", uploadProductPicture);
 
 module.exports = router;

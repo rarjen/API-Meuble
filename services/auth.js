@@ -93,6 +93,7 @@ const login = async (req) => {
 
   const payload = {
     id: user.id,
+    address_id: user.address_id,
     email: user.email,
     role: user.role.role,
   };
