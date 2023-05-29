@@ -1,4 +1,7 @@
-const { uploadProductImage } = require("../../services/uploadProductPicture");
+const {
+  uploadProductImage,
+  uploadProductThumbnail,
+} = require("../../services/uploadProductPicture");
 const { StatusCodes } = require("http-status-codes");
 
 const upload = async (req, res, next) => {
@@ -7,7 +10,7 @@ const upload = async (req, res, next) => {
 
     return res.status(StatusCodes.CREATED).json({
       status: true,
-      message: "Success Upload Image Transaction!",
+      message: "Success Upload Images!",
       data: result,
     });
   } catch (error) {
@@ -15,4 +18,18 @@ const upload = async (req, res, next) => {
   }
 };
 
-module.exports = { upload };
+const uploadThumbnail = async (req, res, next) => {
+  try {
+    const result = await uploadProductThumbnail(req);
+
+    return res.status(StatusCodes.CREATED).json({
+      status: true,
+      message: "Success Upload Image!",
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { upload, uploadThumbnail };
