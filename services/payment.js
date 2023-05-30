@@ -1,4 +1,4 @@
-const { Payment, Rekening } = require("../models");
+const { Payment } = require("../models");
 const { BadRequestError, NotFoundError } = require("../errors");
 const uploadImgPayment = require("../utils/media/uploadImgPayment");
 const { deleteSingleImg } = require("../utils/media/deleteImage");
@@ -39,7 +39,6 @@ const getAllPayments = async (req) => {
 
   const result = await Payment.findAll({
     where,
-    include: [{ model: Rekening, as: "rekening" }],
   });
 
   return result;
@@ -50,7 +49,6 @@ const getOnePayment = async (req) => {
 
   const result = await Payment.findOne({
     where: { id: payment_id },
-    include: [{ model: Rekening, as: "rekening" }],
   });
 
   if (!result) {
@@ -66,23 +64,25 @@ const editPayment = async (req) => {
   const file = req.file.buffer.toString("base64");
 
   const checkPayment = await Payment.findOne({
-    where: { payment },
-    id: { [Op.ne]: payment_id },
-  });
-
-  const getImageKitId = await Payment.findOne({
     where: { id: payment_id },
   });
 
-  if (!getImageKitId) {
+  if (!checkPayment) {
     throw new NotFoundError(`Tidak ada payment dengan id: ${payment_id}`);
   }
 
-  if (checkPayment) {
+  const checkDuplicate = await Payment.findOne({
+    where: {
+      payment,
+      id: { [Op.ne]: payment_id },
+    },
+  });
+
+  if (checkDuplicate) {
     throw new BadRequestError("Payment sudah terdaftar!");
   }
 
-  await deleteSingleImg(getImageKitId.imagekit_id);
+  await deleteSingleImg(checkPayment.imagekit_id);
   const dataUpload = await uploadImgPayment(file);
 
   const result = await Payment.update(
