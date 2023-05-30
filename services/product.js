@@ -174,7 +174,7 @@ const getAllProductsByAdmin = async (req) => {
 };
 
 const getAllProductsByUser = async (req) => {
-  const { status, search, page = 1, limit = 10 } = req.query;
+  const { search, page = 1, limit = 10 } = req.query;
 
   let where = {};
 
