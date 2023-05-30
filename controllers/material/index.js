@@ -25,7 +25,7 @@ const create = async (req, res, next) => {
 
 const index = async (req, res, next) => {
   try {
-    const result = await readAllMaterial();
+    const result = await readAllMaterial(req);
 
     return res.status(StatusCodes.OK).json({
       status: true,
@@ -71,7 +71,7 @@ const destroy = async (req, res, next) => {
 
     return res.status(StatusCodes.OK).json({
       status: true,
-      message: "Success Delete Material!",
+      message: "Success update status Material!",
       data: result,
     });
   } catch (error) {
