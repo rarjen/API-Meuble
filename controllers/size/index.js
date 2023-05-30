@@ -25,7 +25,7 @@ const create = async (req, res, next) => {
 
 const index = async (req, res, next) => {
   try {
-    const result = await readAllSize();
+    const result = await readAllSize(req);
 
     return res.status(StatusCodes.OK).json({
       status: true,
