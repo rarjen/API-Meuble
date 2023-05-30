@@ -7,8 +7,8 @@ const createOrUpdateCoordinate = async (req) => {
   if (checkCoordinate) {
     const result = await Coordinate.update(
       {
-        lat: parseFloat(lat),
-        lng: parseFloat(lng),
+        lat: lat.toString(),
+        lng: lng.toString(),
       },
       { where: { address_id } }
     );

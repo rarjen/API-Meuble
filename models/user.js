@@ -13,11 +13,6 @@ module.exports = (sequelize, DataTypes) => {
         as: "transaction",
       });
 
-      User.hasMany(models.Custom_order, {
-        foreignKey: "user_id",
-        as: "custom_order",
-      });
-
       User.hasOne(models.Address, {
         foreignKey: "user_id",
         as: "address",

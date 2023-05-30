@@ -17,8 +17,8 @@ module.exports = (sequelize, DataTypes) => {
   Coordinate.init(
     {
       address_id: DataTypes.INTEGER,
-      lat: DataTypes.DECIMAL,
-      lng: DataTypes.DECIMAL,
+      lat: DataTypes.STRING,
+      lng: DataTypes.STRING,
     },
     {
       sequelize,
