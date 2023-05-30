@@ -8,19 +8,29 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Transaction_custom_order.belongsTo(models.Custom_order, {
-        foreignKey: "custom_order_id",
-        as: "custom_order",
-      });
+      /**/
     }
   }
   Transaction_custom_order.init(
     {
       user_id: DataTypes.INTEGER,
-      custom_order_id: DataTypes.INTEGER,
+      category_id: DataTypes.INTEGER,
       courrier_id: DataTypes.INTEGER,
       payment_id: DataTypes.INTEGER,
-      status: DataTypes.STRING,
+      size_id: DataTypes.INTEGER,
+      material_id: DataTypes.INTEGER,
+      invoice_number: DataTypes.STRING,
+      qty: DataTypes.INTEGER,
+      note: DataTypes.TEXT,
+      service: DataTypes.STRING,
+      total_weight: DataTypes.DOUBLE,
+      total: DataTypes.DOUBLE,
+      ongkir: DataTypes.DOUBLE,
+      grandTotal: DataTypes.DOUBLE,
+      nomerResi: DataTypes.STRING,
+      statusOrder: DataTypes.STRING,
+      statusOrder: DataTypes.STRING,
+      statusPayment: DataTypes.STRING,
     },
     {
       sequelize,
