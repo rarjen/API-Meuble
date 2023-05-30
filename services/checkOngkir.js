@@ -1,4 +1,4 @@
-const { Address, Courrier, Coordinate } = require("../models");
+const { Address, Courrier, Coordinate, User } = require("../models");
 const { NotFoundError } = require("../errors");
 const { API_KEY_COST } = process.env;
 const fetch = (...args) =>
@@ -32,13 +32,17 @@ function toRadians(degrees) {
 
 function calculateCodPrice(weight, lat1, lon1, lat2, lon2) {
   const R = 6371; // Radius bumi dalam kilometer
-  const dLat = toRadians(lat2 - lat1);
-  const dLon = toRadians(lon2 - lon1);
+  const lat1Float = parseFloat(lat1);
+  const lon1Float = parseFloat(lon1);
+  const lat2Float = parseFloat(lat2);
+  const lon2Float = parseFloat(lon2);
+  const dLat = toRadians(lat2Float - lat1Float);
+  const dLon = toRadians(lon2Float - lon1Float);
 
   const a =
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.cos(toRadians(lat1)) *
-      Math.cos(toRadians(lat2)) *
+    Math.cos(toRadians(lat1Float)) *
+      Math.cos(toRadians(lat2Float)) *
       Math.sin(dLon / 2) *
       Math.sin(dLon / 2);
 
@@ -85,8 +89,10 @@ const checkOngkirCod = async (req) => {
   const user = req.user;
   const { weight } = req.body;
 
+  const checkUserAddress = await User.findOne({ where: { id: user.id } });
+
   const checkCoordinateUser = await Coordinate.findOne({
-    where: { address_id: user.address_id },
+    where: { address_id: checkUserAddress.address_id },
   });
   if (!checkCoordinateUser) {
     throw new NotFoundError(`Anda wajib memilih koordinat!`);
