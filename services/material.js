@@ -1,10 +1,15 @@
 const { Material, Category } = require("../models");
 const { BadRequestError, NotFoundError } = require("../errors");
-const { VARIANT } = require("../utils/enum");
+const { VARIANT, ROLES } = require("../utils/enum");
 const { Op } = require("sequelize");
 
 const createMaterial = async (req) => {
   const { category_id, material } = req.body;
+
+  const checkCategory = await Category.findOne({ where: { id: category_id } });
+  if (!checkCategory) {
+    throw new NotFoundError(`Tidak ada cetegory dengan id: ${category_id}`);
+  }
 
   const checkDuplicate = await Material.findOne({
     where: { category_id, material },
@@ -51,9 +56,18 @@ const editMaterial = async (req) => {
   return result;
 };
 
-const readAllMaterial = async () => {
+const readAllMaterial = async (req) => {
+  const user = req.user;
+
+  let where = {};
+
+  if (user.role === ROLES.BUYER) {
+    where = {
+      status: VARIANT.ACTIVE,
+    };
+  }
   const result = await Material.findAll({
-    where: { status: VARIANT.ACTIVE },
+    where,
     include: [{ model: Category, as: "category" }],
   });
 
@@ -62,9 +76,16 @@ const readAllMaterial = async () => {
 
 const readOneMaterial = async (req) => {
   const { material_id } = req.params;
+  let where = {};
+
+  if (user.role === ROLES.BUYER) {
+    where = {
+      status: VARIANT.ACTIVE,
+    };
+  }
 
   const result = await Material.findOne({
-    where: { id: material_id, status: VARIANT.ACTIVE },
+    where,
     include: [{ model: Category, as: "category" }],
   });
 
@@ -83,8 +104,17 @@ const destroyMaterial = async (req) => {
     throw new NotFoundError(`Tidak ada material dengan id: ${material_id}`);
   }
 
+  if (checkMaterial.status === VARIANT.ACTIVE) {
+    const result = await Material.update(
+      { status: VARIANT.INACTIVE },
+      { where: { id: material_id } }
+    );
+
+    return result;
+  }
+
   const result = await Material.update(
-    { status: VARIANT.INACTIVE },
+    { status: VARIANT.ACTIVE },
     { where: { id: material_id } }
   );
 
