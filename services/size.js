@@ -1,6 +1,6 @@
 const { Size, Category } = require("../models");
 const { BadRequestError, NotFoundError } = require("../errors");
-const { VARIANT } = require("../utils/enum");
+const { VARIANT, ROLES } = require("../utils/enum");
 const { Op } = require("sequelize");
 
 const createSize = async (req) => {
@@ -49,9 +49,18 @@ const editSize = async (req) => {
   return result;
 };
 
-const readAllSize = async () => {
+const readAllSize = async (req) => {
+  const user = req.user;
+
+  let where = {};
+  if (user.role === ROLES.BUYER) {
+    where = {
+      status: VARIANT.ACTIVE,
+    };
+  }
+
   const result = await Size.findAll({
-    where: { status: VARIANT.ACTIVE },
+    where,
     include: [
       {
         model: Category,
@@ -65,9 +74,24 @@ const readAllSize = async () => {
 
 const readOneSize = async (req) => {
   const { size_id } = req.params;
+  const user = req.user;
+
+  let where = {};
+
+  if (user.role === ROLES.BUYER) {
+    where = {
+      id: size_id,
+      status: VARIANT.ACTIVE,
+    };
+  }
+  if (user.role === ROLES.ADMIN) {
+    where = {
+      id: size_id,
+    };
+  }
 
   const result = await Size.findOne({
-    where: { id: size_id, status: VARIANT.ACTIVE },
+    where,
     include: [
       {
         model: Category,
@@ -91,8 +115,17 @@ const destroySize = async (req) => {
     throw new NotFoundError(`Tidak ada size dengan id: ${size_id}`);
   }
 
+  if (checkSize.status === VARIANT.ACTIVE) {
+    const result = await Size.update(
+      { status: VARIANT.INACTIVE },
+      { where: { id: size_id } }
+    );
+
+    return result;
+  }
+
   const result = await Size.update(
-    { status: VARIANT.INACTIVE },
+    { status: VARIANT.ACTIVE },
     { where: { id: size_id } }
   );
 
