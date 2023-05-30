@@ -1,8 +1,4 @@
-const {
-  createAddress,
-  editAddress,
-  getAddressUser,
-} = require("../../services/address");
+const { createAddress, getAddressUser } = require("../../services/address");
 const { StatusCodes } = require("http-status-codes");
 
 const createAddressUser = async (req, res, next) => {
