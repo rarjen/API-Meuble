@@ -12,11 +12,6 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "category_id",
         as: "category",
       });
-
-      Material.hasMany(models.Custom_order, {
-        foreignKey: "material_id",
-        as: "custom_order",
-      });
     }
   }
   Material.init(

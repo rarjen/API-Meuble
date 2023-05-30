@@ -12,11 +12,6 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "category_id",
         as: "category",
       });
-
-      Size.hasMany(models.Custom_order, {
-        foreignKey: "size_id",
-        as: "custom_order",
-      });
     }
   }
   Size.init(
