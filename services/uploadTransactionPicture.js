@@ -1,5 +1,5 @@
 const { Image_transaction, Transaction } = require("../models");
-const { NotFoundError } = require("../errors");
+const { NotFoundError, BadRequestError } = require("../errors");
 const uploadImgPayment = require("../utils/media/uploadImgPayment");
 
 const uploadImage = async (req) => {
@@ -14,6 +14,11 @@ const uploadImage = async (req) => {
   if (!checkTransaction) {
     throw new NotFoundError(
       `Tidak ada transaksi dengan id: ${integerTransactionId}`
+    );
+  }
+  if (checkTransaction.payment_id === 1) {
+    throw new BadRequestError(
+      `Upload bukti transaksi hanya untuk transfer bank!`
     );
   }
 
