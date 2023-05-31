@@ -6,4 +6,6 @@ router.post("/register", auth.registerAccount);
 router.post("/login", auth.loginAccount);
 router.post("/whoami", authorize(), auth.whoami);
 
+//Whoami to check who is login right now
+
 module.exports = router;
