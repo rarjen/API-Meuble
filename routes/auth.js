@@ -3,5 +3,6 @@ const auth = require("../controllers/auth");
 
 router.post("/register", auth.registerAccount);
 router.post("/login", auth.loginAccount);
+router.post("/whoami", auth.whoami);
 
 module.exports = router;
