@@ -4,7 +4,7 @@ const authorize = require("../middlewares/authorize");
 
 router.post("/register", auth.registerAccount);
 router.post("/login", auth.loginAccount);
-router.post("/whoami", authorize(), auth.whoami);
+router.get("/whoami", authorize(), auth.whoami);
 
 //Whoami to check who is login right now
 
