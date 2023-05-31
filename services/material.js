@@ -76,10 +76,12 @@ const readAllMaterial = async (req) => {
 
 const readOneMaterial = async (req) => {
   const { material_id } = req.params;
+  const user = req.user;
   let where = {};
 
   if (user.role === ROLES.BUYER) {
     where = {
+      id: material_id,
       status: VARIANT.ACTIVE,
     };
   }
