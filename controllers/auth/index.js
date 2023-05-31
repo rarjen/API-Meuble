@@ -1,4 +1,4 @@
-const { register, login } = require("../../services/auth");
+const { register, login, user } = require("../../services/auth");
 const { StatusCodes } = require("http-status-codes");
 
 const registerAccount = async (req, res, next) => {
@@ -32,4 +32,18 @@ const loginAccount = async (req, res, next) => {
   }
 };
 
-module.exports = { registerAccount, loginAccount };
+const whoami = async (req, res, next) => {
+  try {
+    const result = await user(req);
+
+    return res.status(StatusCodes.OK).json({
+      status: true,
+      message: "Success Login",
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { registerAccount, loginAccount, whoami };
