@@ -71,7 +71,7 @@ const destroy = async (req, res, next) => {
 
     return res.status(StatusCodes.OK).json({
       status: true,
-      message: "Success Delete Size!",
+      message: "Success Update status Size!",
       data: result,
     });
   } catch (error) {

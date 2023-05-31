@@ -5,7 +5,6 @@ const {
   Thumbnail_product_img,
 } = require("../models");
 const { BadRequestError, NotFoundError } = require("../errors");
-// const Sequelize = require("sequelize");
 const { PRODUCT } = require("../utils/enum");
 const { Op } = require("sequelize");
 
@@ -105,7 +104,19 @@ const getOneProduct = async (req) => {
     throw new BadRequestError(`Tidak ada product dengan id: ${product_id}`);
   }
 
-  const result = await Product.findOne({ where: { id: product_id } });
+  const result = await Product.findOne({
+    where: { id: product_id },
+    include: [
+      {
+        model: Product_img,
+        as: "images",
+      },
+      {
+        model: Thumbnail_product_img,
+        as: "thumbnail",
+      },
+    ],
+  });
 
   return result;
 };
@@ -203,6 +214,14 @@ const getAllProductsByUser = async (req) => {
         model: Category,
         as: "category",
       },
+      {
+        model: Product_img,
+        as: "images",
+      },
+      {
+        model: Thumbnail_product_img,
+        as: "thumbnail",
+      },
     ],
   });
 
@@ -225,6 +244,20 @@ const getByCategory = async (req) => {
 
   const result = await Product.findAll({
     where: { category_id, status: PRODUCT.ACTIVE },
+    include: [
+      {
+        model: Category,
+        as: "category",
+      },
+      {
+        model: Product_img,
+        as: "images",
+      },
+      {
+        model: Thumbnail_product_img,
+        as: "thumbnail",
+      },
+    ],
   });
 
   return result;

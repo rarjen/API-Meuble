@@ -220,11 +220,12 @@ const inputResi = async (req) => {
   const checkTransaction = await Transaction.findOne({
     where: { id: transaction_id },
   });
+
   if (!checkTransaction) {
     throw new NotFoundError(`Tidak ada Transaksi dengan id: ${transaction_id}`);
   }
 
-  if (checkTransaction.status !== TRANSACTION.PAID) {
+  if (checkTransaction.status !== TRANSACTION.PENDING) {
     throw new BadRequestError(`Nomer resi tidak dapat diinput!`);
   }
 
