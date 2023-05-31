@@ -85,4 +85,18 @@ const cancelOrderAdmin = async (req) => {
   return result;
 };
 
+const inputAdmin = async (req) => {
+  const { transaction_custom_order_id } = req.params;
+  // const {}
+
+  const checkTransaction = await Transaction_custom_order.findOne({
+    where: { id: transaction_custom_order_id },
+  });
+  if (!checkTransaction) {
+    throw new NotFoundError(
+      `Tidak ada custom transaksi dengan id: ${transaction_custom_order_id}`
+    );
+  }
+};
+
 module.exports = { create, cancelOrderUser, cancelOrderAdmin };
