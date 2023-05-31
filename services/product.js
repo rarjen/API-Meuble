@@ -214,6 +214,14 @@ const getAllProductsByUser = async (req) => {
         model: Category,
         as: "category",
       },
+      {
+        model: Product_img,
+        as: "images",
+      },
+      {
+        model: Thumbnail_product_img,
+        as: "thumbnail",
+      },
     ],
   });
 
@@ -236,6 +244,20 @@ const getByCategory = async (req) => {
 
   const result = await Product.findAll({
     where: { category_id, status: PRODUCT.ACTIVE },
+    include: [
+      {
+        model: Category,
+        as: "category",
+      },
+      {
+        model: Product_img,
+        as: "images",
+      },
+      {
+        model: Thumbnail_product_img,
+        as: "thumbnail",
+      },
+    ],
   });
 
   return result;
