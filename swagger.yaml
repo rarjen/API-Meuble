@@ -2104,7 +2104,7 @@ paths:
         - Product
       description: Get Product By Category
       parameters: []
-  "/product/show/{category_id} - copy":
+  "/product/show/{category_id}":
     parameters:
       - schema:
           type: string
