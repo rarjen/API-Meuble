@@ -102,4 +102,10 @@ const login = async (req) => {
   return { email, token };
 };
 
-module.exports = { register, login };
+const user = async (req) => {
+  const user = req.user;
+
+  return user;
+};
+
+module.exports = { register, login, user };
