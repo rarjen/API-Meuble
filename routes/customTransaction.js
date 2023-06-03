@@ -40,14 +40,20 @@ router.put(
   customTransaction.inputResiAdmin
 );
 router.put(
-  "/cancel-order/:transaction_custom_order_id",
+  "/cancel-custom-order-admin/:transaction_custom_order_id",
   authorize(ROLES.ADMIN),
   customTransaction.cancelAdmin
 );
 router.put(
-  "/cancel/:transaction_custom_order_id",
+  "/cancel-custom-order/:transaction_custom_order_id",
   authorize(ROLES.BUYER),
   customTransaction.cancelUser
+);
+
+router.put(
+  "/update-status-order/:transaction_custom_order_id",
+  authorize(ROLES.ADMIN),
+  customTransaction.updateDoneAdmin
 );
 
 module.exports = router;

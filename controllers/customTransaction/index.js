@@ -103,7 +103,7 @@ const editAdmin = async (req, res, next) => {
 
     return res.status(StatusCodes.OK).json({
       status: true,
-      message: "Success Cancel Order",
+      message: "Success Edit Detail Order",
       data: result,
     });
   } catch (error) {
@@ -117,7 +117,7 @@ const acceptOrder = async (req, res, next) => {
 
     return res.status(StatusCodes.OK).json({
       status: true,
-      message: "Success Cancel Order",
+      message: "Success Accept Order",
       data: result,
     });
   } catch (error) {
@@ -131,7 +131,7 @@ const updatePayment = async (req, res, next) => {
 
     return res.status(StatusCodes.OK).json({
       status: true,
-      message: "Success Cancel Order",
+      message: "Success Update Payment Order",
       data: result,
     });
   } catch (error) {
@@ -145,7 +145,7 @@ const inputResiAdmin = async (req, res, next) => {
 
     return res.status(StatusCodes.OK).json({
       status: true,
-      message: "Success Cancel Order",
+      message: "Success Input Resi",
       data: result,
     });
   } catch (error) {
@@ -159,7 +159,7 @@ const updateDoneAdmin = async (req, res, next) => {
 
     return res.status(StatusCodes.OK).json({
       status: true,
-      message: "Success Cancel Order",
+      message: "Success Update Status Order",
       data: result,
     });
   } catch (error) {

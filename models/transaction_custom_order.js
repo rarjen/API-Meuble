@@ -32,6 +32,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "courrier_id",
         as: "courrier",
       });
+      Transaction_custom_order.hasOne(models.Image_transaction_custom_order, {
+        foreignKey: "transaction_custom_order_id",
+        as: "img_transaction",
+      });
     }
   }
   Transaction_custom_order.init(
