@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
         as: "category",
       });
 
-      Material.hasMany(models.Transaction_custom_order, {
+      Size.hasMany(models.Transaction_custom_order, {
         foreignKey: "size_id",
         as: "transaction_custom",
       });
