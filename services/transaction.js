@@ -138,6 +138,7 @@ const readTransaction = async (req) => {
         as: "img_transaction",
       },
     ],
+    order: [["createdAt", "DESC"]],
   });
 
   return {
@@ -248,6 +249,10 @@ const updateTransactionStatus = async (req) => {
 
   if (!checkTransaction) {
     throw new NotFoundError(`Tidak ada transaksi dengan id: ${transaction_id}`);
+  }
+
+  if (checkTransaction.status !== TRANSACTION.PENDING) {
+    throw new BadRequestError(`Tidak dapat melakukan update!`);
   }
 
   const checkProduct = await Product.findOne({

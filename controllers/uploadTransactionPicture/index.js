@@ -1,9 +1,11 @@
-const { uploadImage } = require("../../services/uploadTransactionPicture");
+const {
+  uploadImageTransaction,
+} = require("../../services/uploadTransactionPicture");
 const { StatusCodes } = require("http-status-codes");
 
 const upload = async (req, res, next) => {
   try {
-    const result = await uploadImage(req);
+    const result = await uploadImageTransaction(req);
 
     return res.status(StatusCodes.CREATED).json({
       status: true,

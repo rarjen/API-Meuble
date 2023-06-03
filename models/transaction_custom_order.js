@@ -8,7 +8,30 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      /**/
+      Transaction_custom_order.belongsTo(models.User, {
+        foreignKey: "user_id",
+        as: "user",
+      });
+      Transaction_custom_order.belongsTo(models.Category, {
+        foreignKey: "category_id",
+        as: "category",
+      });
+      Transaction_custom_order.belongsTo(models.Material, {
+        foreignKey: "material_id",
+        as: "material",
+      });
+      Transaction_custom_order.belongsTo(models.Size, {
+        foreignKey: "size_id",
+        as: "size",
+      });
+      Transaction_custom_order.belongsTo(models.Payment, {
+        foreignKey: "payment_id",
+        as: "payment",
+      });
+      Transaction_custom_order.belongsTo(models.Courrier, {
+        foreignKey: "courrier_id",
+        as: "courrier",
+      });
     }
   }
   Transaction_custom_order.init(
