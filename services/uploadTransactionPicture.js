@@ -1,8 +1,8 @@
-const { Image_transaction, Transaction } = require("../models");
+const { Image_transaction, Transaction, Payment } = require("../models");
 const { NotFoundError, BadRequestError } = require("../errors");
 const uploadImgPayment = require("../utils/media/uploadImgPayment");
 
-const uploadImage = async (req) => {
+const uploadImageTransaction = async (req) => {
   const { transaction_id } = req.body;
   const file = req.file.buffer.toString("base64");
 
@@ -16,7 +16,11 @@ const uploadImage = async (req) => {
       `Tidak ada transaksi dengan id: ${integerTransactionId}`
     );
   }
-  if (checkTransaction.payment_id === 1) {
+
+  const checkPayment = await Payment.findOne({
+    where: { id: checkTransaction.payment },
+  });
+  if (checkPayment.payment === "COD") {
     throw new BadRequestError(
       `Upload bukti transaksi hanya untuk transfer bank!`
     );
@@ -32,4 +36,4 @@ const uploadImage = async (req) => {
   return result;
 };
 
-module.exports = { uploadImage };
+module.exports = { uploadImageTransaction };
