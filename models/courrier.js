@@ -12,6 +12,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "courrier_id",
         as: "transaction",
       });
+      Courrier.hasMany(models.Transaction_custom_order, {
+        foreignKey: "courrier_id",
+        as: "transaction_custom",
+      });
     }
   }
   Courrier.init(
