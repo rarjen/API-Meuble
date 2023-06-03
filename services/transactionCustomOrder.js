@@ -7,6 +7,7 @@ const {
   Size,
   Material,
   Category,
+  Image_transaction_custom_order,
 } = require("../models");
 const { TRANSACTION, CUSTOM_ORDER } = require("../utils/enum");
 
@@ -37,6 +38,7 @@ const createTransaction = async (req) => {
     qty,
     note,
     statusOrder: CUSTOM_ORDER.WAITING,
+    statusPayment: TRANSACTION.PENDING,
   });
 
   return result;
@@ -148,20 +150,23 @@ const updateCustomTransactionAdmin = async (req) => {
     where: { id: checkTransaction.payment_id },
   });
 
-  if (checkPayment.payment === "COD" && checkCourrier !== "Internal Delivery") {
+  if (checkPayment.payment !== "COD" && checkCourrier !== "Internal Delivery") {
     throw new BadRequestError(
       `Pembayaran COD hanya tersedia untuk Internal Delivery`
     );
   }
 
-  const result = await Transaction_custom_order.update({
-    courrier_id,
-    total_weight,
-    total,
-    ongkir,
-    grandTotal,
-    statusPayment: TRANSACTION.PENDING,
-  });
+  const result = await Transaction_custom_order.update(
+    {
+      courrier_id,
+      total_weight,
+      total,
+      ongkir,
+      grandTotal,
+      statusPayment: TRANSACTION.PENDING,
+    },
+    { where: { id: transaction_custom_order_id } }
+  );
 
   return result;
 };
@@ -180,13 +185,21 @@ const updateStatusPayment = async (req) => {
   }
 
   if (
-    checkTransaction.statusOrder !== CUSTOM_ORDER.ON_PROCESS &&
+    checkTransaction.statusOrder !== CUSTOM_ORDER.ON_PROCESS ||
     checkTransaction.statusPayment !== TRANSACTION.PENDING
   ) {
     throw new BadRequestError(`Tidak dapat update status pembayaran!`);
   }
 
-  const result = await Transaction_custom_order.findOne(
+  const checkPicture = await Image_transaction_custom_order.findOne({
+    where: { transaction_custom_order_id },
+  });
+
+  if (!checkPicture) {
+    throw new BadRequestError(`Tidak dapat update status pembayaran gambar!`);
+  }
+
+  const result = await Transaction_custom_order.update(
     { statusPayment: TRANSACTION.PAID },
     { where: { id: transaction_custom_order_id } }
   );
@@ -208,14 +221,16 @@ const inputResi = async (req) => {
     );
   }
 
+  if (checkTransaction.statusPayment !== TRANSACTION.PAID) {
+    throw new BadRequestError(`Tidak dapat melakukan input resi`);
+  }
+
   const checkCourrier = await Courrier.findOne({
     where: { id: checkTransaction.courrier_id },
   });
 
-  if (checkCourrier.courrier === "COD") {
-    throw new BadRequestError(
-      `Tidak dapat melakukan input resi pada transaksi COD`
-    );
+  if (checkCourrier.courrier === "Internal Delivery") {
+    throw new BadRequestError(`Tidak dapat melakukan input resi`);
   }
 
   const result = await Transaction_custom_order.update(
@@ -240,7 +255,7 @@ const updateDone = async (req) => {
   }
 
   if (
-    checkTransaction.statusOrder !== CUSTOM_ORDER.ON_PROCESS &&
+    checkTransaction.statusOrder !== CUSTOM_ORDER.ON_PROCESS ||
     checkTransaction.statusPayment !== TRANSACTION.PAID
   ) {
     throw new BadRequestError("Tidak dapat melakukan update!");
@@ -268,8 +283,8 @@ const readTransactionAdmin = async (req) => {
   const pageNumber = parseInt(page);
   const limitPage = parseInt(limit);
   const offset = pageNumber * limitPage - limitPage;
-  const allProducts = await Product.count();
-  const totalPage = Math.ceil(allProducts / limit);
+  const allTransaction = await Transaction_custom_order.count();
+  const totalPage = Math.ceil(allTransaction / limit);
 
   const result = await Transaction_custom_order.findAll({
     offset: offset,
@@ -301,7 +316,7 @@ const readTransactionAdmin = async (req) => {
         as: "material",
       },
       {
-        model: Image_transaction,
+        model: Image_transaction_custom_order,
         as: "img_transaction",
       },
     ],
@@ -312,7 +327,7 @@ const readTransactionAdmin = async (req) => {
     data: result,
     pageNumber: pageNumber,
     limitPage: limitPage,
-    totalRows: allProducts,
+    totalRows: allTransaction,
     totalPage: totalPage,
   };
 };
@@ -320,15 +335,7 @@ const readTransactionAdmin = async (req) => {
 const readTransactionUser = async (req) => {
   const user = req.user;
 
-  const pageNumber = parseInt(page);
-  const limitPage = parseInt(limit);
-  const offset = pageNumber * limitPage - limitPage;
-  const allProducts = await Product.count();
-  const totalPage = Math.ceil(allProducts / limit);
-
   const result = await Transaction_custom_order.findAll({
-    offset: offset,
-    limit: limitPage,
     where: { user_id: user.id },
     include: [
       {
@@ -356,20 +363,14 @@ const readTransactionUser = async (req) => {
         as: "material",
       },
       {
-        model: Image_transaction,
+        model: Image_transaction_custom_order,
         as: "img_transaction",
       },
     ],
     order: [["createdAt", "DESC"]],
   });
 
-  return {
-    data: result,
-    pageNumber: pageNumber,
-    limitPage: limitPage,
-    totalRows: allProducts,
-    totalPage: totalPage,
-  };
+  return result;
 };
 
 const readOneTransaction = async (req) => {
@@ -403,7 +404,7 @@ const readOneTransaction = async (req) => {
         as: "material",
       },
       {
-        model: Image_transaction,
+        model: Image_transaction_custom_order,
         as: "img_transaction",
       },
     ],
@@ -411,6 +412,7 @@ const readOneTransaction = async (req) => {
 
   return result;
 };
+
 module.exports = {
   createTransaction,
   acceptCustomOrderAdmin,
