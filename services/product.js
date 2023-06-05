@@ -6,7 +6,7 @@ const {
 } = require("../models");
 const { BadRequestError, NotFoundError } = require("../errors");
 const { PRODUCT } = require("../utils/enum");
-const { Op } = require("sequelize");
+const { Op, fn } = require("sequelize");
 
 const createProduct = async (req) => {
   const { category_id, brand, nama, deskripsi, stock, harga, weight, status } =
@@ -133,8 +133,8 @@ const getAllProductsByAdmin = async (req) => {
   if (search) {
     where = {
       [Op.or]: [
-        { nama: { [Op.like]: "%" + search + "%" } },
-        { brand: { [Op.like]: "%" + search + "%" } },
+        { nama: { [Op.like]: fn("LOWER", `%${search}%`) } },
+        { brand: { [Op.like]: fn("LOWER", `%${search}%`) } },
       ],
     };
   }
@@ -173,6 +173,7 @@ const getAllProductsByAdmin = async (req) => {
         as: "thumbnail",
       },
     ],
+    order: [["createdAt", "DESC"]],
   });
 
   return {
@@ -185,29 +186,32 @@ const getAllProductsByAdmin = async (req) => {
 };
 
 const getAllProductsByUser = async (req) => {
-  const { search, page = 1, limit = 10 } = req.query;
+  const { search, category_id } = req.query;
 
-  let where = {};
+  let where = {
+    status: PRODUCT.ACTIVE,
+  };
 
-  if (search) {
-    where = {
-      status: PRODUCT.ACTIVE,
-      [Op.or]: [
-        { nama: { [Op.like]: "%" + search + "%" } },
-        { brand: { [Op.like]: "%" + search + "%" } },
-      ],
-    };
+  if (search && category_id) {
+    where[Op.and] = [
+      {
+        [Op.or]: [
+          { nama: { [Op.like]: fn("LOWER", `%${search}%`) } },
+          { brand: { [Op.like]: fn("LOWER", `%${search}%`) } },
+        ],
+      },
+      { category_id: parseInt(category_id) },
+    ];
+  } else if (search) {
+    where[Op.or] = [
+      { nama: { [Op.like]: fn("LOWER", `%${search}%`) } },
+      { brand: { [Op.like]: fn("LOWER", `%${search}%`) } },
+    ];
+  } else if (category_id) {
+    where.category_id = parseInt(category_id);
   }
 
-  const pageNumber = parseInt(page);
-  const limitPage = parseInt(limit);
-  const offset = pageNumber * limitPage - limitPage;
-  const allProducts = await Product.count();
-  const totalPage = Math.ceil(allProducts / limit);
-
   const result = await Product.findAll({
-    offset: offset,
-    limit: limitPage,
     where,
     include: [
       {
@@ -223,15 +227,10 @@ const getAllProductsByUser = async (req) => {
         as: "thumbnail",
       },
     ],
+    order: [["createdAt", "DESC"]],
   });
 
-  return {
-    data: result,
-    pageNumber: pageNumber,
-    limitPage: limitPage,
-    totalRows: allProducts,
-    totalPage: totalPage,
-  };
+  return result;
 };
 
 const getByCategory = async (req) => {
