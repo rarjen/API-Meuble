@@ -4532,7 +4532,7 @@ paths:
                 value:
                   category_id: 3
                   size: 45cm x 35cm x 60cm
-  /address/create-address:
+  /address/createAddress:
     parameters: []
     post:
       summary: Create or Update Address
