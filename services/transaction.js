@@ -5,6 +5,7 @@ const {
   Payment,
   User,
   Image_transaction,
+  Thumbnail_product_img,
 } = require("../models");
 const { NotFoundError, BadRequestError } = require("../errors");
 const { TRANSACTION } = require("../utils/enum");
@@ -124,6 +125,12 @@ const readTransaction = async (req) => {
       {
         model: Product,
         as: "product",
+        include: [
+          {
+            model: Thumbnail_product_img,
+            as: "thumbnail",
+          },
+        ],
       },
       {
         model: Courrier,
