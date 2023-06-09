@@ -6,19 +6,16 @@ module.exports = {
       "Roles",
       [
         {
-          id: 1,
           role: "OWNER",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          id: 2,
           role: "ADMIN",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          id: 3,
           role: "BUYER",
           createdAt: new Date(),
           updatedAt: new Date(),
