@@ -6,9 +6,10 @@ const {
   User,
   Image_transaction,
   Thumbnail_product_img,
+  Address,
 } = require("../models");
 const { NotFoundError, BadRequestError } = require("../errors");
-const { TRANSACTION } = require("../utils/enum");
+const { TRANSACTION, STATUS_TRANSACTION } = require("../utils/enum");
 const { Op } = require("sequelize");
 
 const generateInvoiceNumber = () => {
@@ -57,12 +58,19 @@ const createTransaction = async (req) => {
     throw new NotFoundError(`Tidak ada courrier dengan id: ${courrier_id}`);
   }
 
+  const checkUser = await User.findOne({ where: { id: user.id } });
+  const checkAddress = await User.findOne({ where: { user_id: user.id } });
+
+  if (!checkUser.mobile && !checkAddress) {
+    throw new BadRequestError("Harap isi alamat/mobile");
+  }
+
   if (
     checkPayment.payment.toLowerCase() === "cod" &&
     checkCourrier.courrier.toLowerCase() !== "internal delivery"
   ) {
     throw new BadRequestError(
-      `Pembayaran COD hanya tersedia untuk Internal Delivery`
+      "Pembayaran COD hanya tersedia untuk Internal Delivery"
     );
   }
 
@@ -281,6 +289,34 @@ const updateTransactionStatus = async (req) => {
   return result;
 };
 
+const updateDone = async (req) => {
+  const { transaction_id } = req.params;
+
+  const checkTransaction = await Transaction.findOne({
+    where: { id: transaction_id },
+  });
+
+  if (!checkTransaction) {
+    throw new NotFoundError(`Tidak ada transaksi dengan id: ${transaction_id}`);
+  }
+
+  if (
+    checkTransaction.status !== TRANSACTION.PAID &&
+    !checkTransaction.nomerResi
+  ) {
+    throw new BadRequestError(`Tidak dapat melakukan update!`);
+  }
+
+  const result = await Transaction.update(
+    {
+      statusTransaction: STATUS_TRANSACTION.DONE,
+    },
+    { where: { id: transaction_id } }
+  );
+
+  return result;
+};
+
 module.exports = {
   createTransaction,
   readTransaction,
@@ -288,4 +324,5 @@ module.exports = {
   readTransactionUser,
   cancelTransaction,
   updateTransactionStatus,
+  updateDone,
 };

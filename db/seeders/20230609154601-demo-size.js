@@ -3,20 +3,26 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.bulkInsert(
-      "Roles",
+      "Sizes",
       [
         {
-          role: "OWNER",
+          category_id: 1,
+          size: "80cm x 80cm x 74cm",
+          status: "ACTIVE",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          role: "ADMIN",
+          category_id: 2,
+          size: "44cm x 44cm x 85cm",
+          status: "ACTIVE",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          role: "BUYER",
+          category_id: 3,
+          size: "80cm x 41cm x 122cm",
+          status: "ACTIVE",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
@@ -26,6 +32,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete("Roles", null, {});
+    await queryInterface.bulkDelete("Sizes", null, {});
   },
 };

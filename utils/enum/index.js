@@ -38,6 +38,10 @@ const VARIANT = {
   INACTIVE: "INACTIVE",
 };
 
+const STATUS_TRANSACTION = {
+  DONE: "DONE",
+};
+
 module.exports = {
   COURRIER,
   TRANSACTION,
@@ -46,4 +50,5 @@ module.exports = {
   CUSTOM_ORDER,
   VARIANT,
   PAYMENT,
+  STATUS_TRANSACTION,
 };

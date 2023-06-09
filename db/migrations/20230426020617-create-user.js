@@ -12,9 +12,6 @@ module.exports = {
       role_id: {
         type: Sequelize.INTEGER,
       },
-      address_id: {
-        type: Sequelize.INTEGER,
-      },
       first_name: {
         type: Sequelize.STRING,
       },
