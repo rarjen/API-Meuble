@@ -45,6 +45,7 @@ module.exports = (sequelize, DataTypes) => {
       grandTotal: DataTypes.DOUBLE,
       nomerResi: DataTypes.STRING,
       status: DataTypes.STRING,
+      statusTransaction: DataTypes.STRING,
     },
     {
       sequelize,
