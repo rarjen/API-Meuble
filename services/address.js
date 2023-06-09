@@ -32,8 +32,6 @@ const createAddress = async (req) => {
     address,
   });
 
-  await User.update({ address_id: result.id }, { where: { id: user.id } });
-
   return result;
 };
 
