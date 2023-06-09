@@ -8,8 +8,8 @@ const {
   Thumbnail_product_img,
 } = require("../models");
 const { NotFoundError, BadRequestError } = require("../errors");
-const { TRANSACTION } = require("../utils/enum");
-const { Op } = require("sequelize");
+const { TRANSACTION, STATUS_TRANSACTION } = require("../utils/enum");
+const { Op, where } = require("sequelize");
 
 const generateInvoiceNumber = () => {
   const timestamp = Date.now().toString();
@@ -281,6 +281,34 @@ const updateTransactionStatus = async (req) => {
   return result;
 };
 
+const updateDone = async (req) => {
+  const { transaction_id } = req.params;
+
+  const checkTransaction = await Transaction.findOne({
+    where: { id: transaction_id },
+  });
+
+  if (!checkTransaction) {
+    throw new NotFoundError(`Tidak ada transaksi dengan id: ${transaction_id}`);
+  }
+
+  if (
+    checkTransaction.status !== TRANSACTION.PAID &&
+    !checkTransaction.nomerResi
+  ) {
+    throw new BadRequestError(`Tidak dapat melakukan update!`);
+  }
+
+  const result = await Transaction.update(
+    {
+      statusTransaction: STATUS_TRANSACTION.DONE,
+    },
+    { where: { id: transaction_id } }
+  );
+
+  return result;
+};
+
 module.exports = {
   createTransaction,
   readTransaction,
@@ -288,4 +316,5 @@ module.exports = {
   readTransactionUser,
   cancelTransaction,
   updateTransactionStatus,
+  updateDone,
 };
