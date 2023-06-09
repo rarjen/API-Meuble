@@ -27,7 +27,6 @@ module.exports = (sequelize, DataTypes) => {
   User.init(
     {
       role_id: DataTypes.INTEGER,
-      address_id: DataTypes.INTEGER,
       first_name: DataTypes.STRING,
       last_name: DataTypes.STRING,
       email: DataTypes.STRING,
