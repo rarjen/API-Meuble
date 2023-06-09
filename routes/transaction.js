@@ -11,6 +11,7 @@ router.put(
   authorize(ROLES.ADMIN),
   transaction.update
 );
+router.put("/done/:transaction_id", authorize(ROLES.ADMIN), transaction.done);
 router.post("/create", authorize(ROLES.BUYER), transaction.create);
 router.get("/", authorize(ROLES.BUYER), transaction.indexAdmin);
 
