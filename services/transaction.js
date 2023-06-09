@@ -6,10 +6,11 @@ const {
   User,
   Image_transaction,
   Thumbnail_product_img,
+  Address,
 } = require("../models");
 const { NotFoundError, BadRequestError } = require("../errors");
 const { TRANSACTION, STATUS_TRANSACTION } = require("../utils/enum");
-const { Op, where } = require("sequelize");
+const { Op } = require("sequelize");
 
 const generateInvoiceNumber = () => {
   const timestamp = Date.now().toString();
@@ -57,12 +58,19 @@ const createTransaction = async (req) => {
     throw new NotFoundError(`Tidak ada courrier dengan id: ${courrier_id}`);
   }
 
+  const checkUser = await User.findOne({ where: { id: user.id } });
+  const checkAddress = await User.findOne({ where: { user_id: user.id } });
+
+  if (!checkUser.mobile && !checkAddress) {
+    throw new BadRequestError("Harap isi alamat/mobile");
+  }
+
   if (
     checkPayment.payment.toLowerCase() === "cod" &&
     checkCourrier.courrier.toLowerCase() !== "internal delivery"
   ) {
     throw new BadRequestError(
-      `Pembayaran COD hanya tersedia untuk Internal Delivery`
+      "Pembayaran COD hanya tersedia untuk Internal Delivery"
     );
   }
 
