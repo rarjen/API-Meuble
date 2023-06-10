@@ -8490,6 +8490,126 @@ paths:
               Example 1:
                 value:
                   nomerResi: "001234567889"
+  "/transaction/done/{transaction_id}":
+    parameters:
+      - schema:
+          type: string
+        name: transaction_id
+        in: path
+        required: true
+        description: Transaction Id
+    put:
+      summary: Update Done
+      operationId: put-transaction-done
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: integer
+                x-examples:
+                  Example 1:
+                    status: true
+                    message: Success Update Transaction!
+                    data:
+                      - 1
+              examples:
+                Success:
+                  value:
+                    status: true
+                    message: Success Input Resi!
+                    data:
+                      - 1
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    message: Nomer resi tidak dapat diinput!
+              examples:
+                Bad Request:
+                  value:
+                    message: Nomer resi tidak dapat diinput!
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    message: "Tidak ada Transaksi dengan id: 999"
+              examples:
+                Not Found:
+                  value:
+                    message: "Tidak ada Transaksi dengan id: 999"
+        "":
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: integer
+                x-examples:
+                  Example 1:
+                    status: true
+                    message: Success Get Transaction!
+                    data:
+                      - 1
+              examples:
+                Success:
+                  value:
+                    status: true
+                    message: Success Update Transaction!
+                    data:
+                      - 1
+          description: ""
+      tags:
+        - Transaction
+      description: Update Done Transaction By Admin
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nomerResi:
+                  type: string
+              x-examples:
+                Example 1:
+                  nomerResi: "001234567889"
+            examples:
+              Example 1:
+                value:
+                  nomerResi: "001234567889"
   /coordinate/create:
     parameters: []
     post:
@@ -11821,6 +11941,397 @@ paths:
         - bearerAuth: []
       tags:
         - Custom Transaction
+  /users/all-user:
+    parameters: []
+    get:
+      summary: Get All Users
+      operationId: get-users
+      responses:
+        "200":
+          description: OK
+        "":
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            role_id:
+                              type: integer
+                            first_name:
+                              type: string
+                            last_name:
+                              type: string
+                            email:
+                              type: string
+                            password:
+                              type: string
+                            mobile:
+                              type: string
+                            createdAt:
+                              type: string
+                            updatedAt:
+                              type: string
+                            role:
+                              type: object
+                              properties:
+                                id:
+                                  type: integer
+                                role:
+                                  type: string
+                                createdAt:
+                                  type: string
+                                updatedAt:
+                                  type: string
+                            address:
+                              type: object
+                              properties:
+                                id:
+                                  type: integer
+                                user_id:
+                                  type: integer
+                                province_id:
+                                  type: integer
+                                city_id:
+                                  type: integer
+                                address:
+                                  type: string
+                                createdAt:
+                                  type: string
+                                updatedAt:
+                                  type: string
+                                province:
+                                  type: object
+                                  properties:
+                                    id:
+                                      type: integer
+                                    province:
+                                      type: string
+                                    createdAt:
+                                      type: string
+                                    updatedAt:
+                                      type: string
+                                city:
+                                  type: object
+                                  properties:
+                                    id:
+                                      type: integer
+                                    province_id:
+                                      type: integer
+                                    province:
+                                      type: string
+                                    type:
+                                      type: string
+                                    city_name:
+                                      type: string
+                                    postal_code:
+                                      type: string
+                                    createdAt:
+                                      type: string
+                                    updatedAt:
+                                      type: string
+                                coordinate:
+                                  type: object
+                                  properties:
+                                    id:
+                                      type: integer
+                                    address_id:
+                                      type: integer
+                                    lat:
+                                      type: string
+                                    lng:
+                                      type: string
+                                    createdAt:
+                                      type: string
+                                    updatedAt:
+                                      type: string
+                      pageNumber:
+                        type: integer
+                      limitPage:
+                        type: integer
+                      totalRows:
+                        type: integer
+                      totalPage:
+                        type: integer
+                x-examples:
+                  Example 1:
+                    status: true
+                    message: Success get data!
+                    data:
+                      data:
+                        - id: 1
+                          role_id: 2
+                          first_name: Admin
+                          last_name: Meuble
+                          email: admin1@gmail.com
+                          password: $2b$10$Xu6e3DA9tbSxQ7IXELlecObjD01R06IQTrHd76o6HOvXDYnBmiqAW
+                          mobile: "085329447621"
+                          createdAt: "2023-06-09T16:44:19.000Z"
+                          updatedAt: "2023-06-09T16:44:19.000Z"
+                          role:
+                            id: 2
+                            role: ADMIN
+                            createdAt: "2023-06-09T16:44:19.000Z"
+                            updatedAt: "2023-06-09T16:44:19.000Z"
+                          address:
+                            id: 1
+                            user_id: 1
+                            province_id: 10
+                            city_id: 181
+                            address: "Mangir RT 03 RW 02, Purwongondo, Boja, Kabupaten Kendal, Jawa Tengah"
+                            createdAt: "2023-06-09T16:44:19.000Z"
+                            updatedAt: "2023-06-09T16:44:19.000Z"
+                            province:
+                              id: 10
+                              province: Jawa Tengah
+                              createdAt: "2023-06-09T16:44:19.000Z"
+                              updatedAt: "2023-06-09T16:44:19.000Z"
+                            city:
+                              id: 181
+                              province_id: 10
+                              province: Jawa Tengah
+                              type: Kabupaten
+                              city_name: Kendal
+                              postal_code: "51314"
+                              createdAt: "2023-06-09T16:44:19.000Z"
+                              updatedAt: "2023-06-09T16:44:19.000Z"
+                            coordinate:
+                              id: 1
+                              address_id: 1
+                              lat: "-7.14109"
+                              lng: "110.28436"
+                              createdAt: "2023-06-09T16:44:19.000Z"
+                              updatedAt: "2023-06-09T16:44:19.000Z"
+                        - id: 2
+                          role_id: 3
+                          first_name: Otniel
+                          last_name: Kevin
+                          email: rarjen57@gmail.com
+                          password: $2b$10$2xAw7fEN7AhxhJRKei4ESe9fdMCbTDTtSBLQnAsQFkFcUlVfMkfOG
+                          mobile: "085329447622"
+                          createdAt: "2023-06-10T02:54:20.000Z"
+                          updatedAt: "2023-06-10T02:55:10.000Z"
+                          role:
+                            id: 3
+                            role: BUYER
+                            createdAt: "2023-06-09T16:44:19.000Z"
+                            updatedAt: "2023-06-09T16:44:19.000Z"
+                          address:
+                            id: 2
+                            user_id: 2
+                            province_id: 10
+                            city_id: 399
+                            address: "Umbulsari RT 03/01, Kecamatan Mijen, Kota Semarang"
+                            createdAt: "2023-06-10T02:55:53.000Z"
+                            updatedAt: "2023-06-10T02:55:53.000Z"
+                            province:
+                              id: 10
+                              province: Jawa Tengah
+                              createdAt: "2023-06-09T16:44:19.000Z"
+                              updatedAt: "2023-06-09T16:44:19.000Z"
+                            city:
+                              id: 399
+                              province_id: 10
+                              province: Jawa Tengah
+                              type: Kota
+                              city_name: Semarang
+                              postal_code: "50135"
+                              createdAt: "2023-06-09T16:44:19.000Z"
+                              updatedAt: "2023-06-09T16:44:19.000Z"
+                            coordinate:
+                              id: 2
+                              address_id: 2
+                              lat: "-7.06566"
+                              lng: "110.337013"
+                              createdAt: "2023-06-10T02:56:06.000Z"
+                              updatedAt: "2023-06-10T02:56:06.000Z"
+                      pageNumber: 1
+                      limitPage: 10
+                      totalRows: 2
+                      totalPage: 1
+              examples:
+                Success:
+                  value:
+                    status: true
+                    message: Success get data!
+                    data:
+                      data:
+                        - id: 1
+                          role_id: 2
+                          first_name: Admin
+                          last_name: Meuble
+                          email: admin1@gmail.com
+                          password: $2b$10$Xu6e3DA9tbSxQ7IXELlecObjD01R06IQTrHd76o6HOvXDYnBmiqAW
+                          mobile: "085329447621"
+                          createdAt: "2023-06-09T16:44:19.000Z"
+                          updatedAt: "2023-06-09T16:44:19.000Z"
+                          role:
+                            id: 2
+                            role: ADMIN
+                            createdAt: "2023-06-09T16:44:19.000Z"
+                            updatedAt: "2023-06-09T16:44:19.000Z"
+                          address:
+                            id: 1
+                            user_id: 1
+                            province_id: 10
+                            city_id: 181
+                            address: "Mangir RT 03 RW 02, Purwongondo, Boja, Kabupaten Kendal, Jawa Tengah"
+                            createdAt: "2023-06-09T16:44:19.000Z"
+                            updatedAt: "2023-06-09T16:44:19.000Z"
+                            province:
+                              id: 10
+                              province: Jawa Tengah
+                              createdAt: "2023-06-09T16:44:19.000Z"
+                              updatedAt: "2023-06-09T16:44:19.000Z"
+                            city:
+                              id: 181
+                              province_id: 10
+                              province: Jawa Tengah
+                              type: Kabupaten
+                              city_name: Kendal
+                              postal_code: "51314"
+                              createdAt: "2023-06-09T16:44:19.000Z"
+                              updatedAt: "2023-06-09T16:44:19.000Z"
+                            coordinate:
+                              id: 1
+                              address_id: 1
+                              lat: "-7.14109"
+                              lng: "110.28436"
+                              createdAt: "2023-06-09T16:44:19.000Z"
+                              updatedAt: "2023-06-09T16:44:19.000Z"
+                        - id: 2
+                          role_id: 3
+                          first_name: Otniel
+                          last_name: Kevin
+                          email: rarjen57@gmail.com
+                          password: $2b$10$2xAw7fEN7AhxhJRKei4ESe9fdMCbTDTtSBLQnAsQFkFcUlVfMkfOG
+                          mobile: "085329447622"
+                          createdAt: "2023-06-10T02:54:20.000Z"
+                          updatedAt: "2023-06-10T02:55:10.000Z"
+                          role:
+                            id: 3
+                            role: BUYER
+                            createdAt: "2023-06-09T16:44:19.000Z"
+                            updatedAt: "2023-06-09T16:44:19.000Z"
+                          address:
+                            id: 2
+                            user_id: 2
+                            province_id: 10
+                            city_id: 399
+                            address: "Umbulsari RT 03/01, Kecamatan Mijen, Kota Semarang"
+                            createdAt: "2023-06-10T02:55:53.000Z"
+                            updatedAt: "2023-06-10T02:55:53.000Z"
+                            province:
+                              id: 10
+                              province: Jawa Tengah
+                              createdAt: "2023-06-09T16:44:19.000Z"
+                              updatedAt: "2023-06-09T16:44:19.000Z"
+                            city:
+                              id: 399
+                              province_id: 10
+                              province: Jawa Tengah
+                              type: Kota
+                              city_name: Semarang
+                              postal_code: "50135"
+                              createdAt: "2023-06-09T16:44:19.000Z"
+                              updatedAt: "2023-06-09T16:44:19.000Z"
+                            coordinate:
+                              id: 2
+                              address_id: 2
+                              lat: "-7.06566"
+                              lng: "110.337013"
+                              createdAt: "2023-06-10T02:56:06.000Z"
+                              updatedAt: "2023-06-10T02:56:06.000Z"
+                      pageNumber: 1
+                      limitPage: 10
+                      totalRows: 2
+                      totalPage: 1
+      description: Get All User By Admin
+      security:
+        - bearerAuth: []
+  /user/updateBio:
+    parameters: []
+    put:
+      summary: Update Bio
+      operationId: put-user-updateBio
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: integer
+                x-examples:
+                  Example 1:
+                    status: true
+                    message: Success update bio!
+                    data:
+                      - 1
+              examples:
+                Success:
+                  value:
+                    status: true
+                    message: Success update bio!
+                    data:
+                      - 1
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    message: Nomer Telepon sudah terdaftar!
+              examples:
+                Error:
+                  value:
+                    message: Nomer Telepon sudah terdaftar!
+      description: Update Bio by Admin & Buyer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                last_name:
+                  type: string
+                mobile:
+                  type: string
+              x-examples:
+                Example 1:
+                  first_name: Otniel
+                  last_name: Kevin
+                  mobile: "085329447622"
+      security:
+        - bearerAuth: []
 components:
   schemas:
     User:
