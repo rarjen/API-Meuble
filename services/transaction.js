@@ -301,8 +301,9 @@ const updateDone = async (req) => {
   }
 
   if (
-    checkTransaction.status !== TRANSACTION.PAID &&
-    !checkTransaction.nomerResi
+    (checkTransaction.status !== TRANSACTION.PAID &&
+      !checkTransaction.nomerResi) ||
+    checkTransaction.statusTransaction === STATUS_TRANSACTION.DONE
   ) {
     throw new BadRequestError(`Tidak dapat melakukan update!`);
   }
