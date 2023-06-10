@@ -59,7 +59,7 @@ const createTransaction = async (req) => {
   }
 
   const checkUser = await User.findOne({ where: { id: user.id } });
-  const checkAddress = await User.findOne({ where: { user_id: user.id } });
+  const checkAddress = await Address.findOne({ where: { user_id: user.id } });
 
   if (!checkUser.mobile && !checkAddress) {
     throw new BadRequestError("Harap isi alamat/mobile");
@@ -301,8 +301,9 @@ const updateDone = async (req) => {
   }
 
   if (
-    checkTransaction.status !== TRANSACTION.PAID &&
-    !checkTransaction.nomerResi
+    (checkTransaction.status !== TRANSACTION.PAID &&
+      !checkTransaction.nomerResi) ||
+    checkTransaction.statusTransaction === STATUS_TRANSACTION.DONE
   ) {
     throw new BadRequestError(`Tidak dapat melakukan update!`);
   }

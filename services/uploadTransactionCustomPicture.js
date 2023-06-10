@@ -20,6 +20,15 @@ const uploadImageTransaction = async (req) => {
     );
   }
 
+  const checkPayment = await Payment.findOne({
+    where: { id: checkTransaction.payment_id },
+  });
+  if (checkPayment.payment === "COD") {
+    throw new BadRequestError(
+      `Upload bukti transaksi hanya untuk transfer bank!`
+    );
+  }
+
   const checkPicture = await Image_transaction_custom_order.findOne({
     where: { transaction_custom_order_id },
   });
@@ -36,15 +45,6 @@ const uploadImageTransaction = async (req) => {
     );
 
     return result;
-  }
-
-  const checkPayment = await Payment.findOne({
-    where: { id: checkTransaction.payment_id },
-  });
-  if (checkPayment.payment !== "COD") {
-    throw new BadRequestError(
-      `Upload bukti transaksi hanya untuk transfer bank!`
-    );
   }
 
   const dataUpload = await uploadImgPayment(file);
