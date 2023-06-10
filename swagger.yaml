@@ -12262,6 +12262,8 @@ paths:
       description: Get All User By Admin
       security:
         - bearerAuth: []
+      tags:
+        - User
   /user/updateBio:
     parameters: []
     put:
@@ -12332,6 +12334,8 @@ paths:
                   mobile: "085329447622"
       security:
         - bearerAuth: []
+      tags:
+        - User
 components:
   schemas:
     User:
