@@ -20,6 +20,7 @@ const reportTransaction = require("./reportTransaction");
 const coordinate = require("./coordinate");
 const uploadProductPicture = require("./uploadProductPicture");
 const customTransaction = require("./customTransaction");
+const productRating = require("./productRating");
 
 router.get("/", (req, res) => {
   return res.status(200).json({
@@ -50,5 +51,6 @@ router.use("/reportTransaction", reportTransaction);
 router.use("/coordinate", coordinate);
 router.use("/uploadProductPicture", uploadProductPicture);
 router.use("/customTransaction", customTransaction);
+router.use("/productRating", productRating);
 
 module.exports = router;
