@@ -4,6 +4,6 @@ const authorize = require("../middlewares/authorize");
 const { ROLES } = require("../utils/enum");
 
 router.get("/all-users", authorize(ROLES.ADMIN), user.index);
-router.put("/updateBio", authorize(), user.createBio);
+router.put("/updateBio", authorize([ROLES.ADMIN, ROLES.BUYER]), user.createBio);
 
 module.exports = router;
