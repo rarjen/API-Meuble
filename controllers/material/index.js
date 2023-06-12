@@ -4,7 +4,6 @@ const {
   readAllMaterial,
   readOneMaterial,
   destroyMaterial,
-  readByCategory,
 } = require("../../services/material");
 
 const { StatusCodes } = require("http-status-codes");
@@ -79,25 +78,10 @@ const destroy = async (req, res, next) => {
   }
 };
 
-const readMaterialByCategory = async (req, res, next) => {
-  try {
-    const result = await readByCategory(req);
-
-    return res.status(StatusCodes.OK).json({
-      status: true,
-      message: "Success Show Material!",
-      data: result,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
 module.exports = {
   create,
   index,
   show,
   update,
   destroy,
-  readMaterialByCategory,
 };
