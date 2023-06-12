@@ -4,5 +4,6 @@ const authorize = require("../middlewares/authorize");
 
 router.post("/check", authorize(), ongkir.ongkir);
 router.post("/check-cod", authorize(), ongkir.cod);
+router.post("/check-cod-admin", authorize(), ongkir.cod);
 
 module.exports = router;
