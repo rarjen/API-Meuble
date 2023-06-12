@@ -7032,6 +7032,27 @@ paths:
             type: string
           in: query
           name: end_date
+      security:
+        - bearerAuth: []
+  /reportTransactionCustom:
+    parameters: []
+    get:
+      summary: Download Transaction Custom Order Report By Admin
+      operationId: get-transaction-custom-report
+      tags:
+        - Transaction Report
+      description: Download Transaction Custom Report By Admin
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: start_date
+        - schema:
+            type: string
+          in: query
+          name: end_date
+      security:
+        - bearerAuth: []
   /uploadTransactionPicture:
     parameters: []
     post:
@@ -9433,7 +9454,7 @@ paths:
       description: Accept Custom Transaction by Admin
       security:
         - bearerAuth: []
-  "/customTransaction/accept/{transaction_custom_order_id}":
+  "/customTransaction/edit/{transaction_custom_order_id}":
     parameters:
       - schema:
           type: string
@@ -9496,7 +9517,20 @@ paths:
           application/json:
             schema:
               type: object
-              properties: {}
+              properties:
+                courrier_id:
+                  type: integer
+                total_weight:
+                  type: integer
+              x-examples:
+                Example 1:
+                  courrier_id: 1
+                  total_weight: 2000
+            examples:
+              Example 1:
+                value:
+                  courrier_id: 1
+                  total_weight: 2000
       security:
         - bearerAuth: []
   "/customTransaction/input-resi/{transaction_custom_order_id}":
@@ -12112,6 +12146,123 @@ paths:
                 value:
                   transaction_id: 1
                   rating: 3
+  /dashboard/data:
+    parameters: []
+    get:
+      summary: Get Dashboard Data
+      operationId: get-data-dashboard
+      responses:
+        "200":
+          description: OK
+        "":
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      product_total:
+                        type: integer
+                      product_saled:
+                        type: integer
+                      ranking_product:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            product_id:
+                              type: integer
+                            qty:
+                              type: integer
+                            product:
+                              type: object
+                              properties:
+                                id:
+                                  type: integer
+                                category_id:
+                                  type: integer
+                                brand:
+                                  type: string
+                                nama:
+                                  type: string
+                                weight:
+                                  type: integer
+                                deskripsi:
+                                  type: string
+                                stock:
+                                  type: integer
+                                harga:
+                                  type: integer
+                                status:
+                                  type: "null"
+                                createdAt:
+                                  type: string
+                                updatedAt:
+                                  type: string
+                      total_order:
+                        type: integer
+                      order_on_process:
+                        type: integer
+                x-examples:
+                  Example 1:
+                    status: true
+                    message: Success get data
+                    data:
+                      product_total: 10
+                      product_saled: 1
+                      ranking_product:
+                        - product_id: 1
+                          qty: 1
+                          product:
+                            id: 1
+                            category_id: 2
+                            brand: Lemariku
+                            nama: Lemari Penyimpanan Kabinet 2
+                            weight: 12000
+                            deskripsi: Lemari Kekinian
+                            stock: 149
+                            harga: 365000
+                            status: null
+                            createdAt: "2023-06-09T16:44:19.000Z"
+                            updatedAt: "2023-06-12T01:25:10.000Z"
+                      total_order: 1
+                      order_on_process: 0
+              examples:
+                Success:
+                  value:
+                    status: true
+                    message: Success get data
+                    data:
+                      product_total: 10
+                      product_saled: 1
+                      ranking_product:
+                        - product_id: 1
+                          qty: 1
+                          product:
+                            id: 1
+                            category_id: 2
+                            brand: Lemariku
+                            nama: Lemari Penyimpanan Kabinet 2
+                            weight: 12000
+                            deskripsi: Lemari Kekinian
+                            stock: 149
+                            harga: 365000
+                            status: null
+                            createdAt: "2023-06-09T16:44:19.000Z"
+                            updatedAt: "2023-06-12T01:25:10.000Z"
+                      total_order: 1
+                      order_on_process: 0
+      description: Get Data Dashboard by Admin
+      tags:
+        - Dashboard
+      security:
+        - bearerAuth: []
 components:
   schemas:
     User:
