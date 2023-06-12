@@ -4,19 +4,20 @@ const { VARIANT, ROLES } = require("../utils/enum");
 const { Op } = require("sequelize");
 
 const createSize = async (req) => {
-  const { category_id, size } = req.body;
+  const { panjang, lebar, tinggi } = req.body;
 
-  const checkDuplicate = await Size.findOne({ where: { category_id, size } });
+  const checkDuplicate = await Size.findOne({
+    where: { panjang, lebar, tinggi },
+  });
 
   if (checkDuplicate) {
-    throw new BadRequestError(
-      `Size dengan category id ${category_id} sudah ada!`
-    );
+    throw new BadRequestError(`Size sudah ada!`);
   }
 
   const result = await Size.create({
-    category_id,
-    size,
+    panjang,
+    tinggi,
+    lebar,
     status: VARIANT.ACTIVE,
   });
 
@@ -25,7 +26,7 @@ const createSize = async (req) => {
 
 const editSize = async (req) => {
   const { size_id } = req.params;
-  const { category_id, size } = req.body;
+  const { panjang, lebar, tinggi } = req.body;
 
   const checkSize = await Size.findOne({ where: { id: size_id } });
   if (!checkSize) {
@@ -33,7 +34,7 @@ const editSize = async (req) => {
   }
 
   const checkDuplicate = await Size.findOne({
-    where: { category_id, size },
+    where: { panjang, lebar, tinggi },
     id: { [Op.ne]: size_id },
   });
 
@@ -42,7 +43,7 @@ const editSize = async (req) => {
   }
 
   const result = await Size.update(
-    { category_id, size },
+    { panjang, lebar, tinggi },
     { where: { id: size_id } }
   );
 
@@ -61,12 +62,6 @@ const readAllSize = async (req) => {
 
   const result = await Size.findAll({
     where,
-    include: [
-      {
-        model: Category,
-        as: "category",
-      },
-    ],
   });
 
   return result;
@@ -92,12 +87,6 @@ const readOneSize = async (req) => {
 
   const result = await Size.findOne({
     where,
-    include: [
-      {
-        model: Category,
-        as: "category",
-      },
-    ],
   });
 
   if (!result) {
@@ -132,29 +121,10 @@ const destroySize = async (req) => {
   return result;
 };
 
-const readByCategory = async (req) => {
-  const { category_id } = req.params;
-
-  console.log(category_id);
-
-  const result = await Size.findAll({
-    where: { category_id, status: VARIANT.ACTIVE },
-  });
-
-  if (result <= 0) {
-    throw new NotFoundError(
-      `Tidak ada size dengan kategori id: ${category_id}`
-    );
-  }
-
-  return result;
-};
-
 module.exports = {
   createSize,
   editSize,
   readAllSize,
   readOneSize,
   destroySize,
-  readByCategory,
 };
