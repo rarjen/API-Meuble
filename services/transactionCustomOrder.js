@@ -19,6 +19,28 @@ const generateInvoiceNumber = () => {
   return `${timestamp}${randomDigits}`;
 };
 
+const estimation = (
+  panjangMebel,
+  lebarMebel,
+  tinggiMebel,
+  panjangMaterial,
+  lebarMaterial,
+  ketebalanMaterial,
+  hargaPerBalok
+) => {
+  const volumeMaterial =
+    (panjangMebel * lebarMebel * tinggiMebel) /
+    (panjangMaterial * lebarMaterial * ketebalanMaterial);
+
+  // Hitung jumlah material yang dibutuhkan
+  const jumlahMaterial = Math.ceil(volumeMaterial); // Bulatkan ke atas
+
+  // Hitung estimasi harga
+  const estimasiHarga = jumlahMaterial * hargaPerBalok;
+
+  return estimasiHarga;
+};
+
 const createTransaction = async (req) => {
   const { category_id, payment_id, size_id, material_id, qty, note } = req.body;
   const user = req.user;
@@ -27,6 +49,26 @@ const createTransaction = async (req) => {
   if (!checkPayment) {
     throw new NotFoundError(`Tidak ada payment dengan id: ${payment_id}`);
   }
+  const checkMaterial = await Material.findOne({ where: { id: material_id } });
+  if (!checkMaterial) {
+    throw new NotFoundError(`Tidak ada payment dengan id: ${material_id}`);
+  }
+  const checkSize = await Size.findOne({ where: { id: size_id } });
+  if (!checkSize) {
+    throw new NotFoundError(`Tidak ada payment dengan id: ${size_id}`);
+  }
+
+  const costExtimation = await estimation(
+    checkSize.panjang,
+    checkSize.lebar,
+    checkSize.tinggi,
+    checkMaterial.panjang,
+    checkMaterial.lebar,
+    checkMaterial.tebal,
+    checkMaterial.harga
+  );
+
+  const ongkosTukang = 100000;
 
   const result = await Transaction_custom_order.create({
     user_id: user.id,
@@ -37,6 +79,9 @@ const createTransaction = async (req) => {
     invoice_number: generateInvoiceNumber(),
     qty,
     note,
+    total: costExtimation,
+    ongkosTukang,
+    grandTotal: (costExtimation + ongkosTukang) * qty,
     statusOrder: CUSTOM_ORDER.WAITING,
     statusPayment: TRANSACTION.PENDING,
   });
