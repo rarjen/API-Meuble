@@ -9,11 +9,20 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      category_id: {
-        type: Sequelize.INTEGER,
-      },
       material: {
         type: Sequelize.STRING,
+      },
+      panjang: {
+        type: Sequelize.DOUBLE,
+      },
+      lebar: {
+        type: Sequelize.DOUBLE,
+      },
+      tebal: {
+        type: Sequelize.DOUBLE,
+      },
+      harga: {
+        type: Sequelize.DOUBLE,
       },
       status: {
         type: Sequelize.STRING,

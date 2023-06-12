@@ -13,16 +13,6 @@ module.exports = (sequelize, DataTypes) => {
         as: "product",
       });
 
-      Category.hasMany(models.Size, {
-        foreignKey: "category_id",
-        as: "size",
-      });
-
-      Category.hasMany(models.Material, {
-        foreignKey: "category_id",
-        as: "material",
-      });
-
       Category.hasMany(models.Transaction_custom_order, {
         foreignKey: "category_id",
         as: "transaction_custom",

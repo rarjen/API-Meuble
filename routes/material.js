@@ -11,11 +11,6 @@ router.get(
   authorize([ROLES.ADMIN, ROLES.BUYER]),
   material.index
 );
-router.get(
-  "/material-categories/:category_id",
-  authorize(),
-  material.readMaterialByCategory
-);
 router.get("/:material_id", authorize(), material.show);
 
 module.exports = router;

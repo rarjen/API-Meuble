@@ -6,22 +6,9 @@ module.exports = {
       "Sizes",
       [
         {
-          category_id: 1,
-          size: "80cm x 80cm x 74cm",
-          status: "ACTIVE",
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-        {
-          category_id: 2,
-          size: "44cm x 44cm x 85cm",
-          status: "ACTIVE",
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-        {
-          category_id: 3,
-          size: "80cm x 41cm x 122cm",
+          panjang: 32,
+          lebar: 28,
+          tinggi: 16,
           status: "ACTIVE",
           createdAt: new Date(),
           updatedAt: new Date(),

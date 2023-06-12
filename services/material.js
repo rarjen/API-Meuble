@@ -4,26 +4,22 @@ const { VARIANT, ROLES } = require("../utils/enum");
 const { Op } = require("sequelize");
 
 const createMaterial = async (req) => {
-  const { category_id, material } = req.body;
-
-  const checkCategory = await Category.findOne({ where: { id: category_id } });
-  if (!checkCategory) {
-    throw new NotFoundError(`Tidak ada cetegory dengan id: ${category_id}`);
-  }
+  const { material, panjang, lebar, tebal, harga } = req.body;
 
   const checkDuplicate = await Material.findOne({
-    where: { category_id, material },
+    where: { material, panjang, lebar, tebal },
   });
 
   if (checkDuplicate) {
-    throw new BadRequestError(
-      `Material dengan category id ${category_id} sudah ada!`
-    );
+    throw new BadRequestError(`Material sudah ada!`);
   }
 
   const result = await Material.create({
-    category_id,
     material,
+    panjang,
+    lebar,
+    tebal,
+    harga,
     status: VARIANT.ACTIVE,
   });
 
@@ -32,7 +28,7 @@ const createMaterial = async (req) => {
 
 const editMaterial = async (req) => {
   const { material_id } = req.params;
-  const { category_id, material } = req.body;
+  const { material, panjang, lebar, tebal, harga } = req.body;
 
   const checkMaterial = await Material.findOne({ where: { id: material_id } });
   if (!checkMaterial) {
@@ -40,7 +36,7 @@ const editMaterial = async (req) => {
   }
 
   const checkDuplicate = await Material.findOne({
-    where: { category_id, material },
+    where: { material, panjang, lebar, tebal },
     id: { [Op.ne]: material_id },
   });
 
@@ -49,7 +45,7 @@ const editMaterial = async (req) => {
   }
 
   const result = await Material.update(
-    { category_id, material },
+    { material, panjang, lebar, tebal, harga },
     { where: { id: material_id } }
   );
 
@@ -68,7 +64,6 @@ const readAllMaterial = async (req) => {
   }
   const result = await Material.findAll({
     where,
-    include: [{ model: Category, as: "category" }],
   });
 
   return result;
@@ -85,10 +80,14 @@ const readOneMaterial = async (req) => {
       status: VARIANT.ACTIVE,
     };
   }
+  if (user.role === ROLES.ADMIN) {
+    where = {
+      id: material_id,
+    };
+  }
 
   const result = await Material.findOne({
     where,
-    include: [{ model: Category, as: "category" }],
   });
 
   if (!result) {
@@ -122,29 +121,10 @@ const destroyMaterial = async (req) => {
 
   return result;
 };
-
-const readByCategory = async (req) => {
-  const { category_id } = req.params;
-
-  const result = await Material.findAll({
-    where: { category_id, status: VARIANT.ACTIVE },
-    include: [{ model: Category, as: "category" }],
-  });
-
-  if (result <= 0) {
-    throw new NotFoundError(
-      `Tidak ada size dengan kategori id: ${category_id}`
-    );
-  }
-
-  return result;
-};
-
 module.exports = {
   createMaterial,
   editMaterial,
   readAllMaterial,
   readOneMaterial,
   destroyMaterial,
-  readByCategory,
 };

@@ -8,11 +8,6 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Size.belongsTo(models.Category, {
-        foreignKey: "category_id",
-        as: "category",
-      });
-
       Size.hasMany(models.Transaction_custom_order, {
         foreignKey: "size_id",
         as: "transaction_custom",
@@ -21,8 +16,9 @@ module.exports = (sequelize, DataTypes) => {
   }
   Size.init(
     {
-      category_id: DataTypes.INTEGER,
-      size: DataTypes.STRING,
+      panjang: DataTypes.DOUBLE,
+      lebar: DataTypes.DOUBLE,
+      tinggi: DataTypes.DOUBLE,
       status: DataTypes.STRING,
     },
     {
