@@ -1,8 +1,8 @@
 const router = require("express").Router();
-const dashboard = require("../controllers/dashboard");
+const reportTransaction = require("../controllers/reportTransactionCustom");
 const authorize = require("../middlewares/authorize");
 const { ROLES } = require("../utils/enum");
 
-router.get("/data", authorize(ROLES.ADMIN), dashboard.index);
+router.get("/", authorize(ROLES.ADMIN), reportTransaction.create);
 
 module.exports = router;

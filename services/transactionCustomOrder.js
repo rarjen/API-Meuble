@@ -268,7 +268,7 @@ const updateCustomTransactionAdmin = async (req) => {
     {
       courrier_id,
       total_weight,
-      ongkirCost,
+      ongkir: ongkirCost,
       grandTotal: totalPayment,
     },
     { where: { id: transaction_custom_order_id } }

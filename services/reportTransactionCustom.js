@@ -1,11 +1,11 @@
-const { Transaction, Product } = require("../models");
+const { Transaction_custom_order, User } = require("../models");
 const { NotFoundError } = require("../errors");
 const XLSX = require("xlsx");
 const fs = require("fs");
 const path = require("path");
 const folderPath = path.join(__dirname, "../report");
 const { Op } = require("sequelize");
-const { STATUS_TRANSACTION } = require("../utils/enum");
+const { CUSTOM_ORDER, TRANSACTION } = require("../utils/enum");
 
 const createTransactionExcel = (
   start_date,
@@ -18,11 +18,13 @@ const createTransactionExcel = (
   const data = transactions.map((transaction) => [
     transaction.invoice_number,
     transaction.createdAt,
-    transaction.product.brand,
-    transaction.product.nama,
+    transaction.user.email,
+    transaction.note,
     transaction.qty,
+    transaction.total_weight,
     transaction.total,
     transaction.ongkir,
+    transaction.ongkosTukang,
     transaction.grandTotal,
   ]);
 
@@ -35,27 +37,44 @@ const createTransactionExcel = (
     return acc + transaction.ongkir;
   }, 0);
 
+  const ongkosTukang = transactions.reduce((acc, transaction) => {
+    return acc + transaction.ongkosTukang;
+  }, 0);
+
   const grandTotal = transactions.reduce((acc, transaction) => {
     return acc + transaction.grandTotal;
   }, 0);
 
   const worksheet = XLSX.utils.aoa_to_sheet([
-    ["Laporan Transaksi"],
+    ["Laporan Transaksi Custom Order"],
     [`${start_date} s/d ${end_date}`],
     [],
     [
       "Invoice",
       "Tanggal Pembelian",
-      "Brand",
-      "Nama Barang",
+      "Email",
+      "Catatan",
       "Jumlah",
+      "Total Berat",
       "Total",
       "Ongkir",
+      "Ongkos Tukang",
       "Sub Total",
     ],
     ...data,
     [], // Baris kosong sebagai pemisah
-    ["Grand Total", "", "", "", "", total, ongkir, grandTotal], // Menambahkan total ke file Excel
+    [
+      "Grand Total",
+      "",
+      "",
+      "",
+      "",
+      "",
+      total,
+      ongkir,
+      ongkosTukang,
+      grandTotal,
+    ], // Menambahkan total ke file Excel
   ]);
 
   XLSX.utils.book_append_sheet(workbook, worksheet, "Transaksi");
@@ -75,9 +94,10 @@ const createUniqueFileName = (start_date, end_date) => {
 const downloadTransactionReport = async (req) => {
   const { start_date, end_date } = req.query;
 
-  const result = await Transaction.findAll({
+  const result = await Transaction_custom_order.findAll({
     where: {
-      statusTransaction: STATUS_TRANSACTION.DONE,
+      statusOrder: CUSTOM_ORDER.DONE,
+      statusPayment: TRANSACTION.PAID,
       createdAt: {
         [Op.between]: [
           new Date(start_date).setHours(0, 0, 0),
@@ -85,7 +105,7 @@ const downloadTransactionReport = async (req) => {
         ],
       },
     },
-    include: [{ model: Product, as: "product" }],
+    include: [{ model: User, as: "user" }],
   });
 
   if (!fs.existsSync(folderPath)) {
@@ -102,7 +122,7 @@ const downloadTransactionReport = async (req) => {
     start_date,
     end_date,
     result,
-    `${folderPath}/transaction_report-${createUniqueFileName(
+    `${folderPath}/custom_order_transaction_report-${createUniqueFileName(
       start_date,
       end_date
     )}.xlsx`
