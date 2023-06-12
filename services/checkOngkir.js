@@ -116,7 +116,49 @@ const checkOngkirCod = async (req) => {
   return result;
 };
 
+const checkOngkirCodAdmin = async (req) => {
+  const { transaction_id, weight } = req.body;
+
+  const checkTransaction = await Transaction.findOne({
+    where: { id: transaction_id },
+  });
+
+  if (!checkTransaction) {
+    throw new BadRequestError("Tidak ada transaksi!");
+  }
+
+  const checkUserAddress = await Address.findOne({
+    where: checkTransaction.user_id,
+  });
+
+  const checkCoordinateUser = await Coordinate.findOne({
+    where: { address_id: checkUserAddress.id },
+  });
+
+  if (!checkCoordinateUser) {
+    throw new NotFoundError(`Anda wajib memilih koordinat!`);
+  }
+
+  const checkCoordinateAdmin = await Coordinate.findOne({
+    where: { address_id: 1 },
+  });
+  if (!checkCoordinateAdmin) {
+    throw new NotFoundError(`Admin tidak memiliki coordinate`);
+  }
+
+  const result = calculateCodPrice(
+    weight,
+    checkCoordinateAdmin.lat,
+    checkCoordinateAdmin.lng,
+    checkCoordinateUser.lat,
+    checkCoordinateUser.lng
+  );
+
+  return result;
+};
+
 module.exports = {
   checkOngkir,
   checkOngkirCod,
+  checkOngkirCodAdmin,
 };
