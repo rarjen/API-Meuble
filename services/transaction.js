@@ -241,13 +241,14 @@ const inputResi = async (req) => {
     throw new NotFoundError(`Tidak ada Transaksi dengan id: ${transaction_id}`);
   }
 
-  if (checkTransaction.status !== TRANSACTION.PENDING) {
+  if (checkTransaction.status !== TRANSACTION.PAID) {
     throw new BadRequestError(`Nomer resi tidak dapat diinput!`);
   }
 
   const result = await Transaction.update(
     {
       nomerResi,
+      statusTransaction: STATUS_TRANSACTION.ON_PROCESS,
     },
     { where: { id: transaction_id } }
   );
