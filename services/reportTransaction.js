@@ -5,6 +5,7 @@ const fs = require("fs");
 const path = require("path");
 const folderPath = path.join(__dirname, "../report");
 const { Op } = require("sequelize");
+const { STATUS_TRANSACTION } = require("../utils/enum");
 
 const createTransactionExcel = (
   start_date,
@@ -72,11 +73,11 @@ const createUniqueFileName = (start_date, end_date) => {
 };
 
 const downloadTransactionReport = async (req) => {
-  const { start_date = "2023-05-15", end_date = "2023-05-27" } = req.query;
+  const { start_date, end_date } = req.query;
 
   const result = await Transaction.findAll({
     where: {
-      // status: TRANSACTION.PAID,
+      statusTransaction: STATUS_TRANSACTION.DONE,
       createdAt: {
         [Op.between]: [
           new Date(start_date).setHours(0, 0, 0),
