@@ -8,6 +8,8 @@ const {
   Material,
   Category,
   Image_transaction_custom_order,
+  Coordinate,
+  Address,
 } = require("../models");
 const { TRANSACTION, CUSTOM_ORDER } = require("../utils/enum");
 
@@ -40,6 +42,34 @@ const estimation = (
 
   return estimasiHarga;
 };
+
+function toRadians(degrees) {
+  return degrees * (Math.PI / 180);
+}
+
+function calculateCodPrice(weight, lat1, lon1, lat2, lon2) {
+  const R = 6371; // Radius bumi dalam kilometer
+  const lat1Float = parseFloat(lat1);
+  const lon1Float = parseFloat(lon1);
+  const lat2Float = parseFloat(lat2);
+  const lon2Float = parseFloat(lon2);
+  const dLat = toRadians(lat2Float - lat1Float);
+  const dLon = toRadians(lon2Float - lon1Float);
+
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(toRadians(lat1Float)) *
+      Math.cos(toRadians(lat2Float)) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
+
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  const distance = Math.round(R * c);
+
+  const total = (distance * 500 + Math.round(weight / 1000) * 5000) / 2;
+
+  return total;
+}
 
 const createTransaction = async (req) => {
   const { category_id, payment_id, size_id, material_id, qty, note } = req.body;
@@ -175,7 +205,8 @@ const acceptCustomOrderAdmin = async (req) => {
 
 const updateCustomTransactionAdmin = async (req) => {
   const { transaction_custom_order_id } = req.params;
-  const { courrier_id, total_weight, total, ongkir, grandTotal } = req.body;
+  const { courrier_id, total_weight } = req.body;
+  const user = req.user;
 
   const checkTransaction = await Transaction_custom_order.findOne({
     where: { id: transaction_custom_order_id },
@@ -201,14 +232,44 @@ const updateCustomTransactionAdmin = async (req) => {
     );
   }
 
+  const getAdmin = await User.findOne({
+    where: { id: user.id },
+    include: [
+      {
+        model: Address,
+        as: "address",
+        include: [{ model: Coordinate, as: "coordinate" }],
+      },
+    ],
+  });
+
+  const getUser = await User.findOne({
+    where: { id: checkTransaction.user_id },
+    include: [
+      {
+        model: Address,
+        as: "address",
+        include: [{ model: Coordinate, as: "coordinate" }],
+      },
+    ],
+  });
+
+  const ongkirCost = calculateCodPrice(
+    total_weight,
+    getAdmin.address.coordinate.lat,
+    getAdmin.address.coordinate.lng,
+    getUser.address.coordinate.lat,
+    getUser.address.coordinate.lng
+  );
+
+  const totalPayment = checkTransaction.grandTotal + ongkirCost;
+
   const result = await Transaction_custom_order.update(
     {
       courrier_id,
       total_weight,
-      total,
-      ongkir,
-      grandTotal,
-      statusPayment: TRANSACTION.PENDING,
+      ongkirCost,
+      grandTotal: totalPayment,
     },
     { where: { id: transaction_custom_order_id } }
   );
@@ -241,7 +302,7 @@ const updateStatusPayment = async (req) => {
   });
 
   if (!checkPicture) {
-    throw new BadRequestError(`Tidak dapat update status pembayaran gambar!`);
+    throw new BadRequestError(`Tidak dapat update status pembayaran!`);
   }
 
   const result = await Transaction_custom_order.update(
