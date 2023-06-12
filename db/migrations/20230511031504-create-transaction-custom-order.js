@@ -47,6 +47,9 @@ module.exports = {
       ongkir: {
         type: Sequelize.DOUBLE,
       },
+      ongkosTukang: {
+        type: Sequelize.DOUBLE,
+      },
       grandTotal: {
         type: Sequelize.DOUBLE,
       },
