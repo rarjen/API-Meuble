@@ -39,6 +39,7 @@ const VARIANT = {
 };
 
 const STATUS_TRANSACTION = {
+  ON_PROCESS: "ON_PROCESS",
   DONE: "DONE",
 };
 
