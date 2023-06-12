@@ -3017,10 +3017,16 @@ paths:
                     properties:
                       id:
                         type: integer
-                      category_id:
-                        type: integer
                       material:
                         type: string
+                      panjang:
+                        type: integer
+                      lebar:
+                        type: integer
+                      tebal:
+                        type: integer
+                      harga:
+                        type: integer
                       status:
                         type: string
                       updatedAt:
@@ -3032,26 +3038,32 @@ paths:
                     status: true
                     message: Success Create Material!
                     data:
-                      id: 8
-                      category_id: 1
-                      material: Kayu Jati
+                      id: 4
+                      material: Kayu Mahoni
+                      panjang: 200
+                      lebar: 20
+                      tebal: 2
+                      harga: 24000
                       status: ACTIVE
-                      updatedAt: "2023-05-31T01:44:11.272Z"
-                      createdAt: "2023-05-31T01:44:11.272Z"
+                      updatedAt: "2023-06-12T13:36:12.723Z"
+                      createdAt: "2023-06-12T13:36:12.723Z"
               examples:
                 Success Create Material:
                   value:
                     status: true
                     message: Success Create Material!
                     data:
-                      id: 8
-                      category_id: 1
-                      material: Kayu Jati
+                      id: 4
+                      material: Kayu Mahoni
+                      panjang: 200
+                      lebar: 20
+                      tebal: 2
+                      harga: 24000
                       status: ACTIVE
-                      updatedAt: "2023-05-31T01:44:11.272Z"
-                      createdAt: "2023-05-31T01:44:11.272Z"
-        "404":
-          description: Not Found
+                      updatedAt: "2023-06-12T13:36:12.723Z"
+                      createdAt: "2023-06-12T13:36:12.723Z"
+        "400":
+          description: Bad Request
           content:
             application/json:
               schema:
@@ -3063,9 +3075,9 @@ paths:
                   Example 1:
                     message: "Tidak ada cetegory dengan id: 999"
               examples:
-                Not Found:
+                Duplicate:
                   value:
-                    message: "Tidak ada cetegory dengan id: 999"
+                    message: Material sudah ada!
         "":
           content:
             application/json:
@@ -3079,19 +3091,31 @@ paths:
             schema:
               type: object
               properties:
-                category_id:
-                  type: integer
                 material:
                   type: string
+                panjang:
+                  type: integer
+                lebar:
+                  type: integer
+                tebal:
+                  type: integer
+                harga:
+                  type: integer
               x-examples:
                 Example 1:
-                  category_id: 10
-                  material: Plastik
+                  material: Kayu Mahoni
+                  panjang: 200
+                  lebar: 20
+                  tebal: 2
+                  harga: 24000
             examples:
               Create Material:
                 value:
-                  category_id: 10
-                  material: Plastik
+                  material: Kayu Mahoni
+                  panjang: 200
+                  lebar: 20
+                  tebal: 2
+                  harga: 24000
         description: ""
       security:
         - bearerAuth: []
@@ -3465,227 +3489,6 @@ paths:
         - bearerAuth: []
       tags:
         - Material
-  "/material/material-categories/{category_id}":
-    parameters:
-      - schema:
-          type: string
-        name: category_id
-        in: path
-        required: true
-        description: Category Id
-    get:
-      summary: Get Material By Category Id
-      operationId: get-one-material
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: boolean
-                  message:
-                    type: string
-                  data:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        id:
-                          type: integer
-                        category_id:
-                          type: integer
-                        material:
-                          type: string
-                        status:
-                          type: string
-                        createdAt:
-                          type: string
-                        updatedAt:
-                          type: string
-                        category:
-                          type: object
-                          properties:
-                            id:
-                              type: integer
-                            category:
-                              type: string
-                            createdAt:
-                              type: string
-                            updatedAt:
-                              type: string
-                x-examples:
-                  Example 1:
-                    status: true
-                    message: Success Show Material!
-                    data:
-                      - id: 3
-                        category_id: 2
-                        material: Kayu
-                        status: ACTIVE
-                        createdAt: "2023-05-30T02:02:39.000Z"
-                        updatedAt: "2023-05-30T02:02:39.000Z"
-                        category:
-                          id: 2
-                          category: Kursi
-                          createdAt: "2023-05-30T01:39:49.000Z"
-                          updatedAt: "2023-05-30T01:39:49.000Z"
-                      - id: 4
-                        category_id: 2
-                        material: Busa
-                        status: ACTIVE
-                        createdAt: "2023-05-30T02:02:42.000Z"
-                        updatedAt: "2023-05-30T02:02:42.000Z"
-                        category:
-                          id: 2
-                          category: Kursi
-                          createdAt: "2023-05-30T01:39:49.000Z"
-                          updatedAt: "2023-05-30T01:39:49.000Z"
-              examples:
-                Success:
-                  value:
-                    status: true
-                    message: Success Show Material!
-                    data:
-                      - id: 3
-                        category_id: 2
-                        material: Kayu
-                        status: ACTIVE
-                        createdAt: "2023-05-30T02:02:39.000Z"
-                        updatedAt: "2023-05-30T02:02:39.000Z"
-                        category:
-                          id: 2
-                          category: Kursi
-                          createdAt: "2023-05-30T01:39:49.000Z"
-                          updatedAt: "2023-05-30T01:39:49.000Z"
-                      - id: 4
-                        category_id: 2
-                        material: Busa
-                        status: ACTIVE
-                        createdAt: "2023-05-30T02:02:42.000Z"
-                        updatedAt: "2023-05-30T02:02:42.000Z"
-                        category:
-                          id: 2
-                          category: Kursi
-                          createdAt: "2023-05-30T01:39:49.000Z"
-                          updatedAt: "2023-05-30T01:39:49.000Z"
-        "404":
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                x-examples:
-                  Example 1:
-                    message: "Tidak ada size dengan kategori id: 100"
-              examples:
-                Not Found:
-                  value:
-                    message: "Tidak ada size dengan kategori id: 100"
-        "":
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: boolean
-                  message:
-                    type: string
-                  data:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        id:
-                          type: integer
-                        category_id:
-                          type: integer
-                        material:
-                          type: string
-                        status:
-                          type: string
-                        createdAt:
-                          type: string
-                        updatedAt:
-                          type: string
-                        category:
-                          type: object
-                          properties:
-                            id:
-                              type: integer
-                            category:
-                              type: string
-                            createdAt:
-                              type: string
-                            updatedAt:
-                              type: string
-                x-examples:
-                  Example 1:
-                    status: true
-                    message: Success Delete Material!
-                    data:
-                      - id: 3
-                        category_id: 2
-                        material: Kayu
-                        status: ACTIVE
-                        createdAt: "2023-05-30T02:02:39.000Z"
-                        updatedAt: "2023-05-30T02:02:39.000Z"
-                        category:
-                          id: 2
-                          category: Kursi
-                          createdAt: "2023-05-30T01:39:49.000Z"
-                          updatedAt: "2023-05-30T01:39:49.000Z"
-                      - id: 4
-                        category_id: 2
-                        material: Busa
-                        status: ACTIVE
-                        createdAt: "2023-05-30T02:02:42.000Z"
-                        updatedAt: "2023-05-30T02:02:42.000Z"
-                        category:
-                          id: 2
-                          category: Kursi
-                          createdAt: "2023-05-30T01:39:49.000Z"
-                          updatedAt: "2023-05-30T01:39:49.000Z"
-              examples:
-                Success:
-                  value:
-                    status: true
-                    message: Success Delete Material!
-                    data:
-                      - id: 3
-                        category_id: 2
-                        material: Kayu
-                        status: ACTIVE
-                        createdAt: "2023-05-30T02:02:39.000Z"
-                        updatedAt: "2023-05-30T02:02:39.000Z"
-                        category:
-                          id: 2
-                          category: Kursi
-                          createdAt: "2023-05-30T01:39:49.000Z"
-                          updatedAt: "2023-05-30T01:39:49.000Z"
-                      - id: 4
-                        category_id: 2
-                        material: Busa
-                        status: ACTIVE
-                        createdAt: "2023-05-30T02:02:42.000Z"
-                        updatedAt: "2023-05-30T02:02:42.000Z"
-                        category:
-                          id: 2
-                          category: Kursi
-                          createdAt: "2023-05-30T01:39:49.000Z"
-                          updatedAt: "2023-05-30T01:39:49.000Z"
-          description: OK
-      description: "Get Material By Id "
-      security:
-        - bearerAuth: []
-      tags:
-        - Material
   "/material/status/{material_id}":
     parameters:
       - schema:
@@ -3903,10 +3706,12 @@ paths:
                     properties:
                       id:
                         type: integer
-                      category_id:
+                      panjang:
                         type: integer
-                      size:
-                        type: string
+                      tinggi:
+                        type: integer
+                      lebar:
+                        type: integer
                       status:
                         type: string
                       updatedAt:
@@ -3918,24 +3723,26 @@ paths:
                     status: true
                     message: Success Create Size!
                     data:
-                      id: 7
-                      category_id: 3
-                      size: 30cm x 20cm x 44cm
+                      id: 2
+                      panjang: 80
+                      tinggi: 75
+                      lebar: 60
                       status: ACTIVE
-                      updatedAt: "2023-05-31T02:19:10.124Z"
-                      createdAt: "2023-05-31T02:19:10.124Z"
+                      updatedAt: "2023-06-12T13:29:09.353Z"
+                      createdAt: "2023-06-12T13:29:09.353Z"
               examples:
                 Success:
                   value:
                     status: true
                     message: Success Create Size!
                     data:
-                      id: 7
-                      category_id: 3
-                      size: 30cm x 20cm x 44cm
+                      id: 2
+                      panjang: 80
+                      tinggi: 75
+                      lebar: 60
                       status: ACTIVE
-                      updatedAt: "2023-05-31T02:19:10.124Z"
-                      createdAt: "2023-05-31T02:19:10.124Z"
+                      updatedAt: "2023-06-12T13:29:09.353Z"
+                      createdAt: "2023-06-12T13:29:09.353Z"
         "400":
           description: Bad Request
           content:
@@ -3949,9 +3756,9 @@ paths:
                   Example 1:
                     message: Size dengan category id 3 sudah ada!
               examples:
-                Not Found:
+                Duplicate:
                   value:
-                    message: Size dengan category id 3 sudah ada!
+                    message: Size sudah ada!
       tags:
         - Size
       description: Create Size By Admin
@@ -3963,20 +3770,24 @@ paths:
             schema:
               type: object
               properties:
-                category_id:
+                panjang:
                   type: integer
-                size:
-                  type: string
+                lebar:
+                  type: integer
+                tinggi:
+                  type: integer
               x-examples:
                 Example 1:
-                  category_id: 3
-                  size: 60cm x 41cm x 89cm
+                  panjang: 80
+                  lebar: 60
+                  tinggi: 75
             examples:
               Create Size:
                 value:
-                  category_id: 3
-                  size: 60cm x 41cm x 89cm
-        description: ""
+                  panjang: 80
+                  lebar: 60
+                  tinggi: 75
+        description: All integer are in centimeters
   /size/all-sizes:
     parameters: []
     get:
@@ -4249,90 +4060,6 @@ paths:
       tags:
         - Size
       description: Get Size By Id
-      security:
-        - bearerAuth: []
-  "/size/size-categories/{category_id}":
-    parameters:
-      - schema:
-          type: string
-        name: category_id
-        in: path
-        required: true
-        description: Category Id
-    get:
-      summary: Get Size By Category Id
-      operationId: get-one-size
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: boolean
-                  message:
-                    type: string
-                  data:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        id:
-                          type: integer
-                        category_id:
-                          type: integer
-                        size:
-                          type: string
-                        status:
-                          type: string
-                        createdAt:
-                          type: string
-                        updatedAt:
-                          type: string
-                x-examples:
-                  Example 1:
-                    status: true
-                    message: Success Get Size!
-                    data:
-                      - id: 2
-                        category_id: 1
-                        size: 60cm x 40cm x 38cm
-                        status: ACTIVE
-                        createdAt: "2023-05-30T02:08:36.000Z"
-                        updatedAt: "2023-05-30T02:08:36.000Z"
-              examples:
-                Success:
-                  value:
-                    status: true
-                    message: Success Get Size!
-                    data:
-                      - id: 2
-                        category_id: 1
-                        size: 60cm x 40cm x 38cm
-                        status: ACTIVE
-                        createdAt: "2023-05-30T02:08:36.000Z"
-                        updatedAt: "2023-05-30T02:08:36.000Z"
-        "404":
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                x-examples:
-                  Example 1:
-                    message: "Tidak ada size dengan id: 99"
-              examples:
-                Example 1:
-                  value:
-                    message: "Tidak ada size dengan kategori id: 99"
-      tags:
-        - Size
-      description: Get Size By Category Id
       security:
         - bearerAuth: []
   "/size/status/{size_id}":
