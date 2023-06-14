@@ -1,6 +1,6 @@
 const { Address, Courrier, Coordinate, User } = require("../models");
-const { NotFoundError } = require("../errors");
-const { API_KEY_COST } = process.env;
+const { NotFoundError, BadRequestError } = require("../errors");
+const { API_KEY_COST, EMAIL_ADMIN } = process.env;
 const fetch = (...args) =>
   import("node-fetch").then(({ default: fetch }) => fetch(...args));
 
@@ -87,30 +87,41 @@ const checkOngkir = async (req) => {
 
 const checkOngkirCod = async (req) => {
   const user = req.user;
-  const { weight } = req.body;
+  const { weight, courrier_id } = req.body;
 
-  const checkUserAddress = await User.findOne({ where: { id: user.id } });
-
-  const checkCoordinateUser = await Coordinate.findOne({
-    where: { address_id: checkUserAddress.address_id },
-  });
-  if (!checkCoordinateUser) {
-    throw new NotFoundError(`Anda wajib memilih koordinat!`);
+  const checkCourrier = await Courrier.findOne({ where: { id: courrier_id } });
+  if (!checkCourrier || checkCourrier.courrier !== "Internal Delivery") {
+    throw new BadRequestError("Error kurrir!");
   }
 
-  const checkCoordinateAdmin = await Coordinate.findOne({
-    where: { address_id: 1 },
+  const getUser = await User.findOne({
+    where: { email: user.email },
+    include: [
+      {
+        model: Address,
+        as: "address",
+        include: [{ model: Coordinate, as: "coordinate" }],
+      },
+    ],
   });
-  if (!checkCoordinateAdmin) {
-    throw new NotFoundError(`Admin tidak memiliki coordinate`);
-  }
+
+  const getAdmin = await User.findOne({
+    where: { email: EMAIL_ADMIN },
+    include: [
+      {
+        model: Address,
+        as: "address",
+        include: [{ model: Coordinate, as: "coordinate" }],
+      },
+    ],
+  });
 
   const result = calculateCodPrice(
     weight,
-    checkCoordinateAdmin.lat,
-    checkCoordinateAdmin.lng,
-    checkCoordinateUser.lat,
-    checkCoordinateUser.lng
+    getAdmin.address.coordinate.lat,
+    getAdmin.address.coordinate.lng,
+    getUser.address.coordinate.lat,
+    getUser.address.coordinate.lng
   );
 
   return result;
