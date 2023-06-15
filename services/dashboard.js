@@ -1,8 +1,20 @@
 const { Product, Transaction } = require("../models");
-const { STATUS_TRANSACTION } = require("../utils/enum");
+const { STATUS_TRANSACTION, TRANSACTION } = require("../utils/enum");
 const { Sequelize } = require("sequelize");
 
 const getData = async (req) => {
+  const currentDate = new Date();
+  const startOfMonth = new Date(
+    currentDate.getFullYear(),
+    currentDate.getMonth(),
+    1
+  );
+  const endOfMonth = new Date(
+    currentDate.getFullYear(),
+    currentDate.getMonth() + 1,
+    0
+  );
+
   const getProductTotal = await Product.count();
 
   const getProductSaled = await Transaction.count({
@@ -32,30 +44,32 @@ const getData = async (req) => {
     where: { statusTransaction: STATUS_TRANSACTION.ON_PROCESS },
   });
 
-  //   let succes_sale_array = [];
+  const successOrderThisMonth = await Transaction.count({
+    where: {
+      statusTransaction: STATUS_TRANSACTION.DONE,
+      createdAt: {
+        [Sequelize.Op.between]: [startOfMonth, endOfMonth], // Menambahkan kondisi tanggal
+      },
+    },
+  });
 
-  //   const success_sale = await Transaction.findAll({
-  //     attributes: [
-  //       [
-  //         Sequelize.fn("date_trunc", "month", Sequelize.col("createdAt")),
-  //         "month",
-  //       ],
-  //       [Sequelize.fn("count", Sequelize.col("id")), "count"],
-  //     ],
-  //     where: { statusTransaction: STATUS_TRANSACTION.DONE }, // Ganti dengan status yang sesuai
-  //     group: [Sequelize.fn("date_trunc", "month", Sequelize.col("createdAt"))],
-  //     raw: true,
-  //   });
+  const failOrderThisMonth = await Transaction.count({
+    where: {
+      status: TRANSACTION.CANCELLED,
+      createdAt: {
+        [Sequelize.Op.between]: [startOfMonth, endOfMonth], // Menambahkan kondisi tanggal
+      },
+    },
+  });
 
-  //   success_sale.forEach((row) => {
-  //     const month = new Date(row.month).toLocaleString({
-  //       month: "long",
-  //       year: "numeric",
-  //     });
-  //     console.log(`${month}: ${row.count}`);
-  //     succes_sale_array.push({ month: month, total: row.count });
-  //     console.log(row);
-  //   });
+  const totalSales = await Transaction.sum("grandTotal", {
+    where: {
+      statusTransaction: STATUS_TRANSACTION.DONE,
+      createdAt: {
+        [Sequelize.Op.between]: [startOfMonth, endOfMonth], // Menambahkan kondisi tanggal
+      },
+    },
+  });
 
   return {
     product_total: getProductTotal,
@@ -63,8 +77,9 @@ const getData = async (req) => {
     ranking_product: topThreeSoldProducts,
     total_order: totalOrder,
     order_on_process: onProcess,
-    // success_sale: succes_sale_array,
-    // fail_sale: "",
+    success_order_this_month: successOrderThisMonth,
+    failed_order_this_month: failOrderThisMonth,
+    totalSales: totalSales,
   };
 };
 

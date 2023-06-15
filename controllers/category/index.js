@@ -22,7 +22,7 @@ const create = async (req, res, next) => {
 
 const index = async (req, res, next) => {
   try {
-    const result = await getAllCategories();
+    const result = await getAllCategories(req);
 
     return res.status(StatusCodes.OK).json({
       status: true,

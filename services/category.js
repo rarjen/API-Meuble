@@ -15,10 +15,23 @@ const createCategory = async (req) => {
   return result;
 };
 
-const getAllCategories = async () => {
-  const result = await Category.findAll({});
+const getAllCategories = async (req) => {
+  const { page = 1, limit = 10 } = req.query;
+  const pageNumber = parseInt(page);
+  const limitPage = parseInt(limit);
+  const offset = pageNumber * limitPage - limitPage;
+  const allCategory = await Category.count();
+  const totalPage = Math.ceil(allCategory / limit);
 
-  return result;
+  const result = await Category.findAll({ offset: offset, limit: limitPage });
+
+  return {
+    data: result,
+    pageNumber: pageNumber,
+    limitPage: limitPage,
+    totalRows: allCategory,
+    totalPage: totalPage,
+  };
 };
 
 const getOneCategory = async (req) => {
