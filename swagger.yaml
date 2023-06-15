@@ -11777,7 +11777,7 @@ paths:
   /productRating/create:
     parameters: []
     post:
-      summary: ""
+      summary: Create Rating Product
       operationId: post-productRating-create
       responses:
         "200":
@@ -11881,6 +11881,93 @@ paths:
       responses:
         "200":
           description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      product_total:
+                        type: integer
+                      product_saled:
+                        type: integer
+                      ranking_product:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            product_id:
+                              type: integer
+                            qty:
+                              type: integer
+                            product:
+                              type: object
+                              properties:
+                                id:
+                                  type: integer
+                                category_id:
+                                  type: integer
+                                brand:
+                                  type: string
+                                nama:
+                                  type: string
+                                weight:
+                                  type: integer
+                                deskripsi:
+                                  type: string
+                                stock:
+                                  type: integer
+                                harga:
+                                  type: integer
+                                status:
+                                  type: string
+                                createdAt:
+                                  type: string
+                                updatedAt:
+                                  type: string
+                      total_order:
+                        type: integer
+                      order_on_process:
+                        type: integer
+                      success_order_this_month:
+                        type: integer
+                      failed_order_this_month:
+                        type: integer
+                      totalSales:
+                        type: integer
+                x-examples:
+                  Example 1:
+                    status: true
+                    message: Success get data
+                    data:
+                      product_total: 10
+                      product_saled: 1
+                      ranking_product:
+                        - product_id: 1
+                          qty: 1
+                          product:
+                            id: 1
+                            category_id: 2
+                            brand: Lemariku
+                            nama: Lemari Penyimpanan Kabinet 2
+                            weight: 12000
+                            deskripsi: Lemari Kekinian
+                            stock: 150
+                            harga: 365000
+                            status: ACTIVE
+                            createdAt: "2023-06-14T01:57:49.000Z"
+                            updatedAt: "2023-06-14T01:57:49.000Z"
+                      total_order: 1
+                      order_on_process: 0
+                      success_order_this_month: 1
+                      failed_order_this_month: 0
+                      totalSales: 400000
         "":
           content:
             application/json:
