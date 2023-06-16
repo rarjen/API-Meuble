@@ -3,6 +3,7 @@ const {
   getAllCategories,
   getOneCategory,
   editCategory,
+  deleteCategory,
 } = require("../../services/category");
 const { StatusCodes } = require("http-status-codes");
 
@@ -62,4 +63,18 @@ const update = async (req, res, next) => {
   }
 };
 
-module.exports = { create, index, show, update };
+const destroy = async (req, res, next) => {
+  try {
+    const result = await deleteCategory(req);
+
+    return res.status(StatusCodes.OK).json({
+      status: true,
+      message: "Success delete category",
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { create, index, show, update, destroy };

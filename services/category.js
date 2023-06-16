@@ -1,16 +1,11 @@
 const { Category } = require("../models");
-const { BadRequestError, NotFoundError } = require("../errors");
-const { Op } = require("sequelize");
+const { NotFoundError } = require("../errors");
+const { CATEGORY } = require("../utils/enum");
 
 const createCategory = async (req) => {
   const { category } = req.body;
 
-  const checkCategory = await Category.findOne({ where: { category } });
-  if (checkCategory) {
-    throw new BadRequestError("Category sudah ada!");
-  }
-
-  const result = await Category.create({ category });
+  const result = await Category.create({ category, status: CATEGORY.ACTIVE });
 
   return result;
 };
@@ -23,7 +18,11 @@ const getAllCategories = async (req) => {
   const allCategory = await Category.count();
   const totalPage = Math.ceil(allCategory / limit);
 
-  const result = await Category.findAll({ offset: offset, limit: limitPage });
+  const result = await Category.findAll({
+    offset: offset,
+    limit: limitPage,
+    where: { status: CATEGORY.ACTIVE },
+  });
 
   return {
     data: result,
@@ -37,7 +36,9 @@ const getAllCategories = async (req) => {
 const getOneCategory = async (req) => {
   const { category_id } = req.params;
 
-  const result = await Category.findOne({ where: { id: category_id } });
+  const result = await Category.findOne({
+    where: { id: category_id, status: CATEGORY.ACTIVE },
+  });
 
   if (!result) {
     throw new NotFoundError(`Tidak ada category dengan id: ${category_id}`);
@@ -55,17 +56,24 @@ const editCategory = async (req) => {
     throw new NotFoundError(`Tidak ada Category dengan id: ${category_id}`);
   }
 
-  const checkDuplicate = await Category.findOne({
-    where: { category },
-    id: { [Op.ne]: category_id },
-  });
+  const result = await Category.update(
+    { category },
+    { where: { id: category_id } }
+  );
 
-  if (checkDuplicate) {
-    throw new BadRequestError(`Category sudah ada!`);
+  return result;
+};
+
+const deleteCategory = async (req) => {
+  const { category_id } = req.params;
+
+  const checkCategory = await Category.findOne({ where: { id: category_id } });
+  if (!checkCategory || checkCategory.status === CATEGORY.INACTIVE) {
+    throw new NotFoundError("Category tidak ada!");
   }
 
   const result = await Category.update(
-    { category },
+    { status: CATEGORY.INACTIVE },
     { where: { id: category_id } }
   );
 
@@ -77,4 +85,5 @@ module.exports = {
   getAllCategories,
   getOneCategory,
   editCategory,
+  deleteCategory,
 };

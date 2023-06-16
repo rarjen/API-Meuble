@@ -13,6 +13,11 @@ const PAYMENT = {
   INACTIVE: "INACTIVE",
 };
 
+const CATEGORY = {
+  ACTIVE: "ACTIVE",
+  INACTIVE: "INACTIVE",
+};
+
 const ROLES = {
   OWNER: "OWNER",
   ADMIN: "ADMIN",
@@ -52,4 +57,5 @@ module.exports = {
   VARIANT,
   PAYMENT,
   STATUS_TRANSACTION,
+  CATEGORY,
 };
