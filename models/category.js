@@ -22,6 +22,7 @@ module.exports = (sequelize, DataTypes) => {
   Category.init(
     {
       category: DataTypes.STRING,
+      status: DataTypes.STRING,
     },
     {
       sequelize,
