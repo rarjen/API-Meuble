@@ -68,7 +68,7 @@ const deleteCategory = async (req) => {
   const { category_id } = req.params;
 
   const checkCategory = await Category.findOne({ where: { id: category_id } });
-  if (!checkCategory) {
+  if (!checkCategory || checkCategory.status === CATEGORY.INACTIVE) {
     throw new NotFoundError("Category tidak ada!");
   }
 
