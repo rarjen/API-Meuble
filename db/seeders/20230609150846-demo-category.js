@@ -7,16 +7,19 @@ module.exports = {
       [
         {
           category: "Meja",
+          status: "ACTIVE",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
           category: "Kursi",
+          status: "ACTIVE",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
           category: "Lemari",
+          status: "ACTIVE",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
