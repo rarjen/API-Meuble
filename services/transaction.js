@@ -295,6 +295,7 @@ const updateDone = async (req) => {
 
   const checkTransaction = await Transaction.findOne({
     where: { id: transaction_id },
+    include: { model: Product, as: "product" },
   });
 
   if (!checkTransaction) {
@@ -309,11 +310,19 @@ const updateDone = async (req) => {
     throw new BadRequestError(`Tidak dapat melakukan update!`);
   }
 
+  let total = checkTransaction.product.total_sold + checkTransaction.qty;
+
   const result = await Transaction.update(
     {
       statusTransaction: STATUS_TRANSACTION.DONE,
     },
     { where: { id: transaction_id } }
+  );
+  await Product.update(
+    {
+      total_sold: total,
+    },
+    { where: { id: checkTransaction.product_id } }
   );
 
   return result;
