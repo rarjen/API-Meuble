@@ -3,13 +3,14 @@ const {
   Category,
   Product_img,
   Thumbnail_product_img,
+  Transaction,
 } = require("../models");
 const { BadRequestError, NotFoundError } = require("../errors");
-const { PRODUCT } = require("../utils/enum");
-const { Op, fn } = require("sequelize");
+const { PRODUCT, STATUS_TRANSACTION } = require("../utils/enum");
+const { Op, fn, Sequelize } = require("sequelize");
 
 const createProduct = async (req) => {
-  const { category_id, brand, nama, deskripsi, stock, harga, weight, status } =
+  const { category_id, brand, nama, deskripsi, stock, harga, weight } =
     req.body;
 
   const result = await Product.create({
@@ -21,6 +22,7 @@ const createProduct = async (req) => {
     harga,
     weight,
     status: PRODUCT.ACTIVE,
+    total_sold: 0,
   });
 
   return result;
