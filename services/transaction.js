@@ -200,6 +200,83 @@ const readTransaction = async (req) => {
   };
 };
 
+const showTransaction = async (req) => {
+  const { transaction_id } = req.params;
+
+  const checkTransaction = await Transaction.findOne({
+    where: { id: transaction_id },
+  });
+
+  if (!checkTransaction) {
+    throw new NotFoundError("Transaksi tidak ada!");
+  }
+
+  const result = await Transaction.findOne({
+    where: { id: transaction_id },
+    include: [
+      {
+        model: User,
+        as: "user",
+        attributes: ["first_name", "last_name", "email"],
+        include: [
+          {
+            model: Role,
+            as: "role",
+            attributes: ["role"],
+          },
+          {
+            model: Address,
+            as: "address",
+            attributes: ["address"],
+            include: [
+              {
+                model: City,
+                as: "city",
+                attributes: ["city_name"],
+              },
+              {
+                model: Province,
+                as: "province",
+                attributes: ["province"],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        model: Product,
+        as: "product",
+        include: [
+          {
+            model: Category,
+            as: "category",
+            attributes: ["category"],
+          },
+          {
+            model: Thumbnail_product_img,
+            as: "thumbnail",
+            attributes: ["img_url"],
+          },
+        ],
+      },
+      {
+        model: Courrier,
+        as: "courrier",
+      },
+      {
+        model: Payment,
+        as: "payment",
+      },
+      {
+        model: Image_transaction,
+        as: "img_transaction",
+      },
+    ],
+  });
+
+  return result;
+};
+
 const readTransactionUser = async (req) => {
   const { status } = req.query;
   const user = req.user;
@@ -371,4 +448,5 @@ module.exports = {
   cancelTransaction,
   updateTransactionStatus,
   updateDone,
+  showTransaction,
 };
