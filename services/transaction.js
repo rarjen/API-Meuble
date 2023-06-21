@@ -7,6 +7,10 @@ const {
   Image_transaction,
   Thumbnail_product_img,
   Address,
+  City,
+  Province,
+  Role,
+  Category,
 } = require("../models");
 const { NotFoundError, BadRequestError } = require("../errors");
 const { TRANSACTION, STATUS_TRANSACTION } = require("../utils/enum");
@@ -129,14 +133,45 @@ const readTransaction = async (req) => {
       {
         model: User,
         as: "user",
+        attributes: ["first_name", "last_name", "email"],
+        include: [
+          {
+            model: Role,
+            as: "role",
+            attributes: ["role"],
+          },
+          {
+            model: Address,
+            as: "address",
+            attributes: ["address"],
+            include: [
+              {
+                model: City,
+                as: "city",
+                attributes: ["city_name"],
+              },
+              {
+                model: Province,
+                as: "province",
+                attributes: ["province"],
+              },
+            ],
+          },
+        ],
       },
       {
         model: Product,
         as: "product",
         include: [
           {
+            model: Category,
+            as: "category",
+            attributes: ["category"],
+          },
+          {
             model: Thumbnail_product_img,
             as: "thumbnail",
+            attributes: ["img_url"],
           },
         ],
       },
