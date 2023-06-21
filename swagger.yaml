@@ -7941,6 +7941,8 @@ paths:
       tags:
         - Transaction
       description: Get All Transaction By Buyer Id
+      security:
+        - bearerAuth: []
   "/transaction/cancel/{transaction_id}":
     parameters:
       - schema:
