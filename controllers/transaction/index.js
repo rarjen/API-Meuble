@@ -6,6 +6,7 @@ const {
   updateTransactionStatus,
   inputResi,
   updateDone,
+  showTransaction,
 } = require("../../services/transaction");
 const { StatusCodes } = require("http-status-codes");
 
@@ -107,4 +108,27 @@ const done = async (req, res, next) => {
   }
 };
 
-module.exports = { create, indexAdmin, indexUser, cancel, update, resi, done };
+const show = async (req, res, next) => {
+  try {
+    const result = await showTransaction(req);
+
+    return res.status(StatusCodes.OK).json({
+      status: true,
+      message: "Success show transaction!",
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = {
+  create,
+  indexAdmin,
+  indexUser,
+  cancel,
+  update,
+  resi,
+  done,
+  show,
+};
