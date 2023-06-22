@@ -1,8 +1,9 @@
-const { User, Role } = require("../models");
+const { User, Role, Avatar } = require("../models");
 const { BadRequestError } = require("../errors");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Validator = require("fastest-validator");
+const avatar = require("../models/avatar");
 const v = new Validator();
 const { JWT_SECRET_KEY } = process.env;
 
@@ -78,6 +79,10 @@ const login = async (req) => {
         model: Role,
         as: "role",
       },
+      {
+        model: Avatar,
+        as: "avatar",
+      },
     ],
   });
 
@@ -91,13 +96,20 @@ const login = async (req) => {
     throw new BadRequestError("Email atau password salah");
   }
 
-  const payload = {
+  let payload = {
     id: user.id,
     first_name: user.first_name,
     last_name: user.last_name,
     email: user.email,
     role: user.role.role,
   };
+
+  if (user.avatar?.img_url) {
+    payload = {
+      ...payload,
+      avatar: user.avatar.img_url,
+    };
+  }
 
   const token = jwt.sign(payload, JWT_SECRET_KEY);
 
