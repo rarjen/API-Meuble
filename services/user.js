@@ -5,6 +5,7 @@ const {
   City,
   Province,
   Coordinate,
+  Avatar,
 } = require("../models");
 const { BadRequestError } = require("../errors");
 
@@ -81,6 +82,11 @@ const getAllUser = async (req) => {
           },
         ],
       },
+      {
+        model: Avatar,
+        as: "avatar",
+        attributes: ["img_url"],
+      },
     ],
   });
 
@@ -97,5 +103,3 @@ module.exports = {
   getAllUser,
   updateBio,
 };
-
-//testing
