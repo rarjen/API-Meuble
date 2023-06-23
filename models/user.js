@@ -27,6 +27,11 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "user_id",
         as: "product_rating",
       });
+
+      User.hasOne(models.Avatar, {
+        foreignKey: "user_id",
+        as: "avatar",
+      });
     }
   }
   User.init(

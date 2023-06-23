@@ -6,8 +6,8 @@ const {
   Transaction,
 } = require("../models");
 const { BadRequestError, NotFoundError } = require("../errors");
-const { PRODUCT, STATUS_TRANSACTION } = require("../utils/enum");
-const { Op, fn, Sequelize } = require("sequelize");
+const { PRODUCT } = require("../utils/enum");
+const { Op, fn } = require("sequelize");
 
 const createProduct = async (req) => {
   const { category_id, brand, nama, deskripsi, stock, harga, weight } =
