@@ -154,7 +154,9 @@ const getAllProductsByAdmin = async (req) => {
   const pageNumber = parseInt(page);
   const limitPage = parseInt(limit);
   const offset = pageNumber * limitPage - limitPage;
-  const allProducts = await Product.count();
+  const allProducts = await Product.count({
+    where: { status: PRODUCT.ACTIVE },
+  });
   const totalPage = Math.ceil(allProducts / limit);
 
   const result = await Product.findAll({
