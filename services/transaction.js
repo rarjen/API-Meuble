@@ -13,8 +13,9 @@ const {
   Category,
 } = require("../models");
 const { NotFoundError, BadRequestError } = require("../errors");
-const { TRANSACTION, STATUS_TRANSACTION } = require("../utils/enum");
+const { TRANSACTION, STATUS_TRANSACTION, PRODUCT } = require("../utils/enum");
 const { Op } = require("sequelize");
+const BadRequest = require("../errors/bad-request");
 
 const generateInvoiceNumber = () => {
   const timestamp = Date.now().toString();
@@ -45,6 +46,10 @@ const createTransaction = async (req) => {
 
   if (!checkProduct) {
     throw new NotFoundError(`Tidak ada product dengan id: ${product_id}`);
+  }
+
+  if (checkProduct.stock === 0) {
+    throw new BadRequest("Stock habis!");
   }
 
   const checkPayment = await Payment.findOne({
@@ -122,8 +127,10 @@ const readTransaction = async (req) => {
   const pageNumber = parseInt(page);
   const limitPage = parseInt(limit);
   const offset = pageNumber * limitPage - limitPage;
-  const allProducts = await Product.count();
-  const totalPage = Math.ceil(allProducts / limit);
+  const allTransaction = await Transaction.count({
+    where: { status },
+  });
+  const totalPage = Math.ceil(allTransaction / limit);
 
   const result = await Transaction.findAll({
     offset: offset,
@@ -195,7 +202,7 @@ const readTransaction = async (req) => {
     data: result,
     pageNumber: pageNumber,
     limitPage: limitPage,
-    totalRows: allProducts,
+    totalRows: allTransaction,
     totalPage: totalPage,
   };
 };
@@ -394,6 +401,16 @@ const updateTransactionStatus = async (req) => {
 
   let total = checkProduct.stock - checkTransaction.qty;
 
+  if (total === 0) {
+    await Product.update(
+      {
+        stock: total,
+        status: PRODUCT.INACTIVE,
+      },
+      { where: { id: checkTransaction.product_id } }
+    );
+  }
+
   await Product.update(
     { stock: total },
     { where: { id: checkTransaction.product_id } }
@@ -430,6 +447,7 @@ const updateDone = async (req) => {
     },
     { where: { id: transaction_id } }
   );
+
   await Product.update(
     {
       total_sold: total,
