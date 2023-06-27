@@ -12491,6 +12491,462 @@ paths:
         in: path
         required: true
         description: Transaction id
+  /sale:
+    get:
+      summary: Get Success Transaction
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        user_id:
+                          type: integer
+                        invoice_number:
+                          type: string
+                        product_id:
+                          type: integer
+                        qty:
+                          type: integer
+                        note:
+                          type: string
+                        payment_id:
+                          type: integer
+                        courrier_id:
+                          type: integer
+                        service:
+                          type: string
+                        total_weight:
+                          type: integer
+                        total:
+                          type: integer
+                        ongkir:
+                          type: integer
+                        grandTotal:
+                          type: integer
+                        nomerResi:
+                          type: string
+                        status:
+                          type: string
+                        statusTransaction:
+                          type: string
+                        user:
+                          type: object
+                          properties:
+                            email:
+                              type: string
+                            first_name:
+                              type: string
+                            last_name:
+                              type: string
+                        product:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            category_id:
+                              type: integer
+                            brand:
+                              type: string
+                            nama:
+                              type: string
+                            weight:
+                              type: integer
+                            deskripsi:
+                              type: string
+                            stock:
+                              type: integer
+                            harga:
+                              type: integer
+                            status:
+                              type: string
+                            total_sold:
+                              type: integer
+                            category:
+                              type: object
+                              properties:
+                                category:
+                                  type: string
+                        courrier:
+                          type: object
+                          properties:
+                            courrier:
+                              type: string
+                        payment:
+                          type: object
+                          properties:
+                            payment:
+                              type: string
+                            rekening:
+                              type: string
+                x-examples:
+                  Example 1:
+                    status: true
+                    message: Success Get Sale!
+                    data:
+                      - id: 1
+                        user_id: 2
+                        invoice_number: "1686365845901321"
+                        product_id: 1
+                        qty: 1
+                        note: Tolong minta bubblewrap
+                        payment_id: 2
+                        courrier_id: 2
+                        service: OKE
+                        total_weight: 20000
+                        total: 300000
+                        ongkir: 100000
+                        grandTotal: 400000
+                        nomerResi: "001234567889"
+                        status: PAID
+                        statusTransaction: DONE
+                        user:
+                          email: rarjen57@gmail.com
+                          first_name: Otniel
+                          last_name: Kevin
+                        product:
+                          id: 1
+                          category_id: 2
+                          brand: Lemariku
+                          nama: Lemari Penyimpanan Kabinet 2
+                          weight: 12000
+                          deskripsi: Lemari Kekinian
+                          stock: 150
+                          harga: 365000
+                          status: ACTIVE
+                          total_sold: 1
+                          category:
+                            category: Kursi
+                        courrier:
+                          courrier: JNE
+                        payment:
+                          payment: Transfer Bank BCA
+                          rekening: "8715212427"
+      operationId: get-sale
+      tags:
+        - Transaction Sale
+      description: Get Success Transaction By Admin
+      security:
+        - bearerAuth: []
+  /saleCustomOrder:
+    get:
+      summary: Get Success Transaction Custom Order
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        user_id:
+                          type: integer
+                        invoice_number:
+                          type: string
+                        product_id:
+                          type: integer
+                        qty:
+                          type: integer
+                        note:
+                          type: string
+                        payment_id:
+                          type: integer
+                        courrier_id:
+                          type: integer
+                        service:
+                          type: string
+                        total_weight:
+                          type: integer
+                        total:
+                          type: integer
+                        ongkir:
+                          type: integer
+                        grandTotal:
+                          type: integer
+                        nomerResi:
+                          type: string
+                        status:
+                          type: string
+                        statusTransaction:
+                          type: string
+                        user:
+                          type: object
+                          properties:
+                            email:
+                              type: string
+                            first_name:
+                              type: string
+                            last_name:
+                              type: string
+                        product:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            category_id:
+                              type: integer
+                            brand:
+                              type: string
+                            nama:
+                              type: string
+                            weight:
+                              type: integer
+                            deskripsi:
+                              type: string
+                            stock:
+                              type: integer
+                            harga:
+                              type: integer
+                            status:
+                              type: string
+                            total_sold:
+                              type: integer
+                            category:
+                              type: object
+                              properties:
+                                category:
+                                  type: string
+                        courrier:
+                          type: object
+                          properties:
+                            courrier:
+                              type: string
+                        payment:
+                          type: object
+                          properties:
+                            payment:
+                              type: string
+                            rekening:
+                              type: string
+                x-examples:
+                  Example 1:
+                    status: true
+                    message: Success Get Sale!
+                    data:
+                      - id: 1
+                        user_id: 2
+                        invoice_number: "1686365845901321"
+                        product_id: 1
+                        qty: 1
+                        note: Tolong minta bubblewrap
+                        payment_id: 2
+                        courrier_id: 2
+                        service: OKE
+                        total_weight: 20000
+                        total: 300000
+                        ongkir: 100000
+                        grandTotal: 400000
+                        nomerResi: "001234567889"
+                        status: PAID
+                        statusTransaction: DONE
+                        user:
+                          email: rarjen57@gmail.com
+                          first_name: Otniel
+                          last_name: Kevin
+                        product:
+                          id: 1
+                          category_id: 2
+                          brand: Lemariku
+                          nama: Lemari Penyimpanan Kabinet 2
+                          weight: 12000
+                          deskripsi: Lemari Kekinian
+                          stock: 150
+                          harga: 365000
+                          status: ACTIVE
+                          total_sold: 1
+                          category:
+                            category: Kursi
+                        courrier:
+                          courrier: JNE
+                        payment:
+                          payment: Transfer Bank BCA
+                          rekening: "8715212427"
+        "":
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        user_id:
+                          type: integer
+                        category_id:
+                          type: integer
+                        courrier_id:
+                          type: integer
+                        payment_id:
+                          type: integer
+                        size_id:
+                          type: integer
+                        material_id:
+                          type: integer
+                        invoice_number:
+                          type: string
+                        qty:
+                          type: integer
+                        note:
+                          type: string
+                        service:
+                          type: "null"
+                        total_weight:
+                          type: integer
+                        total:
+                          type: integer
+                        ongkir:
+                          type: integer
+                        ongkosTukang:
+                          type: integer
+                        grandTotal:
+                          type: integer
+                        nomerResi:
+                          type: "null"
+                        statusOrder:
+                          type: string
+                        statusPayment:
+                          type: string
+                        user:
+                          type: object
+                          properties:
+                            email:
+                              type: string
+                            first_name:
+                              type: string
+                            last_name:
+                              type: string
+                        category:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            category:
+                              type: string
+                        courrier:
+                          type: object
+                          properties:
+                            courrier:
+                              type: string
+                        payment:
+                          type: object
+                          properties:
+                            payment:
+                              type: string
+                            rekening:
+                              type: string
+                        size:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            panjang:
+                              type: integer
+                            lebar:
+                              type: integer
+                            tinggi:
+                              type: integer
+                        material:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            material:
+                              type: string
+                            panjang:
+                              type: integer
+                            lebar:
+                              type: integer
+                            tebal:
+                              type: integer
+                            harga:
+                              type: integer
+                x-examples:
+                  Example 1:
+                    status: true
+                    message: Success Get Data!
+                    data:
+                      - id: 5
+                        user_id: 2
+                        category_id: 1
+                        courrier_id: 1
+                        payment_id: 1
+                        size_id: 1
+                        material_id: 2
+                        invoice_number: "1686552728307603"
+                        qty: 1
+                        note: "Buatkan meja ukuran ---- bahan ---- "
+                        service: null
+                        total_weight: 2000
+                        total: 300000
+                        ongkir: 7500
+                        ongkosTukang: 100000
+                        grandTotal: 407500
+                        nomerResi: null
+                        statusOrder: DONE
+                        statusPayment: PAID
+                        user:
+                          email: rarjen57@gmail.com
+                          first_name: Otniel
+                          last_name: Kevin
+                        category:
+                          id: 1
+                          category: Meja
+                        courrier:
+                          courrier: Internal Delivery
+                        payment:
+                          payment: COD
+                          rekening: ""
+                        size:
+                          id: 1
+                          panjang: 32
+                          lebar: 28
+                          tinggi: 16
+                        material:
+                          id: 2
+                          material: Kayu Jati
+                          panjang: 120
+                          lebar: 10
+                          tebal: 3
+                          harga: 75000
+      operationId: get-sale
+      tags:
+        - Transaction Sale
+      description: Get Success Transaction Custom Order By Admin
+      security:
+        - bearerAuth: []
+    parameters: []
 components:
   schemas:
     User:
