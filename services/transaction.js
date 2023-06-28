@@ -122,7 +122,9 @@ const readTransaction = async (req) => {
   const pageNumber = parseInt(page);
   const limitPage = parseInt(limit);
   const offset = pageNumber * limitPage - limitPage;
-  const allProducts = await Product.count();
+  const allProducts = await Transaction.count({
+    where: status
+  });
   const totalPage = Math.ceil(allProducts / limit);
 
   const result = await Transaction.findAll({
