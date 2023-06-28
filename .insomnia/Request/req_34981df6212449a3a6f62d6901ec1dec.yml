@@ -1,0 +1,29 @@
+_id: req_34981df6212449a3a6f62d6901ec1dec
+type: Request
+parentId: fld_9d2c2ac4f118465c9f2c0e344e56374a
+modified: 1685493382108
+created: 1682614851198
+url: localhost:3000/auth/login
+name: Login Admin
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"email":"admin1@gmail.com",
+    	"password":"qwerty123"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+authentication: {}
+metaSortKey: -1682571324204.5
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

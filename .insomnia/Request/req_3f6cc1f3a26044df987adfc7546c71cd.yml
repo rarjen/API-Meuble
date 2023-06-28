@@ -1,0 +1,30 @@
+_id: req_3f6cc1f3a26044df987adfc7546c71cd
+type: Request
+parentId: fld_48bfbb53d0c74e319739b51792af582e
+modified: 1684810004581
+created: 1682744305699
+url: localhost:3000/category/edit/3
+name: Update Category
+description: ""
+method: PUT
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"category":"Kursi"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+authentication:
+  type: bearer
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbjFAZ21haWwuY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjgyNjU1Mjk1fQ.wQbKrKt0YlUCQVT7ffgefxL3i4A7elnbWSOUbuP8QJM
+metaSortKey: -1682721447462.5
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

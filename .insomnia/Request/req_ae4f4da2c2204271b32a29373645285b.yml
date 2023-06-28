@@ -1,0 +1,23 @@
+_id: req_ae4f4da2c2204271b32a29373645285b
+type: Request
+parentId: fld_44df9021871546a6b35c36fa81e5acc1
+modified: 1683991392801
+created: 1683991316190
+url: localhost:3000/order
+name: Read Order By User
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication:
+  type: bearer
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJyYXJqZW41N0BnbWFpbC5jb20iLCJyb2xlIjoiQlVZRVIiLCJpYXQiOjE2ODM5ODI3NTd9.DeeGXRUK-_-VveMY-2rjFz1D9gWaqyQWrifEw95m0WQ
+metaSortKey: -1683051741091
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

@@ -1,0 +1,38 @@
+_id: req_cde0eeb36258472693a1d2819db68006
+type: Request
+parentId: fld_36be480026aa49e692db07edce1698f6
+modified: 1684762853122
+created: 1682614205033
+url: localhost:3000/user/all-users
+name: Get Users
+description: ""
+method: GET
+body: {}
+parameters:
+  - id: pair_52475d74c95b4e8b9e7ba97d36f225e7
+    name: page
+    value: "1"
+    description: ""
+    disabled: true
+  - id: pair_399029b52fb040f69bd52e6486362bcf
+    name: limit
+    value: "100"
+    description: ""
+    disabled: true
+  - id: pair_3867bec99e034a8abe90d46ddd3e5fb4
+    name: search
+    value: ""
+    description: ""
+    disabled: true
+headers: []
+authentication:
+  type: bearer
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbjFAZ21haWwuY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjgyNjU1Mjk1fQ.wQbKrKt0YlUCQVT7ffgefxL3i4A7elnbWSOUbuP8QJM
+metaSortKey: -1682665714236
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

@@ -1,0 +1,28 @@
+_id: req_4455e08de92e4d3786739ad87a82e6af
+type: Request
+parentId: fld_780deb3e7af94e839153beff3f966826
+modified: 1682614193215
+created: 1682528218988
+url: localhost:3000/role/create
+name: Create Role
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"role":"ADMIN"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+authentication: {}
+metaSortKey: -1682528218988
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

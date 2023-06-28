@@ -1,0 +1,30 @@
+_id: req_eb384b307cf6492b99b42d9e3c72f94f
+type: Request
+parentId: fld_380fb1c6efe3475cb07b86aa71621a93
+modified: 1685168701039
+created: 1685168304881
+url: localhost:3000/transaction/resi/2
+name: Input & Update Resi By Admin
+description: ""
+method: PUT
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"nomerResi":"001234567889"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+authentication:
+  type: bearer
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbjFAZ21haWwuY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjg0Njc2MjM0fQ.9J5Bu0eb-R2XveAnSbyQunDFCabBMbxGxA5g9mx1jNY
+metaSortKey: -1684692151717.7188
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

@@ -1,0 +1,23 @@
+_id: req_a35ecaf5da9f4079b2e1a8bef6f5ccaa
+type: Request
+parentId: fld_a3e0ff49002a433d81a70fa74bcb9991
+modified: 1684804715475
+created: 1682703585875
+url: localhost:3000/payment/status/9999
+name: Update Status Payment
+description: ""
+method: PUT
+body: {}
+parameters: []
+headers: []
+authentication:
+  type: bearer
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbjFAZ21haWwuY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjg0NzYwNjcyfQ.AFMwb7NvyzhF9hV_UN4yRh4PA0u_rklBlc3KVjlOpJk
+metaSortKey: -1682687624402.875
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

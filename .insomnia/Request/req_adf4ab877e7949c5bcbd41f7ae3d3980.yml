@@ -1,0 +1,28 @@
+_id: req_adf4ab877e7949c5bcbd41f7ae3d3980
+type: Request
+parentId: fld_380fb1c6efe3475cb07b86aa71621a93
+modified: 1684999336959
+created: 1684998959981
+url: localhost:3000/transaction
+name: Read Transaction By User
+description: ""
+method: GET
+body: {}
+parameters:
+  - id: pair_4ce685f4884d44f1af1e24a00dde341f
+    name: status
+    value: PENDING
+    description: ""
+    disabled: false
+headers: []
+authentication:
+  type: bearer
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJyYXJqZW41N0BnbWFpbC5jb20iLCJyb2xlIjoiQlVZRVIiLCJpYXQiOjE2ODQ5OTkxNzh9.3y8UUgakUOoka1VVVoKvSJKBYM6OKKQemmzxIv_QnmU
+metaSortKey: -1684718816222.25
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

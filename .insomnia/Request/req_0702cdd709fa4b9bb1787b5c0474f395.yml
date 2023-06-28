@@ -1,0 +1,30 @@
+_id: req_0702cdd709fa4b9bb1787b5c0474f395
+type: Request
+parentId: fld_b6273644959146b49e192a7346d3bc79
+modified: 1684495441301
+created: 1684494281354
+url: localhost:3000/custom-order/price/5
+name: Create Custom Order Price By Admin
+description: ""
+method: PUT
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"price": 250000
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+authentication:
+  type: bearer
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbjFAZ21haWwuY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjgyNjU1Mjk1fQ.wQbKrKt0YlUCQVT7ffgefxL3i4A7elnbWSOUbuP8QJM
+metaSortKey: -1684198427811.8594
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

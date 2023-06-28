@@ -1,0 +1,21 @@
+_id: req_3c5cb0c3c91340a28d90063a6b1688f1
+type: Request
+parentId: fld_d05ff1328e8840b985f7cece51d4e94d
+modified: 1684657387855
+created: 1684657383154
+url: ""
+name: Get City
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication: {}
+metaSortKey: -1684657383154
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

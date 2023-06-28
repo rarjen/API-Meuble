@@ -1,0 +1,27 @@
+_id: req_db5910f2368e45aaba16efc6d0a1648b
+type: Request
+parentId: fld_10573ae93d7b46db97ddc22dd5653f15
+modified: 1684723024371
+created: 1684722978202
+url: localhost:3000/courrier
+name: Get All Courrier By User
+description: ""
+method: GET
+body:
+  mimeType: application/json
+  text: ""
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+authentication:
+  type: bearer
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJvdG5pZWxrZXZpbi5va0BnbWFpbC5jb20iLCJyb2xlIjoiQlVZRVIiLCJpYXQiOjE2ODQ2NTUwNDJ9.O4kL33fzK-KDhBCTTKjuFANUcYp8Sn14hudz8OhUA1A
+metaSortKey: -1684662075619.25
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

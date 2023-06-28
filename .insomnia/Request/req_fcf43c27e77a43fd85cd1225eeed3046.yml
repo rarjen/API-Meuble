@@ -1,0 +1,21 @@
+_id: req_fcf43c27e77a43fd85cd1225eeed3046
+type: Request
+parentId: fld_48bfbb53d0c74e319739b51792af582e
+modified: 1684818271817
+created: 1684818181765
+url: localhost:3000/category/3
+name: Get One Category
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication: {}
+metaSortKey: -1682705939720.375
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

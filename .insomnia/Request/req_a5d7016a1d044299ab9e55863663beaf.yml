@@ -1,0 +1,23 @@
+_id: req_a5d7016a1d044299ab9e55863663beaf
+type: Request
+parentId: fld_b6273644959146b49e192a7346d3bc79
+modified: 1684288359634
+created: 1684288197488
+url: localhost:3000/custom-order/custom-orders
+name: Read Custom Order By User
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication:
+  type: bearer
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJyYXJqZW41N0BnbWFpbC5jb20iLCJyb2xlIjoiQlVZRVIiLCJpYXQiOjE2ODM5ODI3NTd9.DeeGXRUK-_-VveMY-2rjFz1D9gWaqyQWrifEw95m0WQ
+metaSortKey: -1684201719170.5
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

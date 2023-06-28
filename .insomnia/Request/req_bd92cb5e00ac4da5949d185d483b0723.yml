@@ -1,0 +1,21 @@
+_id: req_bd92cb5e00ac4da5949d185d483b0723
+type: Request
+parentId: fld_27bea37820ce40c3aead09ea73d939e0
+modified: 1684199411038
+created: 1684199357207
+url: localhost:3000/size/1
+name: Get One Size
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication: {}
+metaSortKey: -1684077239676.25
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

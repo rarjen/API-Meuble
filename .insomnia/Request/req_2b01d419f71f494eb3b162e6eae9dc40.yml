@@ -1,0 +1,23 @@
+_id: req_2b01d419f71f494eb3b162e6eae9dc40
+type: Request
+parentId: fld_9d2c2ac4f118465c9f2c0e344e56374a
+modified: 1685535158730
+created: 1685535126073
+url: "{{ _.base_path }}/auth/whoami"
+name: New Request
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication:
+  type: bearer
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbjFAZ21haWwuY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjg1NDkzNDAyfQ.jFrD5foD7rf0Pnk6wRqg1X7erUrsNgl9ljB0ezIGzxI
+metaSortKey: -1685535126073
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

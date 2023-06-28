@@ -1,0 +1,36 @@
+_id: req_b9601582cbe8482da0d1ef931e79d970
+type: Request
+parentId: fld_ea45f414952540f6a7d303cdaf82f22e
+modified: 1684741138257
+created: 1684740855111
+url: localhost:3000/product/edit/99
+name: Edit Product
+description: ""
+method: PUT
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	 "category_id":2,
+       "brand":"Desku",
+       "nama":"Meja Rapat Bundar",
+       "weight":20000,
+       "deskripsi":"Ini deskripsi",
+       "stock":46,
+       "harga":300000
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+authentication:
+  type: bearer
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbjFAZ21haWwuY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjg0NzQwMTU4fQ.osJFbIhLy8GQe_9HqQdNuqfWp-ZSdXNH1y2IDJlzEcU
+metaSortKey: -1682529831811.625
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

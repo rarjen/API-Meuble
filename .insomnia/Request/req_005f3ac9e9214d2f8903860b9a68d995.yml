@@ -1,0 +1,32 @@
+_id: req_005f3ac9e9214d2f8903860b9a68d995
+type: Request
+parentId: fld_10573ae93d7b46db97ddc22dd5653f15
+modified: 1684723259377
+created: 1684723058659
+url: localhost:3000/courrier/edit/5
+name: Update Status Courrier By Admin
+description: ""
+method: PUT
+body:
+  mimeType: application/json
+  text: ""
+parameters:
+  - id: pair_bd1bcc20786c4feca4aa840efd37e17b
+    name: status
+    value: ACTIVE
+    description: ""
+    disabled: true
+headers:
+  - name: Content-Type
+    value: application/json
+authentication:
+  type: bearer
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbjFAZ21haWwuY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjg0Njc2MjM0fQ.9J5Bu0eb-R2XveAnSbyQunDFCabBMbxGxA5g9mx1jNY
+metaSortKey: -1684662075569.25
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

@@ -1,0 +1,23 @@
+_id: req_9dd02146364b4990ac8b5793c42ecdda
+type: Request
+parentId: fld_b6273644959146b49e192a7346d3bc79
+modified: 1684308576666
+created: 1684306581531
+url: localhost:3000/custom-order/2
+name: Cancel Custom Order By User
+description: ""
+method: PUT
+body: {}
+parameters: []
+headers: []
+authentication:
+  type: bearer
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJyYXJqZW41N0BnbWFpbC5jb20iLCJyb2xlIjoiQlVZRVIiLCJpYXQiOjE2ODM5ODI3NTd9.DeeGXRUK-_-VveMY-2rjFz1D9gWaqyQWrifEw95m0WQ
+metaSortKey: -1684200020404.75
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

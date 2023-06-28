@@ -1,0 +1,43 @@
+_id: req_857796fa98b04534b20998dffa66100c
+type: Request
+parentId: fld_380fb1c6efe3475cb07b86aa71621a93
+modified: 1685079903797
+created: 1684977711603
+url: localhost:3000/transaction/all-transactions
+name: Read Transactions All By Admin
+description: ""
+method: GET
+body: {}
+parameters:
+  - id: pair_4ce685f4884d44f1af1e24a00dde341f
+    name: searchInvoice
+    value: "352"
+    description: ""
+    disabled: true
+  - id: pair_0dd79a3453b74868881cc3abd8cec401
+    name: status
+    value: PENDING
+    description: ""
+    disabled: true
+  - id: pair_5ec685c1be7942528f9fbf1ef2ddc2f3
+    name: page
+    value: ""
+    description: ""
+    disabled: true
+  - id: pair_d337f36081af471a8dfe077613058be9
+    name: limit
+    value: ""
+    description: ""
+    disabled: true
+headers: []
+authentication:
+  type: bearer
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbjFAZ21haWwuY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjg0Njc2MjM0fQ.9J5Bu0eb-R2XveAnSbyQunDFCabBMbxGxA5g9mx1jNY
+metaSortKey: -1684761479429.5
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

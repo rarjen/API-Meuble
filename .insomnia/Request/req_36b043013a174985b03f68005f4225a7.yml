@@ -1,0 +1,23 @@
+_id: req_36b043013a174985b03f68005f4225a7
+type: Request
+parentId: fld_380fb1c6efe3475cb07b86aa71621a93
+modified: 1685168326137
+created: 1685167220489
+url: localhost:3000/transaction/update/2
+name: Update Order Paid By Admin
+description: ""
+method: PUT
+body: {}
+parameters: []
+headers: []
+authentication:
+  type: bearer
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbjFAZ21haWwuY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjg0Njc2MjM0fQ.9J5Bu0eb-R2XveAnSbyQunDFCabBMbxGxA5g9mx1jNY
+metaSortKey: -1684686818816.8125
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

@@ -1,0 +1,31 @@
+_id: req_7eaf0fbc9ea24f94b59dd6c70660bddd
+type: Request
+parentId: fld_36be480026aa49e692db07edce1698f6
+modified: 1682690615051
+created: 1682689346925
+url: localhost:3000/user/reset-password
+name: Reset Password
+description: ""
+method: PUT
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"new_password":"rahasia",
+    	"confirm_password":"rahasia"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+authentication:
+  type: bearer
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJvdG5pZWxrZXZpbi5va0BnbWFpbC5jb20iLCJyb2xlIjoiQlVZRVIiLCJpYXQiOjE2ODI2OTA1OTd9.DfskU2mk9OjX452tQ0qQp_8rpxh0PvYA4S6rGV_n2uE
+metaSortKey: -1682665714261
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

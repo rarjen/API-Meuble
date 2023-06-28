@@ -1,0 +1,51 @@
+_id: req_474bb8538562498c8e5b78359dbb969e
+type: Request
+parentId: fld_d30aedcdad114892927f7a10475e15cc
+modified: 1685324171975
+created: 1684911696972
+url: localhost:3000/ongkir/check
+name: Check Ongkir API
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"weight":20000,
+    	"courrier_id":2
+    }
+parameters:
+  - id: pair_44c1c69b29a94d70be41120b7eb39e39
+    name: origin
+    value: "501"
+    description: ""
+    disabled: true
+  - id: pair_54d6e04be70b4662a37b099d2b87e79f
+    name: destination
+    value: "114"
+    description: ""
+    disabled: true
+  - id: pair_852e4a848f814c0693887b741badd7a0
+    name: weight
+    value: "1700"
+    description: ""
+    disabled: true
+  - id: pair_8613d4045de94c6680754e7ca84f43a4
+    name: courrier
+    value: jne
+    description: ""
+    disabled: true
+headers:
+  - name: Content-Type
+    value: application/json
+authentication:
+  type: bearer
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiYWRkcmVzc19pZCI6MiwiZW1haWwiOiJyYXJqZW41N0BnbWFpbC5jb20iLCJyb2xlIjoiQlVZRVIiLCJpYXQiOjE2ODUyNzM3ODR9.JEFGvaehcz_Ka2G21HEPPu06nNPCPCH3miHepL00L3I
+metaSortKey: -1684305719636.5
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

@@ -1,0 +1,33 @@
+_id: req_bee8102fe492464982d7fb3d184c6725
+type: Request
+parentId: fld_9d2c2ac4f118465c9f2c0e344e56374a
+modified: 1685493396611
+created: 1684654199234
+url: localhost:3000/auth/register
+name: Register Admin
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"first_name":"Admin",
+    	"last_name":"Meuble",
+    	"email":"admin1@gmail.com",
+    	"password":"qwerty123",
+    	"confirm_password":"qwerty123",
+    	"role_id":2
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+authentication: {}
+metaSortKey: -1682591955199.25
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

@@ -1,0 +1,21 @@
+_id: req_ad097c7ddb4843bc96a823f04b364cdd
+type: Request
+parentId: fld_27bea37820ce40c3aead09ea73d939e0
+modified: 1684208070366
+created: 1684199402706
+url: localhost:3000/size/size-categories/1
+name: Get Size By Category Id
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication: {}
+metaSortKey: -1684057059349.125
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

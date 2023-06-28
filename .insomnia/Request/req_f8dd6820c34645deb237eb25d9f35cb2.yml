@@ -1,0 +1,23 @@
+_id: req_f8dd6820c34645deb237eb25d9f35cb2
+type: Request
+parentId: fld_bf946889675b493b8fcbdeb9ec855785
+modified: 1684125820057
+created: 1684036879022
+url: localhost:3000/sale
+name: Read Total Penjualan
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication:
+  type: bearer
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbjFAZ21haWwuY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjgyNjU1Mjk1fQ.wQbKrKt0YlUCQVT7ffgefxL3i4A7elnbWSOUbuP8QJM
+metaSortKey: -1684036879022
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

@@ -1,0 +1,34 @@
+_id: req_8f553c5ba80f45f2bb45ed7d27ba62bd
+type: Request
+parentId: fld_8d9eab4438814c6a89f2db25352bfee6
+modified: 1685110422727
+created: 1685078354661
+url: localhost:3000/reportTransaction
+name: Read Transactions All By Admin
+description: ""
+method: GET
+body: {}
+parameters:
+  - id: pair_4ce685f4884d44f1af1e24a00dde341f
+    name: start_date
+    value: 2023-05-15
+    description: ""
+    disabled: false
+  - id: pair_e424f6ab989d4864ba1d5c09b82085d5
+    name: end_date
+    value: 2023-05-26
+    description: ""
+    disabled: false
+headers: []
+authentication:
+  type: bearer
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbjFAZ21haWwuY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjg0Njc2MjM0fQ.9J5Bu0eb-R2XveAnSbyQunDFCabBMbxGxA5g9mx1jNY
+  disabled: false
+metaSortKey: -1684761479429.5
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

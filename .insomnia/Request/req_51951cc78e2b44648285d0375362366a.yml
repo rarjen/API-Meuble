@@ -1,0 +1,38 @@
+_id: req_51951cc78e2b44648285d0375362366a
+type: Request
+parentId: fld_f3f1bdf871474e11a773602881e2bec1
+modified: 1685323832363
+created: 1685323402243
+url: localhost:3000/uploadProductPicture/thumbnail
+name: Upload Thumbnail By Admin
+description: ""
+method: POST
+body:
+  mimeType: multipart/form-data
+  params:
+    - id: pair_048366a7d7f74b6c88bffa7a788827f7
+      name: product_id
+      value: "1"
+      description: ""
+    - id: pair_c48a0a689e184310a694b1d0f8d90f11
+      name: picture
+      value: ""
+      description: ""
+      type: file
+      fileName: C:\Users\otnie\Downloads\5968866.png
+parameters: []
+headers:
+  - name: Content-Type
+    value: multipart/form-data
+authentication:
+  type: bearer
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiYWRkcmVzc19pZCI6MSwiZW1haWwiOiJhZG1pbjFAZ21haWwuY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjg1Mjg1NTQyfQ.xoKcpDKGX3MQf266_fsv8j60XWWS2uxL7i1t93VW1mo
+  disabled: false
+metaSortKey: -1685277415817.5
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

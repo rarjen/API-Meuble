@@ -1,0 +1,36 @@
+_id: req_59902ab49bf94250b4e709df790bd4a4
+type: Request
+parentId: fld_3d09bdaca5c04fb6ad2f2034ea45cba2
+modified: 1684997653000
+created: 1684997245638
+url: localhost:3000/uploadTransactionPicture/
+name: Create Transaction
+description: ""
+method: POST
+body:
+  mimeType: multipart/form-data
+  params:
+    - name: transaction_id
+      value: "1"
+      id: pair_66fdd11468824e7d9601d26bb7690cdd
+    - id: pair_179c1903c8944fa3a6a54c5733321779
+      name: picture
+      value: ""
+      description: ""
+      type: file
+      fileName: C:\Users\otnie\Downloads\UC-ae27b014-a6ec-440b-a797-7f1b8686b28e.jpg
+parameters: []
+headers:
+  - name: Content-Type
+    value: multipart/form-data
+authentication:
+  type: bearer
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJyYXJqZW41N0BnbWFpbC5jb20iLCJyb2xlIjoiQlVZRVIiLCJpYXQiOjE2ODQ4NDM5Mzl9.rdVaH6xqjzNpGa7pDVkD0SxgO-04mHuXZ0lH6smcIE0
+metaSortKey: -1684846805844
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

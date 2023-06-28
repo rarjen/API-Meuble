@@ -1,0 +1,38 @@
+_id: req_3a361ca31f704c8d9256837f3e7c4375
+type: Request
+parentId: fld_b6273644959146b49e192a7346d3bc79
+modified: 1684573442629
+created: 1684287262561
+url: localhost:3000/custom-order/all-custom-orders
+name: Read Custom Order By Admin
+description: ""
+method: GET
+body: {}
+parameters:
+  - id: pair_88007167a3b541ad8101ad4db5b7bdc9
+    name: start_date
+    value: 2023-05-15
+    description: ""
+    disabled: true
+  - id: pair_0b516428fb8449f0a72b89cdbe31afcb
+    name: end_date
+    value: 2023-05-15
+    description: ""
+    disabled: true
+  - id: pair_9ce365cae41c4ac493df8dd2375dc1ba
+    name: status
+    value: WAITING
+    description: ""
+    disabled: false
+headers: []
+authentication:
+  type: bearer
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbjFAZ21haWwuY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjgyNjU1Mjk1fQ.wQbKrKt0YlUCQVT7ffgefxL3i4A7elnbWSOUbuP8QJM
+metaSortKey: -1684205116702
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

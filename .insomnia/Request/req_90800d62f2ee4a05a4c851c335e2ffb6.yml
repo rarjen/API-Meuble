@@ -1,0 +1,21 @@
+_id: req_90800d62f2ee4a05a4c851c335e2ffb6
+type: Request
+parentId: fld_e1fc1f6a3aa94193b134f5897351b069
+modified: 1684209282242
+created: 1684209156282
+url: localhost:3000/material/all-materials
+name: Get All Material
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication: {}
+metaSortKey: -1684117600330.5
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

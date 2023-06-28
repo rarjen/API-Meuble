@@ -1,0 +1,32 @@
+_id: req_8467a48e20ce45729a4a2195ad4a12e1
+type: Request
+parentId: fld_f441fedef82d49089843086e85893daf
+modified: 1684975097495
+created: 1684654068801
+url: localhost:3000/address/create-address
+name: Create Address
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: >-
+    {
+    	"province_id":10,
+    	"city_id":399,
+    	"address":"Mangir RT 03 RW 02, Purwongondo, Boja, Kabupaten Kendal, Jawa Tengah"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+authentication:
+  type: bearer
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJyYXJqZW41N0BnbWFpbC5jb20iLCJyb2xlIjoiQlVZRVIiLCJpYXQiOjE2ODQ5MDQyNDZ9.b09xlURRFVwjDvkMzDrliEd7nVo9gwBYo3YMV6Kb7zc
+metaSortKey: -1684654068801
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

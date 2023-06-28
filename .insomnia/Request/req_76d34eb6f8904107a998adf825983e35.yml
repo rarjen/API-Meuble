@@ -1,0 +1,31 @@
+_id: req_76d34eb6f8904107a998adf825983e35
+type: Request
+parentId: fld_e1fc1f6a3aa94193b134f5897351b069
+modified: 1684209413330
+created: 1684209156304
+url: localhost:3000/material/edit/1
+name: Edit Size
+description: ""
+method: PUT
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"category_id":2,
+    	"material":"Kayu + Kaca"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+authentication:
+  type: bearer
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbjFAZ21haWwuY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjgyNjU1Mjk1fQ.wQbKrKt0YlUCQVT7ffgefxL3i4A7elnbWSOUbuP8QJM
+metaSortKey: -1684041924103.7812
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

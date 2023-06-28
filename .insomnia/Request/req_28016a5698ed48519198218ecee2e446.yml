@@ -1,0 +1,37 @@
+_id: req_28016a5698ed48519198218ecee2e446
+type: Request
+parentId: fld_10573ae93d7b46db97ddc22dd5653f15
+modified: 1684906512143
+created: 1684676153015
+url: localhost:3000/courrier/create
+name: Create Courrier
+description: ""
+method: POST
+body:
+  mimeType: multipart/form-data
+  params:
+    - id: pair_3afe17e233d040699489b1851b195bc5
+      name: courrier
+      value: TIKI
+      description: ""
+    - id: pair_7d507366cf0f48ef9680c3511a9ff605
+      name: picture
+      value: ""
+      description: ""
+      type: file
+      fileName: C:\Users\otnie\Downloads\sandhika.jpg
+parameters: []
+headers:
+  - name: Content-Type
+    value: multipart/form-data
+authentication:
+  type: bearer
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbjFAZ21haWwuY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjg0Njc2MjM0fQ.9J5Bu0eb-R2XveAnSbyQunDFCabBMbxGxA5g9mx1jNY
+metaSortKey: -1684676153015
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

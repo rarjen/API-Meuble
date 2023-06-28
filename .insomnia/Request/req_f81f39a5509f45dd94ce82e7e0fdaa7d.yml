@@ -1,0 +1,33 @@
+_id: req_f81f39a5509f45dd94ce82e7e0fdaa7d
+type: Request
+parentId: fld_bf946889675b493b8fcbdeb9ec855785
+modified: 1684287589547
+created: 1684125794622
+url: localhost:3000/sale/all-sales
+name: Read Penjualan
+description: ""
+method: GET
+body: {}
+parameters:
+  - id: pair_390e3fcda1e24ff388298376279ca1d3
+    name: start_date
+    value: 2023-05-13
+    description: ""
+    disabled: false
+  - id: pair_a15483220f834a418d2cb824b586d845
+    name: end_date
+    value: 2023-05-15
+    description: ""
+    disabled: false
+headers: []
+authentication:
+  type: bearer
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbjFAZ21haWwuY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjgyNjU1Mjk1fQ.wQbKrKt0YlUCQVT7ffgefxL3i4A7elnbWSOUbuP8QJM
+metaSortKey: -1684008735015
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

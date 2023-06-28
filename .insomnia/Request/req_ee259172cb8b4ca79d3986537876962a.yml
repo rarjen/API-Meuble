@@ -1,0 +1,21 @@
+_id: req_ee259172cb8b4ca79d3986537876962a
+type: Request
+parentId: fld_27bea37820ce40c3aead09ea73d939e0
+modified: 1684198995856
+created: 1684198965566
+url: localhost:3000/size/all-sizes
+name: Get All Size
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication: {}
+metaSortKey: -1684117600330.5
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

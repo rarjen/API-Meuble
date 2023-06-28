@@ -1,0 +1,21 @@
+_id: req_063a33d0511f43809e093393bacf8e91
+type: Request
+parentId: fld_48bfbb53d0c74e319739b51792af582e
+modified: 1684817930991
+created: 1684817911870
+url: localhost:3000/category
+name: Get All Categories
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication: {}
+metaSortKey: -1682711108967.75
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

@@ -1,0 +1,41 @@
+_id: req_a54aa6b5b24c46ddbd94d5bb15715ca2
+type: Request
+parentId: fld_a3e0ff49002a433d81a70fa74bcb9991
+modified: 1685285049557
+created: 1682700770473
+url: localhost:3000/payment/create
+name: Create Payment
+description: ""
+method: POST
+body:
+  mimeType: multipart/form-data
+  params:
+    - id: pair_3abf0c034e2f45faa7eb47083f8f63ef
+      name: payment
+      value: Transfer Bank Mandiri
+      description: ""
+    - id: pair_8e4599f495d7425abae9d1c7fa0dff88
+      name: picture
+      value: ""
+      description: ""
+      type: file
+      fileName: C:\Users\otnie\Downloads\sandhika.jpg
+    - id: pair_72c464898fa04d6485e922312fd1092e
+      name: rekening
+      value: "171225124"
+      description: ""
+parameters: []
+headers:
+  - name: Content-Type
+    value: multipart/form-data
+authentication:
+  type: bearer
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiYWRkcmVzc19pZCI6MSwiZW1haWwiOiJhZG1pbjFAZ21haWwuY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjg1Mjg0NjkxfQ.OifQoOxd5U8PQom2kGb6TtUaRiPfPobFeUgDKPcIM30
+metaSortKey: -1682700770473
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

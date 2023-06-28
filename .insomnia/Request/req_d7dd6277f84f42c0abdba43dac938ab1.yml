@@ -1,0 +1,23 @@
+_id: req_d7dd6277f84f42c0abdba43dac938ab1
+type: Request
+parentId: fld_f441fedef82d49089843086e85893daf
+modified: 1685344227383
+created: 1684659635740
+url: localhost:3000/address
+name: Get Address By User
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication:
+  type: bearer
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiYWRkcmVzc19pZCI6MiwiZW1haWwiOiJyYXJqZW41N0BnbWFpbC5jb20iLCJyb2xlIjoiQlVZRVIiLCJpYXQiOjE2ODUzNDQyMDh9.5ZlrZG4RGAqf_UF1Cl4d-sBtc_WKBA9zv-dxUMRQGYI
+metaSortKey: -1684603874788.5
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

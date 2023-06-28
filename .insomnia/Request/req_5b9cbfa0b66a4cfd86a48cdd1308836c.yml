@@ -1,0 +1,39 @@
+_id: req_5b9cbfa0b66a4cfd86a48cdd1308836c
+type: Request
+parentId: fld_380fb1c6efe3475cb07b86aa71621a93
+modified: 1684979137208
+created: 1684846805844
+url: localhost:3000/transaction/create
+name: Create Transaction
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"product_id":1,
+    	"payment_id":2,
+    	"qty":1,
+    	"note":"Tolong minta bubblewrap",
+    	"courrier_id":2,
+    	"service":"OKE",
+    	"total_weight":20000,
+    	"total":150000,
+    	"ongkir":200000,
+    	"grandTotal": 350000
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+authentication:
+  type: bearer
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJyYXJqZW41N0BnbWFpbC5jb20iLCJyb2xlIjoiQlVZRVIiLCJpYXQiOjE2ODQ4NDM5Mzl9.rdVaH6xqjzNpGa7pDVkD0SxgO-04mHuXZ0lH6smcIE0
+metaSortKey: -1684846805844
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

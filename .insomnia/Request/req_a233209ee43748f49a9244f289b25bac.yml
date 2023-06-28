@@ -1,0 +1,33 @@
+_id: req_a233209ee43748f49a9244f289b25bac
+type: Request
+parentId: fld_36be480026aa49e692db07edce1698f6
+modified: 1684904505114
+created: 1682665714286
+url: localhost:3000/user/update-bio
+name: Update Bio
+description: ""
+method: PUT
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"first_name": "Otniel",
+      "last_name": "Kevin",
+      "email": "rarjen57@gmail.com",
+      "mobile": "085329447622"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+authentication:
+  type: bearer
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJvdG5pZWxrZXZpbi5va0BnbWFpbC5jb20iLCJyb2xlIjoiQlVZRVIiLCJpYXQiOjE2ODQ2NTUwNDJ9.O4kL33fzK-KDhBCTTKjuFANUcYp8Sn14hudz8OhUA1A
+metaSortKey: -1682665714286
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

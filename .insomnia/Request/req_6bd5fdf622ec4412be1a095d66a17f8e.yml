@@ -1,0 +1,23 @@
+_id: req_6bd5fdf622ec4412be1a095d66a17f8e
+type: Request
+parentId: fld_380fb1c6efe3475cb07b86aa71621a93
+modified: 1685000333247
+created: 1685000298190
+url: localhost:3000/transaction/cancel/1
+name: Cancel Order
+description: ""
+method: PUT
+body: {}
+parameters: []
+headers: []
+authentication:
+  type: bearer
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJyYXJqZW41N0BnbWFpbC5jb20iLCJyb2xlIjoiQlVZRVIiLCJpYXQiOjE2ODQ5OTkxNzh9.3y8UUgakUOoka1VVVoKvSJKBYM6OKKQemmzxIv_QnmU
+metaSortKey: -1684697484618.625
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

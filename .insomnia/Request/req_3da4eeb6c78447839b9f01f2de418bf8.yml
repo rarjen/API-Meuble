@@ -1,0 +1,33 @@
+_id: req_3da4eeb6c78447839b9f01f2de418bf8
+type: Request
+parentId: fld_36be480026aa49e692db07edce1698f6
+modified: 1684904902636
+created: 1684904809934
+url: localhost:3000/user/update-bio
+name: Update Bio Admin
+description: ""
+method: PUT
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"first_name": "Admin",
+      "last_name": "Meuble",
+      "email": "admin1@gmail.com",
+      "mobile": "085156271670"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+authentication:
+  type: bearer
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbjFAZ21haWwuY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjg0OTA0NTM2fQ.NB2Zcr-LzX7dtMWPrS-CF4dBUjdKkRqkG-g6TqJzROM
+metaSortKey: -1682665714273.5
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

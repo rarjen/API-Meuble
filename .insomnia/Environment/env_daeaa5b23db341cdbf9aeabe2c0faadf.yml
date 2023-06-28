@@ -1,0 +1,14 @@
+_id: env_daeaa5b23db341cdbf9aeabe2c0faadf
+type: Environment
+parentId: wrk_665269c8e5cf4b8ea611f26bbbaa45d6
+modified: 1685492236917
+created: 1663209595244
+name: Base Environment
+data:
+  base_url: https://testing.jasa-nikah-siri-amanah-profesional.com/
+dataPropertyOrder:
+  "&":
+    - base_url
+color: null
+isPrivate: false
+metaSortKey: 1663209595244

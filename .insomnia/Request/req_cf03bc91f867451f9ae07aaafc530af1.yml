@@ -1,0 +1,67 @@
+_id: req_cf03bc91f867451f9ae07aaafc530af1
+type: Request
+parentId: fld_f3f1bdf871474e11a773602881e2bec1
+modified: 1685323409114
+created: 1685283325666
+url: localhost:3000/uploadProductPicture
+name: Upload Images By Admin
+description: ""
+method: POST
+body:
+  mimeType: multipart/form-data
+  params:
+    - id: pair_048366a7d7f74b6c88bffa7a788827f7
+      name: product_id
+      value: "1"
+      description: ""
+    - id: pair_c48a0a689e184310a694b1d0f8d90f11
+      name: picture
+      value: ""
+      description: ""
+      type: file
+      fileName: C:\Users\otnie\Downloads\5968866.png
+    - id: pair_ddba5bcbd31d49e8a4d62cf0a085c12e
+      name: picture
+      value: ""
+      description: ""
+      type: file
+      fileName: C:\Users\otnie\Downloads\WhatsApp Image 2023-05-24 at 10.16.52.jpeg
+      disabled: false
+    - id: pair_feb73c3099ab492e92489ff5c14529cd
+      name: picture
+      value: ""
+      description: ""
+      type: file
+      fileName: C:\Users\otnie\Downloads\WhatsApp Image 2023-05-24 at 11.34.38.jpeg
+      disabled: false
+    - id: pair_c2f05b3cc9e7497ab9fb18457bf289d6
+      name: picture
+      value: ""
+      description: ""
+      type: file
+      fileName: C:\Users\otnie\Downloads\WhatsApp Image 2023-05-24 at 14.44.21.jpeg
+      disabled: false
+    - id: pair_16f0f3736e1b4a7ba97b916859bd782e
+      name: picture
+      value: ""
+      description: ""
+      type: file
+      multiline: true
+      fileName: C:\Users\otnie\Downloads\WhatsApp Image 2023-05-24 at 14.37.20.jpeg
+      disabled: false
+parameters: []
+headers:
+  - name: Content-Type
+    value: multipart/form-data
+authentication:
+  type: bearer
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiYWRkcmVzc19pZCI6MSwiZW1haWwiOiJhZG1pbjFAZ21haWwuY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjg1Mjg1NTQyfQ.xoKcpDKGX3MQf266_fsv8j60XWWS2uxL7i1t93VW1mo
+  disabled: false
+metaSortKey: -1685283325666
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

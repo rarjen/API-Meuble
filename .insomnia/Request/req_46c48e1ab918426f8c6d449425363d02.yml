@@ -1,0 +1,31 @@
+_id: req_46c48e1ab918426f8c6d449425363d02
+type: Request
+parentId: fld_27bea37820ce40c3aead09ea73d939e0
+modified: 1684198531988
+created: 1684198321639
+url: localhost:3000/size/create
+name: Create Size
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"category_id":2,
+    	"size":"120cm x 80cm x 76cm"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+authentication:
+  type: bearer
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbjFAZ21haWwuY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjgyNjU1Mjk1fQ.wQbKrKt0YlUCQVT7ffgefxL3i4A7elnbWSOUbuP8QJM
+metaSortKey: -1684198321639
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

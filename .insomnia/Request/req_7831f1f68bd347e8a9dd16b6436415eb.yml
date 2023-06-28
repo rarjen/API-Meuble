@@ -1,0 +1,32 @@
+_id: req_7831f1f68bd347e8a9dd16b6436415eb
+type: Request
+parentId: fld_9d2c2ac4f118465c9f2c0e344e56374a
+modified: 1685492518103
+created: 1682612586194
+url: "{{ _.base_path }}/auth/register"
+name: Register User
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"first_name":"Otniel",
+    	"last_name":"Kevin",
+    	"email":"rarjen57@gmail.com",
+    	"password":"qwerty123",
+    	"confirm_password":"qwerty123"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+authentication: {}
+metaSortKey: -1682612586194
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

@@ -1,0 +1,29 @@
+_id: req_dc73087b4e7145d9aa951abde1ce0766
+type: Request
+parentId: fld_9d2c2ac4f118465c9f2c0e344e56374a
+modified: 1685492541291
+created: 1682667309137
+url: "{{ _.base_path }}/auth/login"
+name: Login User
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"email":"rarjen57@gmail.com",
+    	"password":"qwerty123"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+authentication: {}
+metaSortKey: -1682550693209.75
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

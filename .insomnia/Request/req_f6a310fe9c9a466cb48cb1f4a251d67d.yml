@@ -1,0 +1,21 @@
+_id: req_f6a310fe9c9a466cb48cb1f4a251d67d
+type: Request
+parentId: fld_e1fc1f6a3aa94193b134f5897351b069
+modified: 1684209332789
+created: 1684209156294
+url: localhost:3000/material/material-categories/2
+name: Get Size By Category Id
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication: {}
+metaSortKey: -1684057059349.125
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

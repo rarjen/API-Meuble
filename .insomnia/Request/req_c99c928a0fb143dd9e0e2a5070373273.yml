@@ -1,0 +1,47 @@
+_id: req_c99c928a0fb143dd9e0e2a5070373273
+type: Request
+parentId: fld_ea45f414952540f6a7d303cdaf82f22e
+modified: 1684743238675
+created: 1684743238675
+url: localhost:3000/product/all
+name: Get Product By Id
+description: ""
+method: GET
+body:
+  mimeType: application/json
+  text: ""
+parameters:
+  - id: pair_fc2b3cbf483448d0a61fa52affdc50a8
+    name: status
+    value: ""
+    description: ""
+    disabled: true
+  - id: pair_3bb8402f333a4385a416fa3a483a2d51
+    name: search
+    value: ""
+    description: ""
+    disabled: true
+  - id: pair_bffc5b99a4ff4b129f3f139b44b2cdfe
+    name: page
+    value: "1"
+    description: ""
+    disabled: true
+  - id: pair_cbf5dcb579074c78be2c3cff9409ea06
+    name: limit
+    value: "10"
+    description: ""
+    disabled: true
+headers:
+  - name: Content-Type
+    value: application/json
+authentication:
+  type: bearer
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbjFAZ21haWwuY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjg0NzQwMTU4fQ.osJFbIhLy8GQe_9HqQdNuqfWp-ZSdXNH1y2IDJlzEcU
+metaSortKey: -1682528910198.125
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

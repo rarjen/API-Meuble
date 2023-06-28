@@ -1,0 +1,32 @@
+_id: req_a37b6c1e201346d0a8ba31849b1134b8
+type: Request
+parentId: fld_44df9021871546a6b35c36fa81e5acc1
+modified: 1684844229054
+created: 1683980591008
+url: localhost:3000/order/create
+name: Create Order
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"product_id":13,
+    	"qty":1,
+    	"note":"Tolong dikirim sesuai alamat"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+authentication:
+  type: bearer
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJyYXJqZW41N0BnbWFpbC5jb20iLCJyb2xlIjoiQlVZRVIiLCJpYXQiOjE2ODQ4NDM5Mzl9.rdVaH6xqjzNpGa7pDVkD0SxgO-04mHuXZ0lH6smcIE0
+metaSortKey: -1683980591008
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

@@ -1,0 +1,28 @@
+_id: req_a71fb6bace7b456fa5a96e3ff17f30bc
+type: Request
+parentId: fld_a3e0ff49002a433d81a70fa74bcb9991
+modified: 1684805342015
+created: 1682703000000
+url: localhost:3000/payment
+name: Read All Payments
+description: ""
+method: GET
+body:
+  mimeType: multipart/form-data
+  params: []
+parameters: []
+headers:
+  - name: Content-Type
+    value: multipart/form-data
+authentication:
+  type: bearer
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbjFAZ21haWwuY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjg0NzYwNjcyfQ.AFMwb7NvyzhF9hV_UN4yRh4PA0u_rklBlc3KVjlOpJk
+  disabled: false
+metaSortKey: -1682683242379.5
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

@@ -1,0 +1,27 @@
+_id: req_5a800dd384ba4aedbbd82fdbcc3501cf
+type: Request
+parentId: fld_a3e0ff49002a433d81a70fa74bcb9991
+modified: 1684803179842
+created: 1682703086803
+url: localhost:3000/payment/99999
+name: Read One Payments
+description: ""
+method: GET
+body:
+  mimeType: multipart/form-data
+  params: []
+parameters: []
+headers:
+  - name: Content-Type
+    value: multipart/form-data
+authentication:
+  type: bearer
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbjFAZ21haWwuY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjgyNjU1Mjk1fQ.wQbKrKt0YlUCQVT7ffgefxL3i4A7elnbWSOUbuP8QJM
+metaSortKey: -1682674478332.75
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

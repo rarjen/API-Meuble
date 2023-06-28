@@ -1,0 +1,21 @@
+_id: req_a4a06fc87dd949e6a0bf754588a0a5f8
+type: Request
+parentId: fld_d05ff1328e8840b985f7cece51d4e94d
+modified: 1684657972215
+created: 1684657397306
+url: localhost:3000/province
+name: Get Province
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication: {}
+metaSortKey: -1684655725977.5
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

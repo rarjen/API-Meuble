@@ -1,0 +1,37 @@
+_id: req_534553db096e490abbfb23d58c8da309
+type: Request
+parentId: fld_a3e0ff49002a433d81a70fa74bcb9991
+modified: 1684906379839
+created: 1682703120660
+url: localhost:3000/payment/edit/3
+name: Edit Payment
+description: ""
+method: PUT
+body:
+  mimeType: multipart/form-data
+  params:
+    - id: pair_3abf0c034e2f45faa7eb47083f8f63ef
+      name: payment
+      value: Transfer Bank Mandiri
+      description: ""
+    - id: pair_8e4599f495d7425abae9d1c7fa0dff88
+      name: picture
+      value: ""
+      description: ""
+      type: file
+      fileName: C:\Users\otnie\Downloads\BankBCA.png
+parameters: []
+headers:
+  - name: Content-Type
+    value: multipart/form-data
+authentication:
+  type: bearer
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbjFAZ21haWwuY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjgyNjU1Mjk1fQ.wQbKrKt0YlUCQVT7ffgefxL3i4A7elnbWSOUbuP8QJM
+metaSortKey: -1682692006426.25
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

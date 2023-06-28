@@ -1,0 +1,43 @@
+_id: req_7c3b9a27586740ad9898542e1d584155
+type: Request
+parentId: fld_ea45f414952540f6a7d303cdaf82f22e
+modified: 1685323463501
+created: 1684742595568
+url: localhost:3000/product/index
+name: Get All Product By Admin
+description: ""
+method: GET
+body: {}
+parameters:
+  - id: pair_fc2b3cbf483448d0a61fa52affdc50a8
+    name: status
+    value: ACTIVE
+    description: ""
+    disabled: true
+  - id: pair_3bb8402f333a4385a416fa3a483a2d51
+    name: search
+    value: Kursi
+    description: ""
+    disabled: true
+  - id: pair_bffc5b99a4ff4b129f3f139b44b2cdfe
+    name: page
+    value: "1"
+    description: ""
+    disabled: true
+  - id: pair_cbf5dcb579074c78be2c3cff9409ea06
+    name: limit
+    value: "10"
+    description: ""
+    disabled: true
+headers: []
+authentication:
+  type: bearer
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiYWRkcmVzc19pZCI6MSwiZW1haWwiOiJhZG1pbjFAZ21haWwuY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjg1Mjg1NTQyfQ.xoKcpDKGX3MQf266_fsv8j60XWWS2uxL7i1t93VW1mo
+metaSortKey: -1682529140601.5
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

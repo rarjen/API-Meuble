@@ -1,0 +1,30 @@
+_id: req_e7f326f8d55442f2b9a25d5be17d82ab
+type: Request
+parentId: fld_ea45f414952540f6a7d303cdaf82f22e
+modified: 1684757588401
+created: 1684757525049
+url: localhost:3000/product
+name: Get Product By User
+description: ""
+method: GET
+body:
+  mimeType: application/json
+  text: ""
+parameters:
+  - id: pair_26c2ce0370b74b258f1ffecd52b7f124
+    name: search
+    value: ""
+    description: ""
+    disabled: true
+headers:
+  - name: Content-Type
+    value: application/json
+authentication: {}
+metaSortKey: -1682528449391.375
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

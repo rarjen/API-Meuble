@@ -1,0 +1,32 @@
+_id: req_183bc0122a4c45e5b092808bd10d3d9e
+type: Request
+parentId: fld_768aedd05aa34682a4682d8d6081c027
+modified: 1685271931100
+created: 1685271731474
+url: localhost:3000/coordinate/create
+name: Create or Update Coordinate User
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"address_id":2,
+    	"lat":-7.065660,
+    	"lng":110.337013
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+authentication:
+  type: bearer
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJyYXJqZW41N0BnbWFpbC5jb20iLCJyb2xlIjoiQlVZRVIiLCJpYXQiOjE2ODQ4NDM5Mzl9.rdVaH6xqjzNpGa7pDVkD0SxgO-04mHuXZ0lH6smcIE0
+metaSortKey: -1685241165192
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

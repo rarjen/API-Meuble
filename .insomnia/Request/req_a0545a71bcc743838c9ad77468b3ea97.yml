@@ -1,0 +1,25 @@
+_id: req_a0545a71bcc743838c9ad77468b3ea97
+type: Request
+parentId: fld_ea45f414952540f6a7d303cdaf82f22e
+modified: 1684743055682
+created: 1684510835134
+url: localhost:3000/product/category/2
+name: Get Product By Category
+description: ""
+method: GET
+body:
+  mimeType: application/json
+  text: ""
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+authentication: {}
+metaSortKey: -1682528679794.75
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

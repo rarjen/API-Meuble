@@ -1,0 +1,32 @@
+_id: req_eaade502c60d4d608a11327e5d5bdacd
+type: Request
+parentId: fld_10573ae93d7b46db97ddc22dd5653f15
+modified: 1684722970189
+created: 1684722650739
+url: localhost:3000/courrier/all-courriers
+name: Get All Courrier By Admin
+description: ""
+method: GET
+body:
+  mimeType: application/json
+  text: ""
+parameters:
+  - id: pair_bd1bcc20786c4feca4aa840efd37e17b
+    name: status
+    value: ACTIVE
+    description: ""
+    disabled: true
+headers:
+  - name: Content-Type
+    value: application/json
+authentication:
+  type: bearer
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbjFAZ21haWwuY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjg0Njc2MjM0fQ.9J5Bu0eb-R2XveAnSbyQunDFCabBMbxGxA5g9mx1jNY
+metaSortKey: -1684666768084.5
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

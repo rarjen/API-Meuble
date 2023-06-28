@@ -1,0 +1,34 @@
+_id: req_80a31aeb8501459f8b3b90f0e6ffec4f
+type: Request
+parentId: fld_b6273644959146b49e192a7346d3bc79
+modified: 1684573637923
+created: 1684211911765
+url: localhost:3000/custom-order/create
+name: Create Custom Order
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: >-
+    {
+    	"category_id": 1,
+    	"size_id": 1,
+    	"material_id": 1,
+    	"keterangan":"Buatkan Meja dengan warna merah dan kacanya dengan tebal 10mm",
+    	"payment_id":6
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+authentication:
+  type: bearer
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJyYXJqZW41N0BnbWFpbC5jb20iLCJyb2xlIjoiQlVZRVIiLCJpYXQiOjE2ODM5ODI3NTd9.DeeGXRUK-_-VveMY-2rjFz1D9gWaqyQWrifEw95m0WQ
+metaSortKey: -1684211911765
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
