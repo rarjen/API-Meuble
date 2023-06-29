@@ -16,18 +16,4 @@ const total = async (req, res, next) => {
   }
 };
 
-const index = async (req, res, next) => {
-  try {
-    const result = await getSale(req);
-
-    return res.status(StatusCodes.OK).json({
-      status: true,
-      message: "Success Get Sale!",
-      data: result,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
-module.exports = { total, index };
+module.exports = { total };
