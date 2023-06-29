@@ -13,5 +13,4 @@ jobs:
         password: ${{ secrets.FTP_PASSWORD }}
         port: 21
         script: |
-          PATH=$PATH:/${{ secrets.FTP_USERNAME }}/.npm-global/bin
-          npx pm2 restart ./app.js
+          node --version
