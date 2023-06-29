@@ -1,19 +1,23 @@
-name: remote ssh command
-on: [push]
+name: cd
+
+on:
+  push:
+    branches:
+      - master
+
 jobs:
-  build:
-    name: Build
+  cd:
     runs-on: ubuntu-latest
+
     steps:
-    - name: Hmm ga tau lagi
-      uses: appleboy/ssh-action@v0.1.10
-      with:
-        host: ${{ secrets.FTP_SERVER }}
-        username: ${{ secrets.FTP_USERNAME }}
-        password: ${{ secrets.FTP_PASSWORD }}
-        key: ${{ secrets.FTP_KEY }}
-        passphrase: ${{ secrets.PASSPHRASE }}
-        port: 21
-        script: |
-          PATH=$PATH:/home/${{secrets.FTP_USERNAME}}/.nvm/versions/node/v16.20.0/bin
-          npx pm2 restart ./app.js
+      - uses: actions/checkout@v2
+
+      - name: Deploy Using ssh
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          key: ${{ secrets.FTP_KEY }}
+          port: 21
+          script: |
+            npx pm2 restart ./app.js
