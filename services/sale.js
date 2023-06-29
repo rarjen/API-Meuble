@@ -1,84 +1,50 @@
-const { Order_detail, Order, Transaction } = require("../models");
-const { Op } = require("sequelize");
-const { TRANSACTION } = require("../utils/enum");
+const {
+  Transaction,
+  User,
+  Courrier,
+  Payment,
+  Product,
+  Category,
+} = require("../models");
+
+const { STATUS_TRANSACTION } = require("../utils/enum");
 
 const getTotal = async () => {
   const result = await Transaction.findAll({
-    where: { status: TRANSACTION.PAID },
+    where: { statusTransaction: STATUS_TRANSACTION.DONE },
     include: [
       {
-        model: Order,
-        as: "order",
-        include: [
-          {
-            model: Order_detail,
-            as: "order_detail",
-          },
-        ],
+        model: User,
+        as: "user",
+        attributes: ["email", "first_name", "last_name"],
       },
-    ],
-  });
-
-  let string = JSON.stringify(result);
-  let data = JSON.parse(string);
-
-  let total = 0;
-
-  data.forEach((element) => {
-    total += element.order.order_detail.total;
-  });
-
-  return total;
-};
-
-const getSale = async (req) => {
-  const { start_date, end_date } = req.query;
-
-  if (start_date && end_date) {
-    const result = await Transaction.findAll({
-      where: {
-        status: TRANSACTION.PAID,
-        createdAt: {
-          [Op.between]: [
-            new Date(start_date).setHours(0, 0, 0),
-            new Date(end_date).setHours(23, 59, 59),
-          ],
-        },
-      },
-      include: [
-        {
-          model: Order,
-          as: "order",
-          include: [
-            {
-              model: Order_detail,
-              as: "order_detail",
-            },
-          ],
-        },
-      ],
-    });
-
-    return result;
-  }
-
-  const result = await Transaction.findAll({
-    where: { status: TRANSACTION.PAID },
-    include: [
       {
-        model: Order,
-        as: "order",
+        model: Product,
+        as: "product",
         include: [
           {
-            model: Order_detail,
-            as: "order_detail",
+            model: Category,
+            as: "category",
+            attributes: ["category"],
           },
         ],
+        attributes: { exclude: ["createdAt", "updatedAt"] },
+      },
+      {
+        model: Courrier,
+        as: "courrier",
+        attributes: ["courrier"],
+      },
+      {
+        model: Payment,
+        as: "payment",
+        attributes: ["payment", "rekening"],
       },
     ],
+    attributes: { exclude: ["createdAt", "updatedAt"] },
   });
 
   return result;
 };
 
-module.exports = { getTotal, getSale };
+module.exports = { getTotal };

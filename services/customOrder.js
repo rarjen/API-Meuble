@@ -39,6 +39,7 @@ const createCustomOrder = async (req) => {
   }
 
   const checkPayment = await Payment.findOne({ where: { id: payment_id } });
+
   if (!checkPayment) {
     throw new NotFoundError(`Tidak ada Payment dengan id ${payment_id}`);
   }
