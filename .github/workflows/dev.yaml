@@ -12,6 +12,7 @@ jobs:
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
         key: ${{ secrets.FTP_KEY }}
+        passphrase: ${{ secrets.PASSPHRASE }}
         port: 21
         script: |
           PATH=$PATH:/home/${{secrets.FTP_USERNAME}}/.nvm/versions/node/v16.20.0/bin
