@@ -107,7 +107,7 @@ const login = async (req) => {
   if (user.avatar?.img_url) {
     payload = {
       ...payload,
-      avatar: user.avatar.img_url,
+      avatar: user.avatar.img_url.split("?").length > 0 ? user.avatar.img_url.split("?")[0] : user.avatar.img_url
     };
   }
 

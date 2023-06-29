@@ -11,12 +11,14 @@ const {
   inputResi,
   updateDone,
 } = require("../../services/transactionCustomOrder");
+
+const { Payment } = require("../../models");
+
 const { StatusCodes } = require("http-status-codes");
 
 const create = async (req, res, next) => {
   try {
     const result = await createTransaction(req);
-
     return res.status(StatusCodes.CREATED).json({
       status: true,
       message: "Transaction Custom Order Created",

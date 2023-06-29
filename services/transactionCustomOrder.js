@@ -10,6 +10,7 @@ const {
   Image_transaction_custom_order,
   Coordinate,
   Address,
+  Role
 } = require("../models");
 const { TRANSACTION, CUSTOM_ORDER } = require("../utils/enum");
 
@@ -20,7 +21,7 @@ const generateInvoiceNumber = () => {
     .padStart(3, "0");
   return `${timestamp}${randomDigits}`;
 };
-
+let muchMaterial = 0;
 const estimation = (
   panjangMebel,
   lebarMebel,
@@ -36,7 +37,7 @@ const estimation = (
 
   // Hitung jumlah material yang dibutuhkan
   const jumlahMaterial = Math.ceil(volumeMaterial); // Bulatkan ke atas
-
+  muchMaterial = jumlahMaterial;
   // Hitung estimasi harga
   const estimasiHarga = jumlahMaterial * hargaPerBalok;
 
@@ -59,9 +60,9 @@ function calculateCodPrice(weight, lat1, lon1, lat2, lon2) {
   const a =
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
     Math.cos(toRadians(lat1Float)) *
-      Math.cos(toRadians(lat2Float)) *
-      Math.sin(dLon / 2) *
-      Math.sin(dLon / 2);
+    Math.cos(toRadians(lat2Float)) *
+    Math.sin(dLon / 2) *
+    Math.sin(dLon / 2);
 
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   const distance = Math.round(R * c);
@@ -72,8 +73,49 @@ function calculateCodPrice(weight, lat1, lon1, lat2, lon2) {
 }
 
 const createTransaction = async (req) => {
-  const { category_id, payment_id, size_id, material_id, qty, note } = req.body;
+  const { category_id, payment_id, size_id, material_id, qty, note, courrier_id } = req.body;
   const user = req.user;
+
+  const detailUser = await User.findOne({
+    where: {
+      id: user.id,
+    },
+    include: [
+      {
+        model: Address,
+        as: "address",
+        include: [
+          {
+            model: Coordinate,
+            as: "coordinate",
+          },
+        ],
+      },
+    ],
+  });
+
+  const detailAdmin = await User.findOne({
+    include: [
+      {
+        model: Address,
+        as: "address",
+        include: [
+          {
+            model: Coordinate,
+            as: "coordinate",
+          },
+        ],
+      },
+      {
+        model: Role,
+        as: "role",
+        where: {
+          role: "ADMIN",
+        }
+      }
+    ]
+  });
+
 
   const checkPayment = await Payment.findOne({ where: { id: payment_id } });
   if (!checkPayment) {
@@ -81,14 +123,20 @@ const createTransaction = async (req) => {
   }
   const checkMaterial = await Material.findOne({ where: { id: material_id } });
   if (!checkMaterial) {
-    throw new NotFoundError(`Tidak ada payment dengan id: ${material_id}`);
-  }
-  const checkSize = await Size.findOne({ where: { id: size_id } });
-  if (!checkSize) {
-    throw new NotFoundError(`Tidak ada payment dengan id: ${size_id}`);
+    throw new NotFoundError(`Tidak ada material dengan id: ${material_id}`);
   }
 
-  const costExtimation = await estimation(
+  const checkSize = await Size.findOne({ where: { id: size_id } });
+  if (!checkSize) {
+    throw new NotFoundError(`Tidak ada size dengan id: ${size_id}`);
+  }
+
+  const checkCourrier = await Courrier.findOne({ where: { id: courrier_id } });
+  if (!checkCourrier) {
+    throw new NotFoundError(`Tidak ada courrier dengan id: ${courrier_id}`);
+  }
+
+  const costExtimation = estimation(
     checkSize.panjang,
     checkSize.lebar,
     checkSize.tinggi,
@@ -98,10 +146,22 @@ const createTransaction = async (req) => {
     checkMaterial.harga
   );
 
+  const weight = muchMaterial * checkMaterial.berat < 1000 ? 1000 : muchMaterial * checkMaterial.berat;
+
+  const ongkosKirim = calculateCodPrice(
+    weight,
+    detailUser.address.coordinate.lat,
+    detailUser.address.coordinate.lng,
+    detailAdmin.address.coordinate.lat,
+    detailAdmin.address.coordinate.lng
+  );
+
   const ongkosTukang = 100000;
 
   const result = await Transaction_custom_order.create({
     user_id: user.id,
+    courrier_id,
+    total_weight: weight,
     category_id,
     payment_id,
     size_id,
@@ -111,7 +171,8 @@ const createTransaction = async (req) => {
     note,
     total: costExtimation,
     ongkosTukang,
-    grandTotal: (costExtimation + ongkosTukang) * qty,
+    ongkir: ongkosKirim,
+    grandTotal: ((costExtimation + ongkosTukang) * qty) + ongkosKirim,
     statusOrder: CUSTOM_ORDER.WAITING,
     statusPayment: TRANSACTION.PENDING,
   });
@@ -290,8 +351,11 @@ const updateStatusPayment = async (req) => {
     );
   }
 
+
+  console.log(checkTransaction.statusOrder, checkTransaction.statusPayment);
+
   if (
-    checkTransaction.statusOrder !== CUSTOM_ORDER.ON_PROCESS ||
+    checkTransaction.statusOrder !== CUSTOM_ORDER.ON_PROCESS &&
     checkTransaction.statusPayment !== TRANSACTION.PENDING
   ) {
     throw new BadRequestError(`Tidak dapat update status pembayaran!`);
@@ -301,9 +365,11 @@ const updateStatusPayment = async (req) => {
     where: { transaction_custom_order_id },
   });
 
-  if (!checkPicture) {
-    throw new BadRequestError(`Tidak dapat update status pembayaran!`);
-  }
+  // console.log(checkPicture);
+
+  // if (!checkPicture) {
+  //   throw new BadRequestError(`Tidak dapat update status pembayaran!`);
+  // }
 
   const result = await Transaction_custom_order.update(
     { statusPayment: TRANSACTION.PAID },
@@ -327,6 +393,9 @@ const inputResi = async (req) => {
     );
   }
 
+
+  console.log(checkTransaction.statusPayment, TRANSACTION.PAID);
+
   if (checkTransaction.statusPayment !== TRANSACTION.PAID) {
     throw new BadRequestError(`Tidak dapat melakukan input resi`);
   }
@@ -335,12 +404,12 @@ const inputResi = async (req) => {
     where: { id: checkTransaction.courrier_id },
   });
 
-  if (checkCourrier.courrier === "Internal Delivery") {
-    throw new BadRequestError(`Tidak dapat melakukan input resi`);
-  }
-
+  // if (checkCourrier.courrier === "Internal Delivery") {
+  //   throw new BadRequestError(`Tidak dapat melakukan input resi`);
+  // }
   const result = await Transaction_custom_order.update(
-    { nomerResi },
+    { nomerResi, statusOrder: 'ON_DELIVERY' },
+
     { where: { id: transaction_custom_order_id } }
   );
 
@@ -376,9 +445,17 @@ const updateDone = async (req) => {
 };
 
 const readTransactionAdmin = async (req) => {
-  const { searchInvoice, page = 1, limit = 10 } = req.query;
+  const { searchInvoice, page = 1, limit = 10, status, statusTransaction } = req.query;
 
   let where = {};
+
+  if (status) {
+    where.statusOrder = status;
+  }
+
+  if (statusTransaction) {
+    where.statusPayment = statusTransaction;
+  }
 
   if (searchInvoice) {
     where = {
@@ -386,10 +463,12 @@ const readTransactionAdmin = async (req) => {
     };
   }
 
+  console.log(where);
+
   const pageNumber = parseInt(page);
   const limitPage = parseInt(limit);
   const offset = pageNumber * limitPage - limitPage;
-  const allTransaction = await Transaction_custom_order.count();
+  const allTransaction = await Transaction_custom_order.count({ where });
   const totalPage = Math.ceil(allTransaction / limit);
 
   const result = await Transaction_custom_order.findAll({
@@ -400,6 +479,12 @@ const readTransactionAdmin = async (req) => {
       {
         model: User,
         as: "user",
+        include: [
+          {
+            model: Address,
+            as: "address",
+          }
+        ]
       },
       {
         model: Payment,

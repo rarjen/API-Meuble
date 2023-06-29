@@ -4,7 +4,7 @@ const { VARIANT, ROLES } = require("../utils/enum");
 const { Op } = require("sequelize");
 
 const createMaterial = async (req) => {
-  const { material, panjang, lebar, tebal, harga } = req.body;
+  const { material, panjang, lebar, tebal, harga, berat } = req.body;
 
   const checkDuplicate = await Material.findOne({
     where: { material, panjang, lebar, tebal },
@@ -19,6 +19,7 @@ const createMaterial = async (req) => {
     panjang,
     lebar,
     tebal,
+    berat,
     harga,
     status: VARIANT.ACTIVE,
   });
@@ -28,7 +29,7 @@ const createMaterial = async (req) => {
 
 const editMaterial = async (req) => {
   const { material_id } = req.params;
-  const { material, panjang, lebar, tebal, harga } = req.body;
+  const { material, panjang, lebar, tebal, harga, berat } = req.body;
 
   const checkMaterial = await Material.findOne({ where: { id: material_id } });
   if (!checkMaterial) {
