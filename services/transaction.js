@@ -103,20 +103,32 @@ const createTransaction = async (req) => {
 };
 
 const readTransaction = async (req) => {
-  const { status, searchInvoice, page = 1, limit = 10, statusTransaction = null } = req.query;
+  const {
+    status,
+    searchInvoice,
+    page = 1,
+    limit = 10,
+    statusTransaction = null,
+    startDate,
+    endDate,
+  } = req.query;
 
   let where = {};
+
   let whereStatus = {};
+
   if (status) {
     where.status = status;
     whereStatus.status = status;
   }
+
   whereStatus.statusTransaction = {
-    [Op.is]: null
+    [Op.is]: null,
+  };
+
+  if (statusTransaction) {
+    whereStatus.statusTransaction = statusTransaction;
   }
-  if(statusTransaction) {
-    whereStatus.statusTransaction = statusTransaction
-  } 
 
   if (searchInvoice) {
     where = {
@@ -154,7 +166,7 @@ const readTransaction = async (req) => {
     offset: offset,
     limit: limitPage,
     where: {
-      [Op.and]: [where, whereStatus]
+      [Op.and]: [where, whereStatus],
     },
     include: [
       {
