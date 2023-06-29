@@ -108,9 +108,9 @@ const readTransaction = async (req) => {
     searchInvoice,
     page = 1,
     limit = 10,
+    statusTransaction = null,
     startDate,
     endDate,
-    statusTransaction,
   } = req.query;
 
   let where = {};

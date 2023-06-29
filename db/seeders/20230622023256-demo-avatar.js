@@ -8,7 +8,9 @@ module.exports = {
         {
           user_id: 1,
           img_url:
-            "https://ik.imagekit.io/6v306xm58/picture_5R4Eakrio?updatedAt=1685285054104",
+            "https://ik.imagekit.io/6v306xm58/picture_5R4Eakrio",
+          createdAt: new Date(),
+          updatedAt: new Date()
         },
       ],
       {}
