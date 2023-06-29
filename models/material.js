@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       lebar: DataTypes.DOUBLE,
       tebal: DataTypes.DOUBLE,
       harga: DataTypes.DOUBLE,
+      berat: DataTypes.DOUBLE,
       status: DataTypes.STRING,
     },
     {

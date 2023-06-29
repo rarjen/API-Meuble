@@ -24,6 +24,9 @@ module.exports = {
       harga: {
         type: Sequelize.DOUBLE,
       },
+      berat: {
+        type: Sequelize.DOUBLE,
+      },
       status: {
         type: Sequelize.STRING,
       },

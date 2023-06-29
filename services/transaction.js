@@ -113,10 +113,17 @@ const readTransaction = async (req) => {
   } = req.query;
 
   let where = {};
-
+  let whereStatus = {};
   if (status) {
     where.status = status;
+    whereStatus.status = status;
   }
+  whereStatus.statusTransaction = {
+    [Op.is]: null
+  }
+  if(statusTransaction) {
+    whereStatus.statusTransaction = statusTransaction
+  } 
 
   if (searchInvoice) {
     where = {
@@ -146,14 +153,16 @@ const readTransaction = async (req) => {
   const limitPage = parseInt(limit);
   const offset = pageNumber * limitPage - limitPage;
   const allTransaction = await Transaction.count({
-    where: { status },
+    where: whereStatus,
   });
   const totalPage = Math.ceil(allTransaction / limit);
 
   const result = await Transaction.findAll({
     offset: offset,
     limit: limitPage,
-    where,
+    where: {
+      [Op.and]: [where, whereStatus]
+    },
     include: [
       {
         model: User,
