@@ -110,20 +110,25 @@ const readTransaction = async (req) => {
     limit = 10,
     startDate,
     endDate,
+    statusTransaction,
   } = req.query;
 
   let where = {};
+
   let whereStatus = {};
+
   if (status) {
     where.status = status;
     whereStatus.status = status;
   }
+
   whereStatus.statusTransaction = {
-    [Op.is]: null
+    [Op.is]: null,
+  };
+
+  if (statusTransaction) {
+    whereStatus.statusTransaction = statusTransaction;
   }
-  if(statusTransaction) {
-    whereStatus.statusTransaction = statusTransaction
-  } 
 
   if (searchInvoice) {
     where = {
@@ -161,7 +166,7 @@ const readTransaction = async (req) => {
     offset: offset,
     limit: limitPage,
     where: {
-      [Op.and]: [where, whereStatus]
+      [Op.and]: [where, whereStatus],
     },
     include: [
       {
