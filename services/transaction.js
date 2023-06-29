@@ -103,14 +103,7 @@ const createTransaction = async (req) => {
 };
 
 const readTransaction = async (req) => {
-  const {
-    status,
-    searchInvoice,
-    page = 1,
-    limit = 10,
-    startDate,
-    endDate,
-  } = req.query;
+  const { status, searchInvoice, page = 1, limit = 10, statusTransaction = null } = req.query;
 
   let where = {};
   let whereStatus = {};
