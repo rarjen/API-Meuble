@@ -131,6 +131,17 @@ const readTransaction = async (req) => {
     };
   }
 
+  if (startDate && endDate) {
+    where = {
+      createdAt: {
+        [Op.between]: [
+          new Date(startDate).setHours(0, 0, 0),
+          new Date(endDate).setHours(23, 59, 59),
+        ],
+      },
+    };
+  }
+
   const pageNumber = parseInt(page);
   const limitPage = parseInt(limit);
   const offset = pageNumber * limitPage - limitPage;
