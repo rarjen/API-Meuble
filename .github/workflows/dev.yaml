@@ -13,5 +13,5 @@ jobs:
         password: ${{ secrets.FTP_PASSWORD }}
         port: 21
         script: |
-          PATH=$PATH:/home/${{secrets.FTP_USERNAME}}/.nvm/versions/node/v16.20.0/bin
+          export PATH=$PATH:/home/${{secrets.FTP_USERNAME}}/.nvm/versions/node/v16.20.0/bin
           npx pm2 restart ./app.js
