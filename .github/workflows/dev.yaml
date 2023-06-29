@@ -1,18 +1,15 @@
-on: push
-name: 🚀 Deploy website on push
+name: remote ssh command
+on: [push]
 jobs:
-  web-deploy:
-    name: 🎉 Deploy
+  build:
+    name: Build
     runs-on: ubuntu-latest
     steps:
-      - name: 🚚 Get latest code
-        uses: actions/checkout@v2
-      - name: 📂 Sync files
-        uses: SamKirkland/FTP-Deploy-Action@4.3.3
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftp
-          port: 21
-          server-dir: "./"
+    - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@v0.1.10
+      with:
+        host: ${{ secrets.FTP_SERVER }}
+        username: ${{ ssecrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        port: 21
+        script: npx pm2 restart ./app.js
