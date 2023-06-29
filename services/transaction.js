@@ -103,7 +103,14 @@ const createTransaction = async (req) => {
 };
 
 const readTransaction = async (req) => {
-  const { status, searchInvoice, page = 1, limit = 10, statusTransaction = null } = req.query;
+  const {
+    status,
+    searchInvoice,
+    page = 1,
+    limit = 10,
+    startDate,
+    endDate,
+  } = req.query;
 
   let where = {};
   let whereStatus = {};
@@ -128,6 +135,17 @@ const readTransaction = async (req) => {
     where = {
       status: status,
       invoice_number: { [Op.like]: "%" + searchInvoice + "%" },
+    };
+  }
+
+  if (startDate && endDate) {
+    where = {
+      createdAt: {
+        [Op.between]: [
+          new Date(startDate).setHours(0, 0, 0),
+          new Date(endDate).setHours(23, 59, 59),
+        ],
+      },
     };
   }
 
