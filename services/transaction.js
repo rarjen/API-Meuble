@@ -320,12 +320,14 @@ const readTransactionUser = async (req) => {
   const { status } = req.query;
   const user = req.user;
 
-  let where = {};
+  let where = {
+    user_id: user.id,
+  };
 
   if (status) {
     where = {
+      ...where,
       status: status,
-      user_id: user.id,
     };
   }
 
@@ -412,10 +414,20 @@ const updateTransactionStatus = async (req) => {
 
   const checkTransaction = await Transaction.findOne({
     where: { id: transaction_id },
+    include: [
+      {
+        model: Image_transaction,
+        as: "img_transaction",
+      },
+    ],
   });
 
   if (!checkTransaction) {
     throw new NotFoundError(`Tidak ada transaksi dengan id: ${transaction_id}`);
+  }
+
+  if (!checkTransaction.img_transaction) {
+    throw new BadRequestError("Pembeli belum upload bukti pembayaran!");
   }
 
   if (checkTransaction.status !== TRANSACTION.PENDING) {
@@ -500,5 +512,3 @@ module.exports = {
   updateDone,
   showTransaction,
 };
-
-// test
