@@ -4,6 +4,7 @@ const {
   getOnePayment,
   editPayment,
   editStatusPayment,
+  uploadOrUpdateImg,
 } = require("../../services/payment");
 const { StatusCodes } = require("http-status-codes");
 
@@ -77,4 +78,25 @@ const updateStatus = async (req, res, next) => {
   }
 };
 
-module.exports = { create, index, show, update, updateStatus };
+const uploadUpdateImg = async (req, res, next) => {
+  try {
+    const result = await uploadOrUpdateImg(req);
+
+    return res.status(StatusCodes.OK).json({
+      status: true,
+      message: "Success upload/update picture",
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = {
+  create,
+  index,
+  show,
+  update,
+  updateStatus,
+  uploadUpdateImg,
+};

@@ -1582,10 +1582,6 @@ paths:
                       properties:
                         id:
                           type: integer
-                        category_id:
-                          type: integer
-                        brand:
-                          type: string
                         nama:
                           type: string
                         weight:
@@ -1596,215 +1592,156 @@ paths:
                           type: integer
                         harga:
                           type: integer
-                        status:
-                          type: string
-                        createdAt:
-                          type: string
-                        updatedAt:
-                          type: string
+                        total_sold:
+                          type: integer
+                        averageRating:
+                          type:
+                            - "null"
+                            - number
+                        totalRatings:
+                          type: integer
                         category:
                           type: object
                           properties:
-                            id:
-                              type: integer
                             category:
                               type: string
-                            createdAt:
-                              type: string
-                            updatedAt:
+                        thumbnail:
+                          type: object
+                          properties:
+                            img_url:
                               type: string
                         images:
                           type: array
                           items:
                             type: object
                             properties:
-                              id:
-                                type: integer
-                              product_id:
-                                type: integer
                               img_url:
                                 type: string
-                              imagekit_id:
-                                type: string
-                              createdAt:
-                                type: string
-                              updatedAt:
-                                type: string
-                        thumbnail:
-                          type: object
-                          properties:
-                            id:
-                              type: integer
-                            product_id:
-                              type: integer
-                            img_url:
-                              type: string
-                            imagekit_id:
-                              type: string
-                            createdAt:
-                              type: string
-                            updatedAt:
-                              type: string
                 x-examples:
                   Example 1:
                     status: true
-                    message: Success get product
+                    message: Success show data
                     data:
                       - id: 1
-                        category_id: 1
-                        brand: Desku
-                        nama: Meja Rapat Bundar
-                        weight: 20000
-                        deskripsi: Ini deskripsi
-                        stock: 41
-                        harga: 300000
-                        status: ACTIVE
-                        createdAt: "2023-05-30T01:44:19.000Z"
-                        updatedAt: "2023-05-30T08:20:27.000Z"
+                        nama: Lemari Penyimpanan Kabinet 2
+                        weight: 12000
+                        deskripsi: Lemari Kekinian
+                        stock: 148
+                        harga: 365000
+                        total_sold: 2
+                        averageRating: 3.5
+                        totalRatings: 2
                         category:
-                          id: 1
-                          category: Meja
-                          createdAt: "2023-05-30T01:39:43.000Z"
-                          updatedAt: "2023-05-30T01:39:43.000Z"
-                        images:
-                          - id: 1
-                            product_id: 1
-                            img_url: "https://ik.imagekit.io/6v306xm58/picture_a4hMoBMQo"
-                            imagekit_id: 6475b32906370748f2c40585
-                            createdAt: "2023-05-30T08:26:19.000Z"
-                            updatedAt: "2023-05-30T08:26:19.000Z"
-                          - id: 2
-                            product_id: 1
-                            img_url: "https://ik.imagekit.io/6v306xm58/picture_a8lCD-M5VR"
-                            imagekit_id: 6475b32b06370748f2c40aa2
-                            createdAt: "2023-05-30T08:26:21.000Z"
-                            updatedAt: "2023-05-30T08:26:21.000Z"
-                          - id: 3
-                            product_id: 1
-                            img_url: "https://ik.imagekit.io/6v306xm58/picture_7cqMlb29GV"
-                            imagekit_id: 6475b32d06370748f2c41819
-                            createdAt: "2023-05-30T08:26:23.000Z"
-                            updatedAt: "2023-05-30T08:26:23.000Z"
-                          - id: 4
-                            product_id: 1
-                            img_url: "https://ik.imagekit.io/6v306xm58/picture_tAmCdGSMM"
-                            imagekit_id: 6475b32f06370748f2c42375
-                            createdAt: "2023-05-30T08:26:25.000Z"
-                            updatedAt: "2023-05-30T08:26:25.000Z"
-                          - id: 5
-                            product_id: 1
-                            img_url: "https://ik.imagekit.io/6v306xm58/picture_CL4U6Vw1B8M"
-                            imagekit_id: 6475b33206370748f2c431f4
-                            createdAt: "2023-05-30T08:26:28.000Z"
-                            updatedAt: "2023-05-30T08:26:28.000Z"
+                          category: Kursi
                         thumbnail:
-                          id: 1
-                          product_id: 1
-                          img_url: "https://ik.imagekit.io/6v306xm58/picture_IraEtb7Yr"
-                          imagekit_id: 6475b34406370748f2c4690d
-                          createdAt: "2023-05-30T08:26:46.000Z"
-                          updatedAt: "2023-05-30T08:26:46.000Z"
+                          img_url: "https://ik.imagekit.io/6v306xm58/picture_aUldjsAyq"
+                        images:
+                          - img_url: "https://ik.imagekit.io/6v306xm58/picture_nUFxip6gB"
+                          - img_url: "https://ik.imagekit.io/6v306xm58/picture_RgVxhCYp0"
+                          - img_url: "https://ik.imagekit.io/6v306xm58/picture_54KdpoLaq"
+                          - img_url: "https://ik.imagekit.io/6v306xm58/picture_zfweC5PJ1"
+                          - img_url: "https://ik.imagekit.io/6v306xm58/picture_h6DkPyYRd"
+                      - id: 4
+                        nama: Lemari Penyimpanan Kabinet 2
+                        weight: 12000
+                        deskripsi: Lemari Kekinian
+                        stock: 150
+                        harga: 365000
+                        total_sold: 0
+                        averageRating: null
+                        totalRatings: 0
+                        category:
+                          category: Kursi
+                        thumbnail:
+                          img_url: "https://ik.imagekit.io/6v306xm58/picture_aUldjsAyq"
+                        images:
+                          - img_url: "https://ik.imagekit.io/6v306xm58/picture_nUFxip6gB"
+                          - img_url: "https://ik.imagekit.io/6v306xm58/picture_RgVxhCYp0"
+                          - img_url: "https://ik.imagekit.io/6v306xm58/picture_54KdpoLaq"
+                          - img_url: "https://ik.imagekit.io/6v306xm58/picture_zfweC5PJ1"
+                          - img_url: "https://ik.imagekit.io/6v306xm58/picture_h6DkPyYRd"
+                      - id: 7
+                        nama: Lemari Penyimpanan Kabinet 2
+                        weight: 12000
+                        deskripsi: Lemari Kekinian
+                        stock: 150
+                        harga: 365000
+                        total_sold: 0
+                        averageRating: null
+                        totalRatings: 0
+                        category:
+                          category: Kursi
+                        thumbnail:
+                          img_url: "https://ik.imagekit.io/6v306xm58/picture_aUldjsAyq"
+                        images:
+                          - img_url: "https://ik.imagekit.io/6v306xm58/picture_nUFxip6gB"
+                          - img_url: "https://ik.imagekit.io/6v306xm58/picture_RgVxhCYp0"
+                          - img_url: "https://ik.imagekit.io/6v306xm58/picture_54KdpoLaq"
+                          - img_url: "https://ik.imagekit.io/6v306xm58/picture_zfweC5PJ1"
+                          - img_url: "https://ik.imagekit.io/6v306xm58/picture_h6DkPyYRd"
               examples:
                 Success  Get Products:
                   value:
                     status: true
                     message: Success show data
                     data:
-                      data:
-                        - id: 1
-                          category_id: 1
-                          brand: Desku
-                          nama: Meja Rapat Bundar
-                          weight: 20000
-                          deskripsi: Ini deskripsi
-                          stock: 41
-                          harga: 300000
-                          status: ACTIVE
-                          createdAt: "2023-05-30T01:44:19.000Z"
-                          updatedAt: "2023-05-30T08:20:27.000Z"
-                          category:
-                            id: 1
-                            category: Meja
-                            createdAt: "2023-05-30T01:39:43.000Z"
-                            updatedAt: "2023-05-30T01:39:43.000Z"
-                          images:
-                            - id: 1
-                              product_id: 1
-                              img_url: "https://ik.imagekit.io/6v306xm58/picture_a4hMoBMQo"
-                              imagekit_id: 6475b32906370748f2c40585
-                              createdAt: "2023-05-30T08:26:19.000Z"
-                              updatedAt: "2023-05-30T08:26:19.000Z"
-                            - id: 2
-                              product_id: 1
-                              img_url: "https://ik.imagekit.io/6v306xm58/picture_a8lCD-M5VR"
-                              imagekit_id: 6475b32b06370748f2c40aa2
-                              createdAt: "2023-05-30T08:26:21.000Z"
-                              updatedAt: "2023-05-30T08:26:21.000Z"
-                            - id: 3
-                              product_id: 1
-                              img_url: "https://ik.imagekit.io/6v306xm58/picture_7cqMlb29GV"
-                              imagekit_id: 6475b32d06370748f2c41819
-                              createdAt: "2023-05-30T08:26:23.000Z"
-                              updatedAt: "2023-05-30T08:26:23.000Z"
-                            - id: 4
-                              product_id: 1
-                              img_url: "https://ik.imagekit.io/6v306xm58/picture_tAmCdGSMM"
-                              imagekit_id: 6475b32f06370748f2c42375
-                              createdAt: "2023-05-30T08:26:25.000Z"
-                              updatedAt: "2023-05-30T08:26:25.000Z"
-                            - id: 5
-                              product_id: 1
-                              img_url: "https://ik.imagekit.io/6v306xm58/picture_CL4U6Vw1B8M"
-                              imagekit_id: 6475b33206370748f2c431f4
-                              createdAt: "2023-05-30T08:26:28.000Z"
-                              updatedAt: "2023-05-30T08:26:28.000Z"
-                          thumbnail:
-                            id: 1
-                            product_id: 1
-                            img_url: "https://ik.imagekit.io/6v306xm58/picture_IraEtb7Yr"
-                            imagekit_id: 6475b34406370748f2c4690d
-                            createdAt: "2023-05-30T08:26:46.000Z"
-                            updatedAt: "2023-05-30T08:26:46.000Z"
-                        - id: 2
-                          category_id: 2
-                          brand: Rexus
-                          nama: Rexus Gaming Chair
-                          weight: 35000
-                          deskripsi: Kursi Gaming Kekinian
-                          stock: 20
-                          harga: 500000
-                          status: ACTIVE
-                          createdAt: "2023-05-30T01:46:48.000Z"
-                          updatedAt: "2023-05-30T01:46:48.000Z"
-                          category:
-                            id: 2
-                            category: Kursi
-                            createdAt: "2023-05-30T01:39:49.000Z"
-                            updatedAt: "2023-05-30T01:39:49.000Z"
-                          images: []
-                          thumbnail: null
-                        - id: 3
-                          category_id: 3
-                          brand: Lemariku
-                          nama: Lemari Penyimpanan Kabinet
-                          weight: 12000
-                          deskripsi: Lemari Kekinian
-                          stock: 150
-                          harga: 360000
-                          status: ACTIVE
-                          createdAt: "2023-05-30T01:48:36.000Z"
-                          updatedAt: "2023-05-30T01:48:56.000Z"
-                          category:
-                            id: 3
-                            category: Lemari
-                            createdAt: "2023-05-30T01:39:52.000Z"
-                            updatedAt: "2023-05-30T01:39:52.000Z"
-                          images: []
-                          thumbnail: null
-                      pageNumber: 1
-                      limitPage: 10
-                      totalRows: 3
-                      totalPage: 1
+                      - id: 1
+                        nama: Lemari Penyimpanan Kabinet 2
+                        weight: 12000
+                        deskripsi: Lemari Kekinian
+                        stock: 148
+                        harga: 365000
+                        total_sold: 2
+                        averageRating: 3.5
+                        totalRatings: 2
+                        category:
+                          category: Kursi
+                        thumbnail:
+                          img_url: "https://ik.imagekit.io/6v306xm58/picture_aUldjsAyq"
+                        images:
+                          - img_url: "https://ik.imagekit.io/6v306xm58/picture_nUFxip6gB"
+                          - img_url: "https://ik.imagekit.io/6v306xm58/picture_RgVxhCYp0"
+                          - img_url: "https://ik.imagekit.io/6v306xm58/picture_54KdpoLaq"
+                          - img_url: "https://ik.imagekit.io/6v306xm58/picture_zfweC5PJ1"
+                          - img_url: "https://ik.imagekit.io/6v306xm58/picture_h6DkPyYRd"
+                      - id: 4
+                        nama: Lemari Penyimpanan Kabinet 2
+                        weight: 12000
+                        deskripsi: Lemari Kekinian
+                        stock: 150
+                        harga: 365000
+                        total_sold: 0
+                        averageRating: null
+                        totalRatings: 0
+                        category:
+                          category: Kursi
+                        thumbnail:
+                          img_url: "https://ik.imagekit.io/6v306xm58/picture_aUldjsAyq"
+                        images:
+                          - img_url: "https://ik.imagekit.io/6v306xm58/picture_nUFxip6gB"
+                          - img_url: "https://ik.imagekit.io/6v306xm58/picture_RgVxhCYp0"
+                          - img_url: "https://ik.imagekit.io/6v306xm58/picture_54KdpoLaq"
+                          - img_url: "https://ik.imagekit.io/6v306xm58/picture_zfweC5PJ1"
+                          - img_url: "https://ik.imagekit.io/6v306xm58/picture_h6DkPyYRd"
+                      - id: 7
+                        nama: Lemari Penyimpanan Kabinet 2
+                        weight: 12000
+                        deskripsi: Lemari Kekinian
+                        stock: 150
+                        harga: 365000
+                        total_sold: 0
+                        averageRating: null
+                        totalRatings: 0
+                        category:
+                          category: Kursi
+                        thumbnail:
+                          img_url: "https://ik.imagekit.io/6v306xm58/picture_aUldjsAyq"
+                        images:
+                          - img_url: "https://ik.imagekit.io/6v306xm58/picture_nUFxip6gB"
+                          - img_url: "https://ik.imagekit.io/6v306xm58/picture_RgVxhCYp0"
+                          - img_url: "https://ik.imagekit.io/6v306xm58/picture_54KdpoLaq"
+                          - img_url: "https://ik.imagekit.io/6v306xm58/picture_zfweC5PJ1"
+                          - img_url: "https://ik.imagekit.io/6v306xm58/picture_h6DkPyYRd"
         "":
           content:
             application/json:
@@ -2139,10 +2076,6 @@ paths:
                         type: string
                       rekening:
                         type: string
-                      img_url:
-                        type: string
-                      imagekit_id:
-                        type: string
                       status:
                         type: string
                       updatedAt:
@@ -2156,12 +2089,10 @@ paths:
                     data:
                       id: 3
                       payment: Transfer Bank Mandiri
-                      rekening: "171225125"
-                      img_url: "https://ik.imagekit.io/6v306xm58/picture_ClNTAPAQ_"
-                      imagekit_id: 6475577306370748f2a84cae
+                      rekening: "8410397854"
                       status: ACTIVE
-                      updatedAt: "2023-05-30T01:55:00.130Z"
-                      createdAt: "2023-05-30T01:55:00.130Z"
+                      updatedAt: "2023-06-30T15:27:30.131Z"
+                      createdAt: "2023-06-30T15:27:30.131Z"
               examples:
                 Success Create Payment:
                   value:
@@ -2170,12 +2101,10 @@ paths:
                     data:
                       id: 3
                       payment: Transfer Bank Mandiri
-                      rekening: "171225125"
-                      img_url: "https://ik.imagekit.io/6v306xm58/picture_ClNTAPAQ_"
-                      imagekit_id: 6475577306370748f2a84cae
+                      rekening: "8410397854"
                       status: ACTIVE
-                      updatedAt: "2023-05-30T01:55:00.130Z"
-                      createdAt: "2023-05-30T01:55:00.130Z"
+                      updatedAt: "2023-06-30T15:27:30.131Z"
+                      createdAt: "2023-06-30T15:27:30.131Z"
         "400":
           description: "Bad Request: Duplicate Data "
           content:
@@ -2205,9 +2134,6 @@ paths:
               properties:
                 payment:
                   type: string
-                picture:
-                  type: string
-                  format: binary
                 rekening:
                   type: string
           application/json:
@@ -7364,299 +7290,524 @@ paths:
                   message:
                     type: string
                   data:
-                    type: object
-                    properties:
-                      data:
-                        type: array
-                        items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        user_id:
+                          type: integer
+                        invoice_number:
+                          type: string
+                        product_id:
+                          type: integer
+                        qty:
+                          type: integer
+                        note:
+                          type: string
+                        payment_id:
+                          type: integer
+                        courrier_id:
+                          type: integer
+                        service:
+                          type: string
+                        total_weight:
+                          type: integer
+                        total:
+                          type: integer
+                        ongkir:
+                          type: integer
+                        grandTotal:
+                          type: integer
+                        nomerResi:
+                          type:
+                            - "null"
+                            - string
+                        status:
+                          type: string
+                        statusTransaction:
+                          type:
+                            - "null"
+                            - string
+                        createdAt:
+                          type: string
+                        updatedAt:
+                          type: string
+                        user:
                           type: object
                           properties:
                             id:
                               type: integer
-                            user_id:
+                            role_id:
                               type: integer
-                            invoice_number:
+                            first_name:
                               type: string
-                            product_id:
-                              type: integer
-                            qty:
-                              type: integer
-                            note:
+                            last_name:
                               type: string
-                            payment_id:
-                              type: integer
-                            courrier_id:
-                              type: integer
-                            service:
+                            email:
                               type: string
-                            total_weight:
+                            password:
+                              type: string
+                            mobile:
+                              type: string
+                            createdAt:
+                              type: string
+                            updatedAt:
+                              type: string
+                        product:
+                          type: object
+                          properties:
+                            id:
                               type: integer
-                            total:
+                            category_id:
                               type: integer
-                            ongkir:
+                            brand:
+                              type: string
+                            nama:
+                              type: string
+                            weight:
                               type: integer
-                            grandTotal:
+                            deskripsi:
+                              type: string
+                            stock:
                               type: integer
-                            nomerResi:
-                              type: "null"
+                            harga:
+                              type: integer
+                            status:
+                              type: string
+                            total_sold:
+                              type: integer
+                            createdAt:
+                              type: string
+                            updatedAt:
+                              type: string
+                        courrier:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            courrier:
+                              type: string
+                            img_url:
+                              type: string
+                            imagekit_id:
+                              type: string
                             status:
                               type: string
                             createdAt:
                               type: string
                             updatedAt:
                               type: string
-                            user:
-                              type: object
-                              properties:
-                                id:
-                                  type: integer
-                                role_id:
-                                  type: integer
-                                address_id:
-                                  type: integer
-                                first_name:
-                                  type: string
-                                last_name:
-                                  type: string
-                                email:
-                                  type: string
-                                password:
-                                  type: string
-                                mobile:
-                                  type: "null"
-                                createdAt:
-                                  type: string
-                                updatedAt:
-                                  type: string
-                            product:
-                              type: object
-                              properties:
-                                id:
-                                  type: integer
-                                category_id:
-                                  type: integer
-                                brand:
-                                  type: string
-                                nama:
-                                  type: string
-                                weight:
-                                  type: integer
-                                deskripsi:
-                                  type: string
-                                stock:
-                                  type: integer
-                                harga:
-                                  type: integer
-                                status:
-                                  type: string
-                                createdAt:
-                                  type: string
-                                updatedAt:
-                                  type: string
-                            courrier:
-                              type: object
-                              properties:
-                                id:
-                                  type: integer
-                                courrier:
-                                  type: string
-                                img_url:
-                                  type: string
-                                imagekit_id:
-                                  type: string
-                                status:
-                                  type: string
-                                createdAt:
-                                  type: string
-                                updatedAt:
-                                  type: string
+                        payment:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
                             payment:
-                              type: object
-                              properties:
-                                id:
-                                  type: integer
-                                payment:
-                                  type: string
-                                rekening:
-                                  type: string
-                                img_url:
-                                  type: string
-                                imagekit_id:
-                                  type: string
-                                status:
-                                  type: string
-                                createdAt:
-                                  type: string
-                                updatedAt:
-                                  type: string
-                            img_transaction:
-                              type: object
-                              properties:
-                                id:
-                                  type: integer
-                                transaction_id:
-                                  type: integer
-                                img_url:
-                                  type: string
-                                createdAt:
-                                  type: string
-                                updatedAt:
-                                  type: string
-                      pageNumber:
-                        type: integer
-                      limitPage:
-                        type: integer
-                      totalRows:
-                        type: integer
-                      totalPage:
-                        type: integer
+                              type: string
+                            rekening:
+                              type: string
+                            img_url:
+                              type: string
+                            imagekit_id:
+                              type: string
+                            status:
+                              type: string
+                            createdAt:
+                              type: string
+                            updatedAt:
+                              type: string
+                        img_transaction:
+                          type:
+                            - "null"
+                            - object
+                          properties:
+                            id:
+                              type: integer
+                            transaction_id:
+                              type: integer
+                            img_url:
+                              type: string
+                            createdAt:
+                              type: string
+                            updatedAt:
+                              type: string
                 x-examples:
                   Example 1:
                     status: true
                     message: Success Get Transaction!
                     data:
-                      data:
-                        - id: 2
-                          user_id: 2
-                          invoice_number: "1685434643804288"
-                          product_id: 1
-                          qty: 1
-                          note: Tolong minta bubblewrap
-                          payment_id: 2
-                          courrier_id: 2
-                          service: OKE
-                          total_weight: 20000
-                          total: 300000
-                          ongkir: 100000
-                          grandTotal: 400000
-                          nomerResi: null
-                          status: PENDING
-                          createdAt: "2023-05-30T08:17:23.000Z"
-                          updatedAt: "2023-05-30T08:17:23.000Z"
-                          user:
-                            id: 2
-                            role_id: 3
-                            address_id: 2
-                            first_name: Otniel
-                            last_name: Kevin
-                            email: rarjen57@gmail.com
-                            password: $2b$10$pLdRmb8OSrNxghOcQwozV.cANsTds.ViKzD0fQGK7Q5ge1oBsjtuK
-                            mobile: null
-                            createdAt: "2023-05-30T01:28:21.000Z"
-                            updatedAt: "2023-05-30T01:35:48.000Z"
-                          product:
-                            id: 1
-                            category_id: 1
-                            brand: Desku
-                            nama: Meja Rapat Bundar
-                            weight: 20000
-                            deskripsi: Ini deskripsi
-                            stock: 42
-                            harga: 300000
-                            status: ACTIVE
-                            createdAt: "2023-05-30T01:44:19.000Z"
-                            updatedAt: "2023-05-30T01:50:04.000Z"
-                          courrier:
-                            id: 2
-                            courrier: JNE
-                            img_url: "https://ik.imagekit.io/6v306xm58/picture_icyT_RRLb"
-                            imagekit_id: 6475542a06370748f2a2eda2
-                            status: ACTIVE
-                            createdAt: "2023-05-30T01:41:00.000Z"
-                            updatedAt: "2023-05-30T01:41:43.000Z"
-                          payment:
-                            id: 2
-                            payment: Transfer Bank BCA
-                            rekening: "171225124"
-                            img_url: "https://ik.imagekit.io/6v306xm58/picture_to-V_pAX1"
-                            imagekit_id: 6475576606370748f2a83ba3
-                            status: ACTIVE
-                            createdAt: "2023-05-30T01:54:47.000Z"
-                            updatedAt: "2023-05-30T01:54:47.000Z"
-                          img_transaction:
-                            id: 2
-                            transaction_id: 2
-                            img_url: "https://ik.imagekit.io/6v306xm58/picture_m1CIO3JUv"
-                            createdAt: "2023-05-30T08:17:48.000Z"
-                            updatedAt: "2023-05-30T08:17:48.000Z"
-                      pageNumber: 1
-                      limitPage: 10
-                      totalRows: 3
-                      totalPage: 1
+                      - id: 1
+                        user_id: 2
+                        invoice_number: "1686365845901321"
+                        product_id: 1
+                        qty: 1
+                        note: Tolong minta bubblewrap
+                        payment_id: 2
+                        courrier_id: 2
+                        service: OKE
+                        total_weight: 20000
+                        total: 300000
+                        ongkir: 100000
+                        grandTotal: 400000
+                        nomerResi: "001234567889"
+                        status: PAID
+                        statusTransaction: DONE
+                        createdAt: "2023-06-10T02:57:25.000Z"
+                        updatedAt: "2023-06-20T05:23:15.000Z"
+                        user:
+                          id: 2
+                          role_id: 3
+                          first_name: Otniel
+                          last_name: Kevin
+                          email: rarjen57@gmail.com
+                          password: $2b$10$2xAw7fEN7AhxhJRKei4ESe9fdMCbTDTtSBLQnAsQFkFcUlVfMkfOG
+                          mobile: "085329447622"
+                          createdAt: "2023-06-10T02:54:20.000Z"
+                          updatedAt: "2023-06-10T04:25:15.000Z"
+                        product:
+                          id: 1
+                          category_id: 2
+                          brand: Lemariku
+                          nama: Lemari Penyimpanan Kabinet 2
+                          weight: 12000
+                          deskripsi: Lemari Kekinian
+                          stock: 150
+                          harga: 365000
+                          status: ACTIVE
+                          total_sold: 1
+                          createdAt: "2023-06-20T05:19:50.000Z"
+                          updatedAt: "2023-06-20T05:23:15.000Z"
+                        courrier:
+                          id: 2
+                          courrier: JNE
+                          img_url: "https://ik.imagekit.io/6v306xm58/picture_UMj90qz4F"
+                          imagekit_id: 6477621806370748f2cab03f
+                          status: ACTIVE
+                          createdAt: "2023-06-09T16:44:19.000Z"
+                          updatedAt: "2023-06-09T16:44:19.000Z"
+                        payment:
+                          id: 2
+                          payment: Transfer Bank BCA
+                          rekening: "8715212427"
+                          img_url: "https://ik.imagekit.io/6v306xm58/picture_RoVqYHTHo"
+                          imagekit_id: 647763a406370748f2d0ad0d
+                          status: ACTIVE
+                          createdAt: "2023-06-09T16:44:19.000Z"
+                          updatedAt: "2023-06-09T16:44:19.000Z"
+                        img_transaction:
+                          id: 2
+                          transaction_id: 1
+                          img_url: "https://ik.imagekit.io/6v306xm58/picture_PYOkTe0TV"
+                          createdAt: "2023-06-10T03:32:29.000Z"
+                          updatedAt: "2023-06-10T03:32:29.000Z"
+                      - id: 2
+                        user_id: 2
+                        invoice_number: "1687826885563753"
+                        product_id: 1
+                        qty: 1
+                        note: Tolong minta bubblewrap
+                        payment_id: 2
+                        courrier_id: 2
+                        service: OKE
+                        total_weight: 20000
+                        total: 300000
+                        ongkir: 100000
+                        grandTotal: 400000
+                        nomerResi: null
+                        status: PENDING
+                        statusTransaction: null
+                        createdAt: "2023-06-27T00:48:05.000Z"
+                        updatedAt: "2023-06-27T00:48:05.000Z"
+                        user:
+                          id: 2
+                          role_id: 3
+                          first_name: Otniel
+                          last_name: Kevin
+                          email: rarjen57@gmail.com
+                          password: $2b$10$2xAw7fEN7AhxhJRKei4ESe9fdMCbTDTtSBLQnAsQFkFcUlVfMkfOG
+                          mobile: "085329447622"
+                          createdAt: "2023-06-10T02:54:20.000Z"
+                          updatedAt: "2023-06-10T04:25:15.000Z"
+                        product:
+                          id: 1
+                          category_id: 2
+                          brand: Lemariku
+                          nama: Lemari Penyimpanan Kabinet 2
+                          weight: 12000
+                          deskripsi: Lemari Kekinian
+                          stock: 150
+                          harga: 365000
+                          status: ACTIVE
+                          total_sold: 1
+                          createdAt: "2023-06-20T05:19:50.000Z"
+                          updatedAt: "2023-06-20T05:23:15.000Z"
+                        courrier:
+                          id: 2
+                          courrier: JNE
+                          img_url: "https://ik.imagekit.io/6v306xm58/picture_UMj90qz4F"
+                          imagekit_id: 6477621806370748f2cab03f
+                          status: ACTIVE
+                          createdAt: "2023-06-09T16:44:19.000Z"
+                          updatedAt: "2023-06-09T16:44:19.000Z"
+                        payment:
+                          id: 2
+                          payment: Transfer Bank BCA
+                          rekening: "8715212427"
+                          img_url: "https://ik.imagekit.io/6v306xm58/picture_RoVqYHTHo"
+                          imagekit_id: 647763a406370748f2d0ad0d
+                          status: ACTIVE
+                          createdAt: "2023-06-09T16:44:19.000Z"
+                          updatedAt: "2023-06-09T16:44:19.000Z"
+                        img_transaction: null
+                      - id: 3
+                        user_id: 2
+                        invoice_number: "1687826887067656"
+                        product_id: 1
+                        qty: 1
+                        note: Tolong minta bubblewrap
+                        payment_id: 2
+                        courrier_id: 2
+                        service: OKE
+                        total_weight: 20000
+                        total: 300000
+                        ongkir: 100000
+                        grandTotal: 400000
+                        nomerResi: null
+                        status: PENDING
+                        statusTransaction: null
+                        createdAt: "2023-06-27T00:48:07.000Z"
+                        updatedAt: "2023-06-27T00:48:07.000Z"
+                        user:
+                          id: 2
+                          role_id: 3
+                          first_name: Otniel
+                          last_name: Kevin
+                          email: rarjen57@gmail.com
+                          password: $2b$10$2xAw7fEN7AhxhJRKei4ESe9fdMCbTDTtSBLQnAsQFkFcUlVfMkfOG
+                          mobile: "085329447622"
+                          createdAt: "2023-06-10T02:54:20.000Z"
+                          updatedAt: "2023-06-10T04:25:15.000Z"
+                        product:
+                          id: 1
+                          category_id: 2
+                          brand: Lemariku
+                          nama: Lemari Penyimpanan Kabinet 2
+                          weight: 12000
+                          deskripsi: Lemari Kekinian
+                          stock: 150
+                          harga: 365000
+                          status: ACTIVE
+                          total_sold: 1
+                          createdAt: "2023-06-20T05:19:50.000Z"
+                          updatedAt: "2023-06-20T05:23:15.000Z"
+                        courrier:
+                          id: 2
+                          courrier: JNE
+                          img_url: "https://ik.imagekit.io/6v306xm58/picture_UMj90qz4F"
+                          imagekit_id: 6477621806370748f2cab03f
+                          status: ACTIVE
+                          createdAt: "2023-06-09T16:44:19.000Z"
+                          updatedAt: "2023-06-09T16:44:19.000Z"
+                        payment:
+                          id: 2
+                          payment: Transfer Bank BCA
+                          rekening: "8715212427"
+                          img_url: "https://ik.imagekit.io/6v306xm58/picture_RoVqYHTHo"
+                          imagekit_id: 647763a406370748f2d0ad0d
+                          status: ACTIVE
+                          createdAt: "2023-06-09T16:44:19.000Z"
+                          updatedAt: "2023-06-09T16:44:19.000Z"
+                        img_transaction: null
               examples:
                 Success:
                   value:
                     status: true
                     message: Success Get Transaction!
                     data:
-                      data:
-                        - id: 2
-                          user_id: 2
-                          invoice_number: "1685434643804288"
-                          product_id: 1
-                          qty: 1
-                          note: Tolong minta bubblewrap
-                          payment_id: 2
-                          courrier_id: 2
-                          service: OKE
-                          total_weight: 20000
-                          total: 300000
-                          ongkir: 100000
-                          grandTotal: 400000
-                          nomerResi: null
-                          status: PENDING
-                          createdAt: "2023-05-30T08:17:23.000Z"
-                          updatedAt: "2023-05-30T08:17:23.000Z"
-                          user:
-                            id: 2
-                            role_id: 3
-                            address_id: 2
-                            first_name: Otniel
-                            last_name: Kevin
-                            email: rarjen57@gmail.com
-                            password: $2b$10$pLdRmb8OSrNxghOcQwozV.cANsTds.ViKzD0fQGK7Q5ge1oBsjtuK
-                            mobile: null
-                            createdAt: "2023-05-30T01:28:21.000Z"
-                            updatedAt: "2023-05-30T01:35:48.000Z"
-                          product:
-                            id: 1
-                            category_id: 1
-                            brand: Desku
-                            nama: Meja Rapat Bundar
-                            weight: 20000
-                            deskripsi: Ini deskripsi
-                            stock: 42
-                            harga: 300000
-                            status: ACTIVE
-                            createdAt: "2023-05-30T01:44:19.000Z"
-                            updatedAt: "2023-05-30T01:50:04.000Z"
-                          courrier:
-                            id: 2
-                            courrier: JNE
-                            img_url: "https://ik.imagekit.io/6v306xm58/picture_icyT_RRLb"
-                            imagekit_id: 6475542a06370748f2a2eda2
-                            status: ACTIVE
-                            createdAt: "2023-05-30T01:41:00.000Z"
-                            updatedAt: "2023-05-30T01:41:43.000Z"
-                          payment:
-                            id: 2
-                            payment: Transfer Bank BCA
-                            rekening: "171225124"
-                            img_url: "https://ik.imagekit.io/6v306xm58/picture_to-V_pAX1"
-                            imagekit_id: 6475576606370748f2a83ba3
-                            status: ACTIVE
-                            createdAt: "2023-05-30T01:54:47.000Z"
-                            updatedAt: "2023-05-30T01:54:47.000Z"
-                          img_transaction:
-                            id: 2
-                            transaction_id: 2
-                            img_url: "https://ik.imagekit.io/6v306xm58/picture_m1CIO3JUv"
-                            createdAt: "2023-05-30T08:17:48.000Z"
-                            updatedAt: "2023-05-30T08:17:48.000Z"
-                      pageNumber: 1
-                      limitPage: 10
-                      totalRows: 3
-                      totalPage: 1
+                      - id: 1
+                        user_id: 2
+                        invoice_number: "1686365845901321"
+                        product_id: 1
+                        qty: 1
+                        note: Tolong minta bubblewrap
+                        payment_id: 2
+                        courrier_id: 2
+                        service: OKE
+                        total_weight: 20000
+                        total: 300000
+                        ongkir: 100000
+                        grandTotal: 400000
+                        nomerResi: "001234567889"
+                        status: PAID
+                        statusTransaction: DONE
+                        createdAt: "2023-06-10T02:57:25.000Z"
+                        updatedAt: "2023-06-20T05:23:15.000Z"
+                        user:
+                          id: 2
+                          role_id: 3
+                          first_name: Otniel
+                          last_name: Kevin
+                          email: rarjen57@gmail.com
+                          password: $2b$10$2xAw7fEN7AhxhJRKei4ESe9fdMCbTDTtSBLQnAsQFkFcUlVfMkfOG
+                          mobile: "085329447622"
+                          createdAt: "2023-06-10T02:54:20.000Z"
+                          updatedAt: "2023-06-10T04:25:15.000Z"
+                        product:
+                          id: 1
+                          category_id: 2
+                          brand: Lemariku
+                          nama: Lemari Penyimpanan Kabinet 2
+                          weight: 12000
+                          deskripsi: Lemari Kekinian
+                          stock: 150
+                          harga: 365000
+                          status: ACTIVE
+                          total_sold: 1
+                          createdAt: "2023-06-20T05:19:50.000Z"
+                          updatedAt: "2023-06-20T05:23:15.000Z"
+                        courrier:
+                          id: 2
+                          courrier: JNE
+                          img_url: "https://ik.imagekit.io/6v306xm58/picture_UMj90qz4F"
+                          imagekit_id: 6477621806370748f2cab03f
+                          status: ACTIVE
+                          createdAt: "2023-06-09T16:44:19.000Z"
+                          updatedAt: "2023-06-09T16:44:19.000Z"
+                        payment:
+                          id: 2
+                          payment: Transfer Bank BCA
+                          rekening: "8715212427"
+                          img_url: "https://ik.imagekit.io/6v306xm58/picture_RoVqYHTHo"
+                          imagekit_id: 647763a406370748f2d0ad0d
+                          status: ACTIVE
+                          createdAt: "2023-06-09T16:44:19.000Z"
+                          updatedAt: "2023-06-09T16:44:19.000Z"
+                        img_transaction:
+                          id: 2
+                          transaction_id: 1
+                          img_url: "https://ik.imagekit.io/6v306xm58/picture_PYOkTe0TV"
+                          createdAt: "2023-06-10T03:32:29.000Z"
+                          updatedAt: "2023-06-10T03:32:29.000Z"
+                      - id: 2
+                        user_id: 2
+                        invoice_number: "1687826885563753"
+                        product_id: 1
+                        qty: 1
+                        note: Tolong minta bubblewrap
+                        payment_id: 2
+                        courrier_id: 2
+                        service: OKE
+                        total_weight: 20000
+                        total: 300000
+                        ongkir: 100000
+                        grandTotal: 400000
+                        nomerResi: null
+                        status: PENDING
+                        statusTransaction: null
+                        createdAt: "2023-06-27T00:48:05.000Z"
+                        updatedAt: "2023-06-27T00:48:05.000Z"
+                        user:
+                          id: 2
+                          role_id: 3
+                          first_name: Otniel
+                          last_name: Kevin
+                          email: rarjen57@gmail.com
+                          password: $2b$10$2xAw7fEN7AhxhJRKei4ESe9fdMCbTDTtSBLQnAsQFkFcUlVfMkfOG
+                          mobile: "085329447622"
+                          createdAt: "2023-06-10T02:54:20.000Z"
+                          updatedAt: "2023-06-10T04:25:15.000Z"
+                        product:
+                          id: 1
+                          category_id: 2
+                          brand: Lemariku
+                          nama: Lemari Penyimpanan Kabinet 2
+                          weight: 12000
+                          deskripsi: Lemari Kekinian
+                          stock: 150
+                          harga: 365000
+                          status: ACTIVE
+                          total_sold: 1
+                          createdAt: "2023-06-20T05:19:50.000Z"
+                          updatedAt: "2023-06-20T05:23:15.000Z"
+                        courrier:
+                          id: 2
+                          courrier: JNE
+                          img_url: "https://ik.imagekit.io/6v306xm58/picture_UMj90qz4F"
+                          imagekit_id: 6477621806370748f2cab03f
+                          status: ACTIVE
+                          createdAt: "2023-06-09T16:44:19.000Z"
+                          updatedAt: "2023-06-09T16:44:19.000Z"
+                        payment:
+                          id: 2
+                          payment: Transfer Bank BCA
+                          rekening: "8715212427"
+                          img_url: "https://ik.imagekit.io/6v306xm58/picture_RoVqYHTHo"
+                          imagekit_id: 647763a406370748f2d0ad0d
+                          status: ACTIVE
+                          createdAt: "2023-06-09T16:44:19.000Z"
+                          updatedAt: "2023-06-09T16:44:19.000Z"
+                        img_transaction: null
+                      - id: 3
+                        user_id: 2
+                        invoice_number: "1687826887067656"
+                        product_id: 1
+                        qty: 1
+                        note: Tolong minta bubblewrap
+                        payment_id: 2
+                        courrier_id: 2
+                        service: OKE
+                        total_weight: 20000
+                        total: 300000
+                        ongkir: 100000
+                        grandTotal: 400000
+                        nomerResi: null
+                        status: PENDING
+                        statusTransaction: null
+                        createdAt: "2023-06-27T00:48:07.000Z"
+                        updatedAt: "2023-06-27T00:48:07.000Z"
+                        user:
+                          id: 2
+                          role_id: 3
+                          first_name: Otniel
+                          last_name: Kevin
+                          email: rarjen57@gmail.com
+                          password: $2b$10$2xAw7fEN7AhxhJRKei4ESe9fdMCbTDTtSBLQnAsQFkFcUlVfMkfOG
+                          mobile: "085329447622"
+                          createdAt: "2023-06-10T02:54:20.000Z"
+                          updatedAt: "2023-06-10T04:25:15.000Z"
+                        product:
+                          id: 1
+                          category_id: 2
+                          brand: Lemariku
+                          nama: Lemari Penyimpanan Kabinet 2
+                          weight: 12000
+                          deskripsi: Lemari Kekinian
+                          stock: 150
+                          harga: 365000
+                          status: ACTIVE
+                          total_sold: 1
+                          createdAt: "2023-06-20T05:19:50.000Z"
+                          updatedAt: "2023-06-20T05:23:15.000Z"
+                        courrier:
+                          id: 2
+                          courrier: JNE
+                          img_url: "https://ik.imagekit.io/6v306xm58/picture_UMj90qz4F"
+                          imagekit_id: 6477621806370748f2cab03f
+                          status: ACTIVE
+                          createdAt: "2023-06-09T16:44:19.000Z"
+                          updatedAt: "2023-06-09T16:44:19.000Z"
+                        payment:
+                          id: 2
+                          payment: Transfer Bank BCA
+                          rekening: "8715212427"
+                          img_url: "https://ik.imagekit.io/6v306xm58/picture_RoVqYHTHo"
+                          imagekit_id: 647763a406370748f2d0ad0d
+                          status: ACTIVE
+                          createdAt: "2023-06-09T16:44:19.000Z"
+                          updatedAt: "2023-06-09T16:44:19.000Z"
+                        img_transaction: null
         "":
           content:
             application/json:
@@ -12947,6 +13098,76 @@ paths:
       security:
         - bearerAuth: []
     parameters: []
+  "/payment/uploadImg/{payment_id}":
+    post:
+      summary: Upload Or Update Image Payment
+      operationId: post-payment-uploadImg
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: integer
+                x-examples:
+                  Example 1:
+                    status: true
+                    message: Success upload/update picture
+                    data:
+                      - 1
+              examples:
+                "Example 1: Success":
+                  value:
+                    status: true
+                    message: Success upload/update picture
+                    data:
+                      - 1
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    message: Payment tidak ada!
+              examples:
+                "Example 1: Not Found":
+                  value:
+                    message: Payment tidak ada!
+      tags:
+        - Payment
+      description: Upload or update payment image by admin
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                picture:
+                  type: string
+                  format: binary
+    parameters:
+      - schema:
+          type: string
+        name: payment_id
+        in: path
+        required: true
+        description: Payment id
 components:
   schemas:
     User:

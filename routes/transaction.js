@@ -13,7 +13,7 @@ router.put(
 );
 router.put("/done/:transaction_id", authorize(ROLES.ADMIN), transaction.done);
 router.post("/create", authorize(ROLES.BUYER), transaction.create);
-router.get("/", authorize(ROLES.BUYER), transaction.indexAdmin);
+router.get("/", authorize(ROLES.BUYER), transaction.indexUser);
 router.get("/show/:transaction_id", authorize(), transaction.show);
 
 module.exports = router;

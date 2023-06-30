@@ -3,11 +3,11 @@ const {
   Category,
   Product_img,
   Thumbnail_product_img,
-  Transaction,
+  Product_rating,
 } = require("../models");
 const { BadRequestError, NotFoundError } = require("../errors");
 const { PRODUCT } = require("../utils/enum");
-const { Op, fn } = require("sequelize");
+const { Op, fn, col, literal } = require("sequelize");
 
 const createProduct = async (req) => {
   const { category_id, brand, nama, deskripsi, stock, harga, weight } =
@@ -221,16 +221,37 @@ const getAllProductsByUser = async (req) => {
       {
         model: Category,
         as: "category",
+        attributes: ["category"],
       },
       {
         model: Product_img,
         as: "images",
+        attributes: ["img_url"],
+        separate: true,
       },
       {
         model: Thumbnail_product_img,
         as: "thumbnail",
+        attributes: ["img_url"],
+      },
+      {
+        model: Product_rating,
+        as: "rating",
+        attributes: [],
       },
     ],
+    attributes: [
+      "id",
+      "nama",
+      "weight",
+      "deskripsi",
+      "stock",
+      "harga",
+      "total_sold",
+      [fn("AVG", col("`rating`.`rating`")), "averageRating"],
+      [literal("COUNT(DISTINCT `rating`.`id`)"), "totalRatings"],
+    ],
+    group: ["Product.id"],
     order: [["createdAt", "DESC"]],
   });
 
