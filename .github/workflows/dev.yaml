@@ -1,18 +1,23 @@
-on: push
-name: 🚀 Deploy website on push
+name: cd
+
+on:
+  push:
+    branches:
+      - master
+
 jobs:
-  web-deploy:
-    name: 🎉 Deploy
+  cd:
     runs-on: ubuntu-latest
+
     steps:
-      - name: 🚚 Get latest code
-        uses: actions/checkout@v2
-      - name: 📂 Sync files
-        uses: SamKirkland/FTP-Deploy-Action@4.3.3
+      - uses: actions/checkout@v2
+
+      - name: Deploy Using ssh
+        uses: appleboy/ssh-action@master
         with:
-          server: ${{ secrets.FTP_SERVER }}
+          host: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftp
+          key: ${{ secrets.FTP_KEY }}
           port: 21
-          server-dir: "./"
+          script: |
+            npx pm2 restart ./app.js

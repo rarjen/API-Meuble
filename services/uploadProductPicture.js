@@ -18,7 +18,6 @@ const uploadProductImage = async (req) => {
   for (const file of req.files) {
     const uploadData = await uploadImgPayment(file.buffer.toString("base64"));
 
-    console.log(uploadData.uploadFile.fileId);
 
     await Product_img.create({
       product_id,
