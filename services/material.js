@@ -36,17 +36,18 @@ const editMaterial = async (req) => {
     throw new NotFoundError(`Tidak ada Bahan dengan id ${material_id}`);
   }
 
-  const checkDuplicate = await Material.findOne({
-    where: { material, panjang, lebar, tebal },
-    id: { [Op.ne]: material_id },
-  });
-
-  if (checkDuplicate) {
-    throw new BadRequestError(`Bahan sudah ada!`);
+  if (checkMaterial.material !== material) {
+    const checkDuplicate = await Material.findOne({
+      where: { material, id: { [Op.not]: material_id } },
+    });
+    if (checkDuplicate) {
+      throw new BadRequestError(`Bahan sudah ada!`);
+    }
   }
 
+
   const result = await Material.update(
-    { material, panjang, lebar, tebal, harga },
+    { material, panjang, lebar, tebal, harga, berat },
     { where: { id: material_id } }
   );
 
@@ -54,8 +55,8 @@ const editMaterial = async (req) => {
 };
 
 const readAllMaterial = async (req) => {
+  const { limit = 5, page = 1 } = req.query;
   const user = req.user;
-
   let where = {};
 
   if (user.role === ROLES.BUYER) {
@@ -63,12 +64,26 @@ const readAllMaterial = async (req) => {
       status: VARIANT.ACTIVE,
     };
   }
+
+  const totalMaterial = await Material.count({ where });
+  const totalPages = Math.ceil(totalMaterial / limit);
+  const offset = (page - 1) * limit;
+
   const result = await Material.findAll({
     where,
+    limit: Number(limit),
+    offset: Number(offset),
   });
 
-  return result;
+  return {
+    limitPage: Number(limit),
+    pageNumber: Number(page),
+    totalPage: totalPages,
+    totalRows: totalMaterial,
+    data: result,
+  };
 };
+
 
 const readOneMaterial = async (req) => {
   const { material_id } = req.params;

@@ -52,6 +52,7 @@ const editSize = async (req) => {
 
 const readAllSize = async (req) => {
   const user = req.user;
+  const { limit = 5, page = 1 } = req.query;
 
   let where = {};
   if (user.role === ROLES.BUYER) {
@@ -60,11 +61,23 @@ const readAllSize = async (req) => {
     };
   }
 
+  const offset = (page - 1) * limit;
+  const totalSize = await Size.count({ where });
+  const totalPages = Math.ceil(totalSize / limit);
+
   const result = await Size.findAll({
+    limit: Number(limit),
+    offset: Number(offset),
     where,
   });
 
-  return result;
+  return {
+    limitPage: Number(limit),
+    pageNumber: Number(page),
+    totalPage: totalPages,
+    totalRows: totalSize,
+    data: result,
+  };
 };
 
 const readOneSize = async (req) => {
