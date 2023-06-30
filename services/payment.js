@@ -29,6 +29,8 @@ const createPayment = async (req) => {
 
 const getAllPayments = async (req) => {
   const user = req.user;
+  const { limit = 5, page = 1 } = req.query;
+  
   let where = {};
 
   if (user.role === ROLES.BUYER) {
@@ -37,11 +39,24 @@ const getAllPayments = async (req) => {
     };
   }
 
+  const offset = (page - 1) * limit;
+  const totalData = await Payment.count({ where });
+  const totalPages = Math.ceil(totalData / limit);
+
+
   const result = await Payment.findAll({
+    offset: Number(offset),
+    limit: Number(limit),
     where,
   });
 
-  return result;
+  return {
+    limitPage: Number(limit),
+    pageNumber: Number(page),
+    totalPage: totalPages,
+    totalRows: totalPages,
+    data: result,
+  };
 };
 
 const getOnePayment = async (req) => {
