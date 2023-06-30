@@ -7,22 +7,54 @@ const { PAYMENT, ROLES } = require("../utils/enum");
 
 const createPayment = async (req) => {
   const { payment, rekening } = req.body;
-  const file = req.file.buffer.toString("base64");
 
   const checkPayment = await Payment.findOne({ where: { payment } });
   if (checkPayment) {
     throw new BadRequestError("Payment sudah terdaftar!");
   }
 
-  const dataUpload = await uploadImgPayment(file);
-
   const result = await Payment.create({
     payment,
     rekening,
-    img_url: dataUpload.url,
-    imagekit_id: dataUpload.uploadFile.fileId,
     status: PAYMENT.ACTIVE,
   });
+
+  return result;
+};
+
+const uploadOrUpdateImg = async (req) => {
+  const { payment_id } = req.params;
+  const file = req.file.buffer.toString("base64");
+
+  const checkPayment = await Payment.findOne({ where: { id: payment_id } });
+  if (!checkPayment) {
+    throw new NotFoundError("Payment tidak ada!");
+  }
+
+  if (checkPayment.img_url) {
+    await deleteSingleImg(checkPayment.imagekit_id);
+    const dataUpload = await uploadImgPayment(file);
+
+    const result = await Payment.update(
+      {
+        img_url: dataUpload.url,
+        imagekit_id: dataUpload.uploadFile.fileId,
+      },
+      { where: { id: payment_id } }
+    );
+
+    return result;
+  }
+
+  const dataUpload = await uploadImgPayment(file);
+
+  const result = await Payment.update(
+    {
+      img_url: dataUpload.url,
+      imagekit_id: dataUpload.uploadFile.fileId,
+    },
+    { where: { id: payment_id } }
+  );
 
   return result;
 };
@@ -61,36 +93,31 @@ const getOnePayment = async (req) => {
 const editPayment = async (req) => {
   const { payment_id } = req.params;
   const { payment, rekening } = req.body;
-  const file = req.file.buffer.toString("base64");
 
   const checkPayment = await Payment.findOne({
     where: { id: payment_id },
   });
 
   if (!checkPayment) {
-    throw new NotFoundError(`Tidak ada payment dengan id: ${payment_id}`);
+    throw new NotFoundError("Payment tidak ada!");
   }
 
   const checkDuplicate = await Payment.findOne({
     where: {
       payment,
+      rekening,
       id: { [Op.ne]: payment_id },
     },
   });
 
   if (checkDuplicate) {
-    throw new BadRequestError("Payment sudah terdaftar!");
+    throw new BadRequestError("Payment/rekening sudah terdaftar!");
   }
-
-  await deleteSingleImg(checkPayment.imagekit_id);
-  const dataUpload = await uploadImgPayment(file);
 
   const result = await Payment.update(
     {
       payment,
       rekening,
-      img_url: dataUpload.url,
-      imagekit_id: dataUpload.uploadFile.fileId,
     },
     { where: { id: payment_id } }
   );
@@ -129,4 +156,5 @@ module.exports = {
   getOnePayment,
   editPayment,
   editStatusPayment,
+  uploadOrUpdateImg,
 };
