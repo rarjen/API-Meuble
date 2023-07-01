@@ -105,12 +105,12 @@ const createTransaction = async (req) => {
 const readTransaction = async (req) => {
   const {
     status,
-    searchInvoice,
     page = 1,
     limit = 10,
     statusTransaction = null,
     startDate,
     endDate,
+    search
   } = req.query;
 
   let where = {};
@@ -130,16 +130,17 @@ const readTransaction = async (req) => {
     whereStatus.statusTransaction = statusTransaction;
   }
 
-  if (searchInvoice) {
+  if (search) {
     where = {
-      invoice_number: { [Op.like]: "%" + searchInvoice + "%" },
+      ...where,
+      invoice_number: { [Op.like]: "%" + search + "%" },
     };
   }
 
-  if (searchInvoice && status) {
+  if (search && status) {
     where = {
       status: status,
-      invoice_number: { [Op.like]: "%" + searchInvoice + "%" },
+      invoice_number: { [Op.like]: "%" + search + "%" },
     };
   }
 
@@ -154,11 +155,16 @@ const readTransaction = async (req) => {
     };
   }
 
+
+
   const pageNumber = parseInt(page);
   const limitPage = parseInt(limit);
   const offset = pageNumber * limitPage - limitPage;
   const allTransaction = await Transaction.count({
-    where: whereStatus,
+    where: {
+      // ...whereStatus,
+      ...where,
+    },
   });
   const totalPage = Math.ceil(allTransaction / limit);
 
@@ -166,7 +172,8 @@ const readTransaction = async (req) => {
     offset: offset,
     limit: limitPage,
     where: {
-      [Op.and]: [where, whereStatus],
+      ...whereStatus,
+      ...where,
     },
     include: [
       {
@@ -317,7 +324,7 @@ const showTransaction = async (req) => {
 };
 
 const readTransactionUser = async (req) => {
-  const { status } = req.query;
+  const { status, search } = req.query;
   const user = req.user;
 
   let where = {

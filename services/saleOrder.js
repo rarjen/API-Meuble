@@ -48,15 +48,6 @@ const getTotalCustom = async () => {
     attributes: { exclude: ["createdAt", "updatedAt"] },
   });
 
-  // let string = JSON.stringify(result);
-  // let data = JSON.parse(string);
-
-  // let total = 0;
-
-  // data.forEach((element) => {
-  //   total += element.total;
-  // });
-
   return result;
 };
 
