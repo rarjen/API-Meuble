@@ -119,7 +119,6 @@ const readTransaction = async (req) => {
 
   if (status) {
     where.status = status;
-    whereStatus.status = status;
   }
 
   whereStatus.statusTransaction = {
@@ -136,6 +135,7 @@ const readTransaction = async (req) => {
       invoice_number: { [Op.like]: "%" + search + "%" },
     };
   }
+
 
   if (search && status) {
     where = {
@@ -162,7 +162,7 @@ const readTransaction = async (req) => {
   const offset = pageNumber * limitPage - limitPage;
   const allTransaction = await Transaction.count({
     where: {
-      // ...whereStatus,
+      ...whereStatus,
       ...where,
     },
   });
