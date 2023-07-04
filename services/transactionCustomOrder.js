@@ -10,7 +10,7 @@ const {
   Image_transaction_custom_order,
   Coordinate,
   Address,
-  Role
+  Role,
 } = require("../models");
 const { TRANSACTION, CUSTOM_ORDER } = require("../utils/enum");
 
@@ -60,9 +60,9 @@ function calculateCodPrice(weight, lat1, lon1, lat2, lon2) {
   const a =
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
     Math.cos(toRadians(lat1Float)) *
-    Math.cos(toRadians(lat2Float)) *
-    Math.sin(dLon / 2) *
-    Math.sin(dLon / 2);
+      Math.cos(toRadians(lat2Float)) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
 
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   const distance = Math.round(R * c);
@@ -73,7 +73,15 @@ function calculateCodPrice(weight, lat1, lon1, lat2, lon2) {
 }
 
 const createTransaction = async (req) => {
-  const { category_id, payment_id, size_id, material_id, qty, note, courrier_id } = req.body;
+  const {
+    category_id,
+    payment_id,
+    size_id,
+    material_id,
+    qty,
+    note,
+    courrier_id,
+  } = req.body;
   const user = req.user;
 
   const detailUser = await User.findOne({
@@ -111,11 +119,10 @@ const createTransaction = async (req) => {
         as: "role",
         where: {
           role: "ADMIN",
-        }
-      }
-    ]
+        },
+      },
+    ],
   });
-
 
   const checkPayment = await Payment.findOne({ where: { id: payment_id } });
   if (!checkPayment) {
@@ -146,7 +153,10 @@ const createTransaction = async (req) => {
     checkMaterial.harga
   );
 
-  const weight = muchMaterial * checkMaterial.berat < 1000 ? 1000 : muchMaterial * checkMaterial.berat;
+  const weight =
+    muchMaterial * checkMaterial.berat < 1000
+      ? 1000
+      : muchMaterial * checkMaterial.berat;
 
   const ongkosKirim = calculateCodPrice(
     weight,
@@ -172,7 +182,7 @@ const createTransaction = async (req) => {
     total: costExtimation,
     ongkosTukang,
     ongkir: ongkosKirim,
-    grandTotal: ((costExtimation + ongkosTukang) * qty) + ongkosKirim,
+    grandTotal: (costExtimation + ongkosTukang) * qty + ongkosKirim,
     statusOrder: CUSTOM_ORDER.WAITING,
     statusPayment: TRANSACTION.PENDING,
   });
@@ -351,7 +361,6 @@ const updateStatusPayment = async (req) => {
     );
   }
 
-
   console.log(checkTransaction.statusOrder, checkTransaction.statusPayment);
 
   if (
@@ -393,7 +402,6 @@ const inputResi = async (req) => {
     );
   }
 
-
   console.log(checkTransaction.statusPayment, TRANSACTION.PAID);
 
   if (checkTransaction.statusPayment !== TRANSACTION.PAID) {
@@ -408,7 +416,7 @@ const inputResi = async (req) => {
   //   throw new BadRequestError(`Tidak dapat melakukan input resi`);
   // }
   const result = await Transaction_custom_order.update(
-    { nomerResi, statusOrder: 'ON_DELIVERY' },
+    { nomerResi, statusOrder: "ON_DELIVERY" },
 
     { where: { id: transaction_custom_order_id } }
   );
@@ -445,7 +453,13 @@ const updateDone = async (req) => {
 };
 
 const readTransactionAdmin = async (req) => {
-  const { searchInvoice, page = 1, limit = 10, status, statusTransaction } = req.query;
+  const {
+    searchInvoice,
+    page = 1,
+    limit = 10,
+    status,
+    statusTransaction,
+  } = req.query;
 
   let where = {};
 
@@ -483,8 +497,8 @@ const readTransactionAdmin = async (req) => {
           {
             model: Address,
             as: "address",
-          }
-        ]
+          },
+        ],
       },
       {
         model: Payment,
