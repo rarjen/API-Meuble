@@ -9179,6 +9179,10 @@ paths:
                         type: integer
                       user_id:
                         type: integer
+                      courrier_id:
+                        type: integer
+                      total_weight:
+                        type: integer
                       category_id:
                         type: integer
                       payment_id:
@@ -9193,7 +9197,17 @@ paths:
                         type: integer
                       note:
                         type: string
+                      total:
+                        type: integer
+                      ongkosTukang:
+                        type: integer
+                      ongkir:
+                        type: integer
+                      grandTotal:
+                        type: integer
                       statusOrder:
+                        type: string
+                      statusPayment:
                         type: string
                       updatedAt:
                         type: string
@@ -9206,16 +9220,23 @@ paths:
                     data:
                       id: 1
                       user_id: 2
+                      courrier_id: 1
+                      total_weight: 12000
                       category_id: 1
                       payment_id: 1
-                      size_id: 2
-                      material_id: 2
-                      invoice_number: "1685767033771437"
+                      size_id: 1
+                      material_id: 1
+                      invoice_number: "1688466172450322"
                       qty: 1
-                      note: Tolong Buatkan Meja ygy
+                      note: "Buatkan meja ukuran ---- bahan ---- "
+                      total: 300000
+                      ongkosTukang: 100000
+                      ongkir: 32500
+                      grandTotal: 432500
                       statusOrder: WAITING
-                      updatedAt: "2023-06-03T04:37:13.773Z"
-                      createdAt: "2023-06-03T04:37:13.773Z"
+                      statusPayment: PENDING
+                      updatedAt: "2023-07-04T10:22:52.451Z"
+                      createdAt: "2023-07-04T10:22:52.451Z"
               examples:
                 Success:
                   value:
@@ -9224,16 +9245,23 @@ paths:
                     data:
                       id: 1
                       user_id: 2
+                      courrier_id: 1
+                      total_weight: 12000
                       category_id: 1
                       payment_id: 1
-                      size_id: 2
-                      material_id: 2
-                      invoice_number: "1685767033771437"
+                      size_id: 1
+                      material_id: 1
+                      invoice_number: "1688466172450322"
                       qty: 1
-                      note: Tolong Buatkan Meja ygy
+                      note: "Buatkan meja ukuran ---- bahan ---- "
+                      total: 300000
+                      ongkosTukang: 100000
+                      ongkir: 32500
+                      grandTotal: 432500
                       statusOrder: WAITING
-                      updatedAt: "2023-06-03T04:37:13.773Z"
-                      createdAt: "2023-06-03T04:37:13.773Z"
+                      statusPayment: PENDING
+                      updatedAt: "2023-07-04T10:22:52.451Z"
+                      createdAt: "2023-07-04T10:22:52.451Z"
         "404":
           description: Not Found
       tags:
@@ -9257,25 +9285,29 @@ paths:
                   type: integer
                 qty:
                   type: integer
+                courrier_id:
+                  type: integer
                 note:
                   type: string
               x-examples:
                 Example 1:
                   category_id: 1
                   payment_id: 1
-                  size_id: 2
-                  material_id: 2
+                  size_id: 1
+                  material_id: 1
                   qty: 1
-                  note: Tolong Buatkan Meja ygy
+                  courrier_id: 1
+                  note: "Buatkan meja ukuran ---- bahan ---- "
             examples:
               Create Custom Order:
                 value:
                   category_id: 1
                   payment_id: 1
-                  size_id: 2
-                  material_id: 2
+                  size_id: 1
+                  material_id: 1
                   qty: 1
-                  note: Tolong Buatkan Meja ygy
+                  courrier_id: 1
+                  note: "Buatkan meja ukuran ---- bahan ---- "
   "/customTransaction/accept/{transaction_custom_order_id }":
     parameters:
       - schema:

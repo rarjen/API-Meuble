@@ -56,6 +56,10 @@ router.put(
   customTransaction.updateDoneAdmin
 );
 
-router.put('/update-status-payment/paid/:transaction_custom_order_id', authorize(ROLES.ADMIN), customTransaction.updatePayment);
+router.put(
+  "/update-status-payment/paid/:transaction_custom_order_id",
+  authorize(ROLES.ADMIN),
+  customTransaction.updatePayment
+);
 
 module.exports = router;

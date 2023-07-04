@@ -12,8 +12,6 @@ const {
   updateDone,
 } = require("../../services/transactionCustomOrder");
 
-const { Payment } = require("../../models");
-
 const { StatusCodes } = require("http-status-codes");
 
 const create = async (req, res, next) => {
