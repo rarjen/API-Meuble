@@ -341,6 +341,13 @@ const readTransactionUser = async (req) => {
       {
         model: Product,
         as: "product",
+        include: [
+          {
+            model: Thumbnail_product_img,
+            as: "thumbnail",
+            attributes: ["img_url"],
+          },
+        ],
       },
       {
         model: Courrier,
