@@ -1,19 +1,53 @@
 const { Product_img, Product, Thumbnail_product_img } = require("../models");
 const { NotFoundError, BadRequestError } = require("../errors");
-const { deleteSingleImg } = require("../utils/media/deleteImage");
+const {
+  deleteSingleImg,
+  deleteBulkImg,
+} = require("../utils/media/deleteImage");
 const uploadImgPayment = require("../utils/media/uploadImgPayment");
 
 const uploadProductImage = async (req) => {
   const { product_id } = req.body;
   const fileUrls = [];
+  const idFiles = [];
 
   if (req.files.length > 5) {
     throw new BadRequestError("Max 5 gambar!");
   }
 
-  const checkProduct = await Product.findOne({ where: { id: product_id } });
+  const checkProduct = await Product.findOne({
+    where: { id: product_id },
+    include: [{ model: Product_img, as: "images" }],
+  });
+
   if (!checkProduct) {
     throw new NotFoundError(`Tidak ada product dengan id: ${product_id}`);
+  }
+
+  if (checkProduct.images.length !== 0) {
+    checkProduct.images.forEach((dataImage) => {
+      idFiles.push(dataImage.imagekit_id);
+    });
+
+    await deleteBulkImg(idFiles);
+
+    await Product_img.destroy({
+      where: { imagekit_id: idFiles },
+    });
+
+    for (const file of req.files) {
+      const uploadData = await uploadImgPayment(file.buffer.toString("base64"));
+
+      await Product_img.create({
+        product_id,
+        img_url: uploadData.url,
+        imagekit_id: uploadData.uploadFile.fileId,
+      });
+
+      fileUrls.push(uploadData.url);
+    }
+
+    return fileUrls;
   }
 
   for (const file of req.files) {
