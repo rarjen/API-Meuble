@@ -103,5 +103,3 @@ module.exports = {
   getAllUser,
   updateBio,
 };
-
-//Test
