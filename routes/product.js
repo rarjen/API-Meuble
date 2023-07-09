@@ -4,6 +4,7 @@ const authorize = require("../middlewares/authorize");
 const { ROLES } = require("../utils/enum");
 
 router.get("/show/:product_id", product.show);
+router.get('/bestseller', product.getBestSeller);
 router.get("/", product.getByUser);
 router.get("/index", authorize(ROLES.ADMIN), product.getByAdmin);
 router.post("/create", authorize(ROLES.ADMIN), product.create);
