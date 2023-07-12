@@ -24,6 +24,7 @@ const customTransaction = require("./customTransaction");
 const productRating = require("./productRating");
 const dashboard = require("./dashboard");
 const saleOrder = require("./saleOrder");
+const landingPage = require('./landing_page');
 
 router.get("/", (req, res) => {
   return res.status(200).json({
@@ -58,5 +59,6 @@ router.use("/customTransaction", customTransaction);
 router.use("/productRating", productRating);
 router.use("/dashboard", dashboard);
 router.use("/saleCustomOrder", saleOrder);
+router.use('/landing_page', landingPage)
 
 module.exports = router;

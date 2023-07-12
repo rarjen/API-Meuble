@@ -1,6 +1,7 @@
-const { Product, Transaction } = require("../models");
-const { STATUS_TRANSACTION, TRANSACTION } = require("../utils/enum");
+const { Product, Transaction, Transaction_custom_order } = require("../models");
+const { STATUS_TRANSACTION, TRANSACTION, CUSTOM_ORDER } = require("../utils/enum");
 const { Sequelize } = require("sequelize");
+const moment = require("moment");
 
 const getData = async (req) => {
   const currentDate = new Date();
@@ -71,6 +72,10 @@ const getData = async (req) => {
     },
   });
 
+
+  allTransactions = await grafik(Transaction, { statusTransaction: STATUS_TRANSACTION.DONE });
+  allCustomTransactions = await grafik(Transaction_custom_order, { statusOrder: CUSTOM_ORDER.WAITING });
+
   return {
     product_total: getProductTotal,
     product_saled: getProductSaled,
@@ -80,7 +85,57 @@ const getData = async (req) => {
     success_order_this_month: successOrderThisMonth,
     failed_order_this_month: failOrderThisMonth,
     totalSales: totalSales,
+    transaction_chart: allTransactions,
+    custom_transaction_chart: allCustomTransactions,
   };
 };
+
+async function grafik(type, where = {}) {
+  let allTransactions = await type.findAll({
+    where: {
+      ...where,
+      createdAt: {
+        [Sequelize.Op.between]: [
+          moment().startOf('year').format('YYYY-MM-DD'),
+          moment().endOf('year').format('YYYY-MM-DD')
+        ]
+      },
+    },
+    // group berdasarkan createdAt bulan
+    group: [Sequelize.fn('MONTH', Sequelize.col('createdAt'))],
+    attributes: [
+      [Sequelize.fn('MONTH', Sequelize.col('createdAt')), 'bulan'],
+      [Sequelize.fn('sum', Sequelize.col('grandTotal')), 'total'],
+      [Sequelize.fn('count', Sequelize.col('id')), 'total_transaksi'],
+    ],
+  });
+
+  resultAllTransactions = [];
+  if (allTransactions.length < 1) {
+    for (let i = 0; i < 12; i++) {
+      resultAllTransactions.push({
+        bulan: i + 1,
+        total: 0,
+        total_transaksi: 0,
+      });
+    }
+  } else {
+    let month = 0;
+    const temp = allTransactions.map((item) => item.dataValues);
+    for (let i = 0; i < 12; i++) {
+      if (temp.length > month && temp[month].bulan == i + 1) {
+        resultAllTransactions.push(temp[month]);
+        month++;
+      } else {
+        resultAllTransactions.push({
+          bulan: i + 1,
+          total: 0,
+          total_transaksi: 0,
+        });
+      }
+    }
+  }
+  return resultAllTransactions;
+}
 
 module.exports = { getData };

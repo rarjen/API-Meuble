@@ -301,6 +301,39 @@ const deleteProduct = async (req) => {
   return result;
 };
 
+
+const getBestSellerProduct = async () => {
+  const products = await Product.findAll({
+    where: { status: PRODUCT.ACTIVE },
+    include: [
+      {
+        model: Category,
+        as: "category",
+        attributes: ["category"],
+      },
+      {
+        model: Product_img,
+        as: "images",
+        attributes: ["img_url"],
+        separate: true,
+      },
+      {
+        model: Thumbnail_product_img,
+        as: "thumbnail",
+        attributes: ["img_url"],
+      },
+      {
+        model: Product_rating,
+        as: "rating",
+        attributes: [],
+      },
+    ],
+    order: [["total_sold", "DESC"]],
+    limit: 6,
+  });
+  return products;
+};
+
 module.exports = {
   createProduct,
   updateProduct,
@@ -309,5 +342,6 @@ module.exports = {
   getAllProductsByAdmin,
   deleteProduct,
   getByCategory,
+  getBestSellerProduct,
   getAllProductsByUser,
 };

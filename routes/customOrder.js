@@ -9,6 +9,7 @@ router.get(
   authorize(ROLES.ADMIN),
   customOrder.readCustomOrderByAdmin
 );
+
 router.get(
   "/custom-orders",
   authorize(ROLES.BUYER),

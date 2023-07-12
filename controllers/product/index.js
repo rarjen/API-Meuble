@@ -7,6 +7,7 @@ const {
   deleteProduct,
   getByCategory,
   getAllProductsByUser,
+  getBestSellerProduct
 } = require("../../services/product");
 
 const { StatusCodes } = require("http-status-codes");
@@ -123,6 +124,20 @@ const getProductByCategory = async (req, res, next) => {
   }
 };
 
+
+const getBestSeller = async (req, res, next) => {
+  try {
+    const response = await getBestSellerProduct(req);
+    return res.status(StatusCodes.OK).json({
+      status: true,
+      message: 'Success get best seller product',
+      data: response
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
 module.exports = {
   create,
   updateProducts,
@@ -132,4 +147,5 @@ module.exports = {
   destroy,
   getProductByCategory,
   getByUser,
+  getBestSeller
 };

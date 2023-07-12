@@ -15,7 +15,7 @@ const getAllCategories = async (req) => {
   const pageNumber = parseInt(page);
   const limitPage = parseInt(limit);
   const offset = pageNumber * limitPage - limitPage;
-  const allCategory = await Category.count();
+  const allCategory = await Category.count({ where: { status: CATEGORY.ACTIVE } });
   const totalPage = Math.ceil(allCategory / limit);
 
   const result = await Category.findAll({
