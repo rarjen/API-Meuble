@@ -80,8 +80,8 @@ const uploadProductThumbnail = async (req) => {
     throw new NotFoundError(`Tidak ada product dengan id: ${product_id}`);
   }
 
-  if (!checkProduct.thumbnail) {
-    await deleteSingleImg(checkPayment.imagekit_id);
+  if (checkProduct.thumbnail) {
+    await deleteSingleImg(checkProduct.thumbnail.imagekit_id);
     const dataUpload = await uploadImgPayment(file);
     const result = await Thumbnail_product_img.update(
       {
