@@ -24,7 +24,7 @@ const uploadProductImage = async (req) => {
     throw new NotFoundError(`Tidak ada product dengan id: ${product_id}`);
   }
 
-  if (checkProduct.images.length !== 0) {
+  if (checkProduct.images.length <= 0) {
     checkProduct.images.forEach((dataImage) => {
       idFiles.push(dataImage.imagekit_id);
     });
