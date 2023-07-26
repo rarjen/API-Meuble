@@ -54,6 +54,27 @@ module.exports = {
       statusTransaction: {
         type: Sequelize.STRING,
       },
+      category_id: {
+        type: Sequelize.INTEGER,
+      },
+      size_id: {
+        type: Sequelize.INTEGER,
+      },
+      material_id: {
+        type: Sequelize.INTEGER,
+      },
+      ongkosTukang: {
+        type: Sequelize.DOUBLE,
+      },
+      statusOrder: {
+        type: Sequelize.STRING,
+      },
+      statusPayment: {
+        type: Sequelize.STRING,
+      },
+      orderType: {
+        type: Sequelize.STRING,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
