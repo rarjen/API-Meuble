@@ -17,15 +17,29 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "courrier_id",
         as: "courrier",
       });
-
       Transaction.belongsTo(models.Payment, {
         foreignKey: "payment_id",
         as: "payment",
       });
-
       Transaction.hasOne(models.Image_transaction, {
         foreignKey: "transaction_id",
         as: "img_transaction",
+      });
+      Transaction.belongsTo(models.Category, {
+        foreignKey: "category_id",
+        as: "category",
+      });
+      Transaction.belongsTo(models.Size, {
+        foreignKey: "size_id",
+        as: "size",
+      });
+      Transaction.belongsTo(models.Material, {
+        foreignKey: "material_id",
+        as: "material",
+      });
+      Transaction.hasOne(models.Image_transaction_custom_order, {
+        foreignKey: "transaction_id",
+        as: "img_transaction_custom",
       });
     }
   }
@@ -46,6 +60,13 @@ module.exports = (sequelize, DataTypes) => {
       nomerResi: DataTypes.STRING,
       status: DataTypes.STRING,
       statusTransaction: DataTypes.STRING,
+      category_id: DataTypes.INTEGER,
+      size_id: DataTypes.INTEGER,
+      material_id: DataTypes.INTEGER,
+      ongkosTukang: DataTypes.DOUBLE,
+      statusOrder: DataTypes.STRING,
+      statusPayment: DataTypes.STRING,
+      orderType: DataTypes.STRING,
     },
     {
       sequelize,
