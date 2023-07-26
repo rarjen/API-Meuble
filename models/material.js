@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Material.hasMany(models.Transaction_custom_order, {
+      Material.hasMany(models.Transaction, {
         foreignKey: "material_id",
         as: "transaction_custom",
       });
