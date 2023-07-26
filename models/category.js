@@ -12,8 +12,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "category_id",
         as: "product",
       });
-
-      Category.hasMany(models.Transaction_custom_order, {
+      Category.hasMany(models.Transaction, {
         foreignKey: "category_id",
         as: "transaction_custom",
       });
