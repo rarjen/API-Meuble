@@ -70,6 +70,10 @@ const createTransaction = async (req) => {
     ],
   });
 
+  if (!detailUser.mobile || !detailUser.address) {
+    throw new BadRequestError("Harap isi alamat/mobile");
+  }
+
   const checkPayment = await Payment.findOne({ where: { id: payment_id } });
   if (!checkPayment) {
     throw new NotFoundError(`Tidak ada payment dengan id: ${payment_id}`);
