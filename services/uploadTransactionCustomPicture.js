@@ -1,8 +1,4 @@
-const {
-  Image_transaction_custom_order,
-  Transaction_custom_order,
-  Payment,
-} = require("../models");
+const { Transaction, Image_transaction, Payment } = require("../models");
 const { NotFoundError, BadRequestError } = require("../errors");
 const uploadImgPayment = require("../utils/media/uploadImgPayment");
 
@@ -10,7 +6,7 @@ const uploadImageTransaction = async (req) => {
   const { transaction_custom_order_id } = req.body;
   const file = req.file.buffer.toString("base64");
 
-  const checkTransaction = await Transaction_custom_order.findOne({
+  const checkTransaction = await Transaction.findOne({
     where: { id: transaction_custom_order_id },
   });
 
@@ -29,14 +25,14 @@ const uploadImageTransaction = async (req) => {
     );
   }
 
-  const checkPicture = await Image_transaction_custom_order.findOne({
+  const checkPicture = await Image_transaction.findOne({
     where: { transaction_custom_order_id },
   });
 
   if (checkPicture) {
     const dataUpload = await uploadImgPayment(file);
 
-    const result = await Image_transaction_custom_order.update(
+    const result = await Image_transaction.update(
       {
         transaction_id: transaction_custom_order_id,
         img_url: dataUpload.url,
@@ -49,7 +45,7 @@ const uploadImageTransaction = async (req) => {
 
   const dataUpload = await uploadImgPayment(file);
 
-  const result = await Image_transaction_custom_order.create({
+  const result = await Image_transaction.create({
     transaction_custom_order_id,
     img_url: dataUpload.url,
   });
