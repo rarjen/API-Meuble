@@ -26,7 +26,7 @@ const uploadImageTransaction = async (req) => {
   }
 
   const checkPicture = await Image_transaction.findOne({
-    where: { transaction_custom_order_id },
+    where: { transaction_id: transaction_custom_order_id },
   });
 
   if (checkPicture) {
@@ -46,7 +46,7 @@ const uploadImageTransaction = async (req) => {
   const dataUpload = await uploadImgPayment(file);
 
   const result = await Image_transaction.create({
-    transaction_custom_order_id,
+    transaction_id: transaction_custom_order_id,
     img_url: dataUpload.url,
   });
 
