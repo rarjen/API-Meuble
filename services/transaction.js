@@ -13,17 +13,15 @@ const {
   Category,
 } = require("../models");
 const { NotFoundError, BadRequestError } = require("../errors");
-const { TRANSACTION, STATUS_TRANSACTION, PRODUCT } = require("../utils/enum");
+const {
+  TRANSACTION,
+  STATUS_TRANSACTION,
+  PRODUCT,
+  ORDER_TYPE,
+} = require("../utils/enum");
 const { Op } = require("sequelize");
 const BadRequest = require("../errors/bad-request");
-
-const generateInvoiceNumber = () => {
-  const timestamp = Date.now().toString();
-  const randomDigits = Math.floor(Math.random() * 1000)
-    .toString()
-    .padStart(3, "0");
-  return `${timestamp}${randomDigits}`;
-};
+const generateInvoiceNumber = require("../utils/generateInvoice");
 
 const createTransaction = async (req) => {
   const user = req.user;
@@ -67,10 +65,12 @@ const createTransaction = async (req) => {
     throw new NotFoundError(`Tidak ada courrier dengan id: ${courrier_id}`);
   }
 
-  const checkUser = await User.findOne({ where: { id: user.id } });
-  const checkAddress = await Address.findOne({ where: { user_id: user.id } });
+  const checkUser = await User.findOne({
+    where: { id: user.id },
+    include: [{ model: Address, as: "address" }],
+  });
 
-  if (!checkUser.mobile || !checkAddress) {
+  if (!checkUser.mobile || !checkUser.address) {
     throw new BadRequestError("Harap isi alamat/mobile");
   }
 
@@ -97,6 +97,7 @@ const createTransaction = async (req) => {
     ongkir,
     grandTotal,
     status: TRANSACTION.PENDING,
+    orderType: ORDER_TYPE.NORMAL,
   });
 
   return result;
@@ -110,15 +111,20 @@ const readTransaction = async (req) => {
     statusTransaction = null,
     startDate,
     endDate,
-    search
+    search,
   } = req.query;
 
-  let where = {};
+  let where = {
+    orderType: ORDER_TYPE.NORMAL,
+  };
 
   let whereStatus = {};
 
   if (status) {
-    where.status = status;
+    where = {
+      ...where,
+      status: status,
+    };
   }
 
   whereStatus.statusTransaction = {
@@ -136,9 +142,9 @@ const readTransaction = async (req) => {
     };
   }
 
-
   if (search && status) {
     where = {
+      ...where,
       status: status,
       invoice_number: { [Op.like]: "%" + search + "%" },
     };
@@ -146,6 +152,7 @@ const readTransaction = async (req) => {
 
   if (startDate && endDate) {
     where = {
+      ...where,
       createdAt: {
         [Op.between]: [
           new Date(startDate).setHours(0, 0, 0),
@@ -154,8 +161,6 @@ const readTransaction = async (req) => {
       },
     };
   }
-
-
 
   const pageNumber = parseInt(page);
   const limitPage = parseInt(limit);
@@ -250,7 +255,7 @@ const showTransaction = async (req) => {
   const { transaction_id } = req.params;
 
   const checkTransaction = await Transaction.findOne({
-    where: { id: transaction_id },
+    where: { id: transaction_id, orderType: ORDER_TYPE.NORMAL },
   });
 
   if (!checkTransaction) {
@@ -258,7 +263,7 @@ const showTransaction = async (req) => {
   }
 
   const result = await Transaction.findOne({
-    where: { id: transaction_id },
+    where: { id: transaction_id, orderType: ORDER_TYPE.NORMAL },
     include: [
       {
         model: User,
@@ -324,11 +329,12 @@ const showTransaction = async (req) => {
 };
 
 const readTransactionUser = async (req) => {
-  const { status, search } = req.query;
+  const { status } = req.query;
   const user = req.user;
 
   let where = {
     user_id: user.id,
+    orderType: ORDER_TYPE.NORMAL,
   };
 
   if (status) {
@@ -378,7 +384,7 @@ const cancelTransaction = async (req) => {
   const { transaction_id } = req.params;
 
   const checkTransaction = await Transaction.findOne({
-    where: { id: transaction_id },
+    where: { id: transaction_id, orderType: ORDER_TYPE.NORMAL },
   });
   if (!checkTransaction) {
     throw new NotFoundError(`Tidak ada Transaksi dengan id: ${transaction_id}`);
@@ -401,7 +407,7 @@ const inputResi = async (req) => {
   const { nomerResi } = req.body;
 
   const checkTransaction = await Transaction.findOne({
-    where: { id: transaction_id },
+    where: { id: transaction_id, orderType: ORDER_TYPE.NORMAL },
   });
 
   if (!checkTransaction) {
@@ -417,7 +423,7 @@ const inputResi = async (req) => {
       nomerResi,
       statusTransaction: STATUS_TRANSACTION.ON_PROCESS,
     },
-    { where: { id: transaction_id } }
+    { where: { id: transaction_id, orderType: ORDER_TYPE.NORMAL } }
   );
 
   return result;
@@ -427,8 +433,12 @@ const updateTransactionStatus = async (req) => {
   const { transaction_id } = req.params;
 
   const checkTransaction = await Transaction.findOne({
-    where: { id: transaction_id },
+    where: { id: transaction_id, orderType: ORDER_TYPE.NORMAL },
     include: [
+      {
+        model: Payment,
+        as: "payment",
+      },
       {
         model: Image_transaction,
         as: "img_transaction",
@@ -440,7 +450,10 @@ const updateTransactionStatus = async (req) => {
     throw new NotFoundError(`Tidak ada transaksi dengan id: ${transaction_id}`);
   }
 
-  if (!checkTransaction.img_transaction) {
+  if (
+    !checkTransaction.img_transaction &&
+    checkTransaction.payment.payment !== "COD"
+  ) {
     throw new BadRequestError("Pembeli belum upload bukti pembayaran!");
   }
 
@@ -481,7 +494,7 @@ const updateDone = async (req) => {
   const { transaction_id } = req.params;
 
   const checkTransaction = await Transaction.findOne({
-    where: { id: transaction_id },
+    where: { id: transaction_id, orderType: ORDER_TYPE.NORMAL },
     include: { model: Product, as: "product" },
   });
 
