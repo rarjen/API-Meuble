@@ -8,70 +8,15 @@ const {
   Size,
   Material,
   Category,
-  Image_transaction_custom_order,
+  Image_transaction,
   Coordinate,
   Address,
   Role,
 } = require("../models");
+const generateInvoiceNumber = require("../utils/generateInvoice");
+const estimation = require("../utils/costEstimation");
+const calculateCodPrice = require("../utils/calculateOngkir");
 const { TRANSACTION, CUSTOM_ORDER, ORDER_TYPE } = require("../utils/enum");
-
-const generateInvoiceNumber = () => {
-  const timestamp = Date.now().toString();
-  const randomDigits = Math.floor(Math.random() * 1000)
-    .toString()
-    .padStart(3, "0");
-  return `${timestamp}${randomDigits}`;
-};
-let muchMaterial = 0;
-const estimation = (
-  panjangMebel,
-  lebarMebel,
-  tinggiMebel,
-  panjangMaterial,
-  lebarMaterial,
-  ketebalanMaterial,
-  hargaPerBalok
-) => {
-  const volumeMaterial =
-    (panjangMebel * lebarMebel * tinggiMebel) /
-    (panjangMaterial * lebarMaterial * ketebalanMaterial);
-
-  // Hitung jumlah material yang dibutuhkan
-  const jumlahMaterial = Math.ceil(volumeMaterial); // Bulatkan ke atas
-  muchMaterial = jumlahMaterial;
-  // Hitung estimasi harga
-  const estimasiHarga = jumlahMaterial * hargaPerBalok;
-
-  return estimasiHarga;
-};
-
-function toRadians(degrees) {
-  return degrees * (Math.PI / 180);
-}
-
-function calculateCodPrice(weight, lat1, lon1, lat2, lon2) {
-  const R = 6371; // Radius bumi dalam kilometer
-  const lat1Float = parseFloat(lat1);
-  const lon1Float = parseFloat(lon1);
-  const lat2Float = parseFloat(lat2);
-  const lon2Float = parseFloat(lon2);
-  const dLat = toRadians(lat2Float - lat1Float);
-  const dLon = toRadians(lon2Float - lon1Float);
-
-  const a =
-    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.cos(toRadians(lat1Float)) *
-      Math.cos(toRadians(lat2Float)) *
-      Math.sin(dLon / 2) *
-      Math.sin(dLon / 2);
-
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  const distance = Math.round(R * c);
-
-  const total = (distance * 500 + Math.round(weight / 1000) * 5000) / 2;
-
-  return total;
-}
 
 const createTransaction = async (req) => {
   const {
@@ -144,23 +89,19 @@ const createTransaction = async (req) => {
     throw new NotFoundError(`Tidak ada courrier dengan id: ${courrier_id}`);
   }
 
-  const costExtimation = estimation(
+  const costExtimation = await estimation(
     checkSize.panjang,
     checkSize.lebar,
     checkSize.tinggi,
     checkMaterial.panjang,
     checkMaterial.lebar,
     checkMaterial.tebal,
-    checkMaterial.harga
+    checkMaterial.harga,
+    checkMaterial.berat
   );
 
-  const weight =
-    muchMaterial * checkMaterial.berat < 1000
-      ? 1000
-      : muchMaterial * checkMaterial.berat;
-
-  const ongkosKirim = calculateCodPrice(
-    weight,
+  const ongkosKirim = await calculateCodPrice(
+    costExtimation.weight,
     detailUser.address.coordinate.lat,
     detailUser.address.coordinate.lng,
     detailAdmin.address.coordinate.lat,
@@ -172,7 +113,7 @@ const createTransaction = async (req) => {
   const result = await Transaction.create({
     user_id: user.id,
     courrier_id,
-    total_weight: weight,
+    total_weight: costExtimation.weight,
     category_id,
     payment_id,
     size_id,
@@ -180,10 +121,11 @@ const createTransaction = async (req) => {
     invoice_number: generateInvoiceNumber(),
     qty,
     note,
-    total: costExtimation,
+    total: costExtimation.estimasiHarga,
     ongkosTukang,
     ongkir: ongkosKirim,
-    grandTotal: (costExtimation + ongkosTukang) * qty + ongkosKirim,
+    grandTotal:
+      (costExtimation.estimasiHarga + ongkosTukang) * qty + ongkosKirim,
     statusOrder: CUSTOM_ORDER.WAITING,
     statusPayment: TRANSACTION.PENDING,
     orderType: ORDER_TYPE.CUSTOM,
@@ -355,6 +297,10 @@ const updateStatusPayment = async (req) => {
 
   const checkTransaction = await Transaction.findOne({
     where: { id: transaction_custom_order_id },
+    include: [
+      { model: Payment, as: "payment" },
+      { model: Image_transaction, as: "img_transaction" },
+    ],
   });
 
   if (!checkTransaction) {
@@ -364,18 +310,17 @@ const updateStatusPayment = async (req) => {
   }
 
   if (
-    checkTransaction.statusOrder !== CUSTOM_ORDER.ON_PROCESS &&
+    checkTransaction.statusOrder !== CUSTOM_ORDER.ON_PROCESS ||
     checkTransaction.statusPayment !== TRANSACTION.PENDING
   ) {
-    throw new BadRequestError(`Tidak dapat update status pembayaran!`);
+    throw new BadRequestError(`Tidak dapat update status pembayaran status!`);
   }
 
-  const checkPicture = await Image_transaction_custom_order.findOne({
-    where: { transaction_id: transaction_custom_order_id },
-  });
-
-  if (!checkPicture) {
-    throw new BadRequestError(`Tidak dapat update status pembayaran!`);
+  if (
+    !checkTransaction.img_transaction &&
+    checkTransaction.payment.payment !== "COD"
+  ) {
+    throw new BadRequestError("Tidak dapat update status pembayaran GAMBAR!");
   }
 
   const result = await Transaction.update(
@@ -524,7 +469,7 @@ const readTransactionAdmin = async (req) => {
         as: "material",
       },
       {
-        model: Image_transaction_custom_order,
+        model: Image_transaction,
         as: "img_transaction_custom",
       },
     ],
@@ -571,7 +516,7 @@ const readTransactionUser = async (req) => {
         as: "material",
       },
       {
-        model: Image_transaction_custom_order,
+        model: Image_transaction,
         as: "img_transaction_custom",
       },
     ],
@@ -612,7 +557,7 @@ const readOneTransaction = async (req) => {
         as: "material",
       },
       {
-        model: Image_transaction_custom_order,
+        model: Image_transaction,
         as: "img_transaction_custom",
       },
     ],
