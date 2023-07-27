@@ -48,6 +48,11 @@ const STATUS_TRANSACTION = {
   DONE: "DONE",
 };
 
+const ORDER_TYPE = {
+  CUSTOM: "CUSTOM",
+  NORMAL: "NORMAL",
+};
+
 module.exports = {
   COURRIER,
   TRANSACTION,
@@ -58,4 +63,5 @@ module.exports = {
   PAYMENT,
   STATUS_TRANSACTION,
   CATEGORY,
+  ORDER_TYPE,
 };

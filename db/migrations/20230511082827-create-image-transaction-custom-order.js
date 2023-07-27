@@ -1,30 +1,30 @@
-'use strict';
+"use strict";
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Image_transaction_custom_orders', {
+    await queryInterface.createTable("Image_transaction_custom_orders", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
-      transaction_custom_order_id: {
-        type: Sequelize.INTEGER
+      transaction_id: {
+        type: Sequelize.INTEGER,
       },
       img_url: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Image_transaction_custom_orders');
-  }
+    await queryInterface.dropTable("Image_transaction_custom_orders");
+  },
 };
