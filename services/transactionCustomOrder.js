@@ -1,6 +1,5 @@
 const { NotFoundError, BadRequestError } = require("../errors");
 const {
-  Transaction_custom_order,
   Transaction,
   Payment,
   Courrier,
@@ -17,6 +16,7 @@ const generateInvoiceNumber = require("../utils/generateInvoice");
 const estimation = require("../utils/costEstimation");
 const calculateCodPrice = require("../utils/calculateOngkir");
 const { TRANSACTION, CUSTOM_ORDER, ORDER_TYPE } = require("../utils/enum");
+const querySort = require("../utils/querySort");
 
 const createTransaction = async (req) => {
   const {
@@ -404,7 +404,10 @@ const readTransactionAdmin = async (req) => {
     limit = 10,
     status,
     statusTransaction,
+    sort,
   } = req.query;
+
+  const dataSort = querySort(sort);
 
   let where = {
     orderType: ORDER_TYPE.CUSTOM,
@@ -477,7 +480,7 @@ const readTransactionAdmin = async (req) => {
         as: "img_transaction_custom",
       },
     ],
-    order: [["createdAt", "DESC"]],
+    order: dataSort,
   });
 
   return {

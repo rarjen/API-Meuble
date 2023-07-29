@@ -4,6 +4,7 @@ const uploadImgPayment = require("../utils/media/uploadImgPayment");
 const { deleteSingleImg } = require("../utils/media/deleteImage");
 const { Op } = require("sequelize");
 const { PAYMENT, ROLES } = require("../utils/enum");
+const querySort = require("../utils/querySort");
 
 const createPayment = async (req) => {
   const { payment, rekening } = req.body;
@@ -61,8 +62,10 @@ const uploadOrUpdateImg = async (req) => {
 
 const getAllPayments = async (req) => {
   const user = req.user;
-  const { limit = 5, page = 1 } = req.query;
-  
+  const { limit = 5, page = 1, sort } = req.query;
+
+  const dataSort = querySort(sort);
+
   let where = {};
 
   if (user.role === ROLES.BUYER) {
@@ -75,11 +78,11 @@ const getAllPayments = async (req) => {
   const totalData = await Payment.count({ where });
   const totalPages = Math.ceil(totalData / limit);
 
-
   const result = await Payment.findAll({
     offset: Number(offset),
     limit: Number(limit),
     where,
+    order: dataSort,
   });
 
   return {

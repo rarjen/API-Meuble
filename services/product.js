@@ -8,6 +8,7 @@ const {
 const { BadRequestError, NotFoundError } = require("../errors");
 const { PRODUCT } = require("../utils/enum");
 const { Op, fn, col, literal } = require("sequelize");
+const querySort = require("../utils/querySort");
 
 const createProduct = async (req) => {
   const { category_id, brand, nama, deskripsi, stock, harga, weight } =
@@ -124,7 +125,9 @@ const getOneProduct = async (req) => {
 };
 
 const getAllProductsByAdmin = async (req) => {
-  const { status, search, page = 1, limit = 10 } = req.query;
+  const { status, search, page = 1, limit = 10, sort } = req.query;
+
+  const dataSort = querySort(sort);
 
   let where = {};
 
@@ -177,7 +180,7 @@ const getAllProductsByAdmin = async (req) => {
         as: "thumbnail",
       },
     ],
-    order: [["createdAt", "DESC"]],
+    order: dataSort,
   });
 
   return {
@@ -300,7 +303,6 @@ const deleteProduct = async (req) => {
 
   return result;
 };
-
 
 const getBestSellerProduct = async () => {
   const products = await Product.findAll({

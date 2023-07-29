@@ -22,6 +22,7 @@ const {
 const { Op } = require("sequelize");
 const BadRequest = require("../errors/bad-request");
 const generateInvoiceNumber = require("../utils/generateInvoice");
+const querySort = require("../utils/querySort");
 
 const createTransaction = async (req) => {
   const user = req.user;
@@ -112,7 +113,10 @@ const readTransaction = async (req) => {
     startDate,
     endDate,
     search,
+    sort,
   } = req.query;
+
+  const dataSort = querySort(sort);
 
   let where = {
     orderType: ORDER_TYPE.NORMAL,
@@ -239,11 +243,12 @@ const readTransaction = async (req) => {
         as: "img_transaction",
       },
     ],
-    order: [["createdAt", "DESC"]],
+    order: dataSort,
   });
 
   return {
     data: result,
+    dataSort,
     pageNumber: pageNumber,
     limitPage: limitPage,
     totalRows: allTransaction,
