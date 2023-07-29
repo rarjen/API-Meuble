@@ -2,6 +2,7 @@ const { Size, Category } = require("../models");
 const { BadRequestError, NotFoundError } = require("../errors");
 const { VARIANT, ROLES } = require("../utils/enum");
 const { Op } = require("sequelize");
+const querySort = require("../utils/querySort");
 
 const createSize = async (req) => {
   const { panjang, lebar, tinggi } = req.body;
@@ -52,7 +53,9 @@ const editSize = async (req) => {
 
 const readAllSize = async (req) => {
   const user = req.user;
-  const { limit = 5, page = 1 } = req.query;
+  const { limit = 5, page = 1, sort } = req.query;
+
+  const dataSort = querySort(sort);
 
   let where = {};
   if (user.role === ROLES.BUYER) {
@@ -69,6 +72,7 @@ const readAllSize = async (req) => {
     limit: Number(limit),
     offset: Number(offset),
     where,
+    orderL: dataSort,
   });
 
   return {

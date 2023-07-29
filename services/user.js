@@ -8,7 +8,7 @@ const {
   Avatar,
 } = require("../models");
 const { BadRequestError } = require("../errors");
-
+const querySort = require("../utils/querySort");
 const { Op, fn } = require("sequelize");
 
 const updateBio = async (req) => {
@@ -35,7 +35,8 @@ const updateBio = async (req) => {
 };
 
 const getAllUser = async (req) => {
-  const { search, page = 1, limit = 10 } = req.query;
+  const { search, page = 1, limit = 10, sort } = req.query;
+  const dataSort = querySort(sort);
 
   let where = {};
   if (search) {
@@ -88,6 +89,7 @@ const getAllUser = async (req) => {
         attributes: ["img_url"],
       },
     ],
+    order: dataSort,
   });
 
   return {

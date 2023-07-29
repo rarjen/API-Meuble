@@ -2,6 +2,7 @@ const { Material, Category } = require("../models");
 const { BadRequestError, NotFoundError } = require("../errors");
 const { VARIANT, ROLES } = require("../utils/enum");
 const { Op } = require("sequelize");
+const querySort = require("../utils/querySort");
 
 const createMaterial = async (req) => {
   const { material, panjang, lebar, tebal, harga, berat } = req.body;
@@ -45,7 +46,6 @@ const editMaterial = async (req) => {
     }
   }
 
-
   const result = await Material.update(
     { material, panjang, lebar, tebal, harga, berat },
     { where: { id: material_id } }
@@ -55,7 +55,8 @@ const editMaterial = async (req) => {
 };
 
 const readAllMaterial = async (req) => {
-  const { limit = 5, page = 1 } = req.query;
+  const { limit = 5, page = 1, sort } = req.query;
+  const dataSort = querySort(sort);
   const user = req.user;
   let where = {};
 
@@ -73,6 +74,7 @@ const readAllMaterial = async (req) => {
     where,
     limit: Number(limit),
     offset: Number(offset),
+    order: dataSort,
   });
 
   return {
@@ -83,7 +85,6 @@ const readAllMaterial = async (req) => {
     data: result,
   };
 };
-
 
 const readOneMaterial = async (req) => {
   const { material_id } = req.params;

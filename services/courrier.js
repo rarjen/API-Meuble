@@ -2,6 +2,7 @@ const { Courrier } = require("../models");
 const { BadRequestError, NotFoundError } = require("../errors");
 const uploadImgPayment = require("../utils/media/uploadImgPayment");
 const { COURRIER } = require("../utils/enum");
+const querySort = require("../utils/querySort");
 
 const createCourrier = async (req) => {
   const { courrier } = req.body;
@@ -56,7 +57,8 @@ const readCourrierUser = async () => {
 };
 
 const readCourrierAdmin = async (req) => {
-  const { status } = req.query;
+  const { status, sort } = req.query;
+  const dataSort = querySort(sort);
 
   let where = {};
 
@@ -64,7 +66,7 @@ const readCourrierAdmin = async (req) => {
     where.status = status;
   }
 
-  const result = Courrier.findAll({ where });
+  const result = Courrier.findAll({ where, order: dataSort });
 
   return result;
 };

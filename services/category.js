@@ -1,6 +1,7 @@
 const { Category } = require("../models");
 const { NotFoundError } = require("../errors");
 const { CATEGORY } = require("../utils/enum");
+const querySort = require("../utils/querySort");
 
 const createCategory = async (req) => {
   const { category } = req.body;
@@ -11,17 +12,23 @@ const createCategory = async (req) => {
 };
 
 const getAllCategories = async (req) => {
-  const { page = 1, limit = 10 } = req.query;
+  const { page = 1, limit = 10, sort } = req.query;
+
+  const dataSort = querySort(sort);
+
   const pageNumber = parseInt(page);
   const limitPage = parseInt(limit);
   const offset = pageNumber * limitPage - limitPage;
-  const allCategory = await Category.count({ where: { status: CATEGORY.ACTIVE } });
+  const allCategory = await Category.count({
+    where: { status: CATEGORY.ACTIVE },
+  });
   const totalPage = Math.ceil(allCategory / limit);
 
   const result = await Category.findAll({
     offset: offset,
     limit: limitPage,
     where: { status: CATEGORY.ACTIVE },
+    order: dataSort,
   });
 
   return {
