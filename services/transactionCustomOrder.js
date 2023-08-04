@@ -11,6 +11,7 @@ const {
   Coordinate,
   Address,
   Role,
+  Reference_img,
 } = require("../models");
 const generateInvoiceNumber = require("../utils/generateInvoice");
 const estimation = require("../utils/costEstimation");
@@ -476,8 +477,12 @@ const readTransactionAdmin = async (req) => {
         as: "material",
       },
       {
+        model: Reference_img,
+        as: "reference_img",
+      },
+      {
         model: Image_transaction,
-        as: "img_transaction_custom",
+        as: "img_transaction",
       },
     ],
     order: dataSort,
@@ -523,8 +528,12 @@ const readTransactionUser = async (req) => {
         as: "material",
       },
       {
+        model: Reference_img,
+        as: "reference_img",
+      },
+      {
         model: Image_transaction,
-        as: "img_transaction_custom",
+        as: "img_transaction",
       },
     ],
     order: [["createdAt", "DESC"]],
@@ -562,6 +571,10 @@ const readOneTransaction = async (req) => {
       {
         model: Material,
         as: "material",
+      },
+      {
+        model: Reference_img,
+        as: "reference_img",
       },
       {
         model: Image_transaction,
