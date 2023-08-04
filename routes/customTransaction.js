@@ -51,8 +51,8 @@ router.put(
 );
 
 router.put(
-  "/update-status-order/:transaction_custom_order_id",
-  authorize(ROLES.ADMIN),
+  "/done/:transaction_custom_order_id",
+  authorize(ROLES.BUYER),
   customTransaction.updateDoneAdmin
 );
 
