@@ -37,6 +37,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "material_id",
         as: "material",
       });
+      Transaction.hasOne(models.Reference_img, {
+        foreignKey: "transaction_id",
+        as: "reference_img",
+      });
     }
   }
   Transaction.init(
