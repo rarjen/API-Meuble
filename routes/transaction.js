@@ -11,9 +11,9 @@ router.put(
   authorize(ROLES.ADMIN),
   transaction.update
 );
-router.put("/done/:transaction_id", authorize(ROLES.ADMIN), transaction.done);
 router.post("/create", authorize(ROLES.BUYER), transaction.create);
 router.get("/", authorize(ROLES.BUYER), transaction.indexUser);
 router.get("/show/:transaction_id", authorize(), transaction.show);
+router.put("/done/:transaction_id", authorize(ROLES.BUYER), transaction.done);
 
 module.exports = router;
