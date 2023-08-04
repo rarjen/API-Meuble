@@ -9711,7 +9711,7 @@ paths:
               properties: {}
       security:
         - bearerAuth: []
-  "/customTransaction/update-status-order/{transaction_custom_order_id}":
+  "/customTransaction/done/{transaction_custom_order_id}":
     parameters:
       - schema:
           type: string
@@ -13200,6 +13200,569 @@ paths:
         in: path
         required: true
         description: Payment id
+  "/product/show/category/{category_id}":
+    get:
+      summary: Get Product By Category
+      tags:
+        - Product
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        category_id:
+                          type: integer
+                        brand:
+                          type: string
+                        nama:
+                          type: string
+                        weight:
+                          type: integer
+                        deskripsi:
+                          type: string
+                        stock:
+                          type: integer
+                        harga:
+                          type: integer
+                        status:
+                          type: string
+                        total_sold:
+                          type: integer
+                        createdAt:
+                          type: string
+                        updatedAt:
+                          type: string
+                        category:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            category:
+                              type: string
+                            status:
+                              type: string
+                            createdAt:
+                              type: string
+                            updatedAt:
+                              type: string
+                        images:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                              product_id:
+                                type: integer
+                              img_url:
+                                type: string
+                              imagekit_id:
+                                type: string
+                              createdAt:
+                                type: string
+                              updatedAt:
+                                type: string
+                        thumbnail:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            product_id:
+                              type: integer
+                            img_url:
+                              type: string
+                            imagekit_id:
+                              type: string
+                            createdAt:
+                              type: string
+                            updatedAt:
+                              type: string
+                x-examples:
+                  Example 1:
+                    status: true
+                    message: Success get product
+                    data:
+                      - id: 2
+                        category_id: 1
+                        brand: Mejaku
+                        nama: Meja Penyimpanan Kabinet 2
+                        weight: 5000
+                        deskripsi: Lemari Kekinian
+                        stock: 100
+                        harga: 90000
+                        status: ACTIVE
+                        total_sold: 0
+                        createdAt: "2023-07-15T03:33:51.000Z"
+                        updatedAt: "2023-07-15T03:33:51.000Z"
+                        category:
+                          id: 1
+                          category: Meja
+                          status: ACTIVE
+                          createdAt: "2023-07-15T03:33:51.000Z"
+                          updatedAt: "2023-07-15T03:33:51.000Z"
+                        images:
+                          - id: 6
+                            product_id: 2
+                            img_url: "https://ik.imagekit.io/6v306xm58/picture_nUFxip6gB"
+                            imagekit_id: 6477658506370748f2d69f2c
+                            createdAt: "2023-07-15T03:33:52.000Z"
+                            updatedAt: "2023-07-15T03:33:52.000Z"
+                          - id: 7
+                            product_id: 2
+                            img_url: "https://ik.imagekit.io/6v306xm58/picture_RgVxhCYp0"
+                            imagekit_id: 6477658706370748f2d6a786
+                            createdAt: "2023-07-15T03:33:52.000Z"
+                            updatedAt: "2023-07-15T03:33:52.000Z"
+                          - id: 8
+                            product_id: 2
+                            img_url: "https://ik.imagekit.io/6v306xm58/picture_54KdpoLaq"
+                            imagekit_id: 6477658906370748f2d6af26
+                            createdAt: "2023-07-15T03:33:52.000Z"
+                            updatedAt: "2023-07-15T03:33:52.000Z"
+                          - id: 9
+                            product_id: 2
+                            img_url: "https://ik.imagekit.io/6v306xm58/picture_zfweC5PJ1"
+                            imagekit_id: 6477658b06370748f2d6b50d
+                            createdAt: "2023-07-15T03:33:52.000Z"
+                            updatedAt: "2023-07-15T03:33:52.000Z"
+                          - id: 10
+                            product_id: 2
+                            img_url: "https://ik.imagekit.io/6v306xm58/picture_h6DkPyYRd"
+                            imagekit_id: 6477658d06370748f2d6baf8
+                            createdAt: "2023-07-15T03:33:52.000Z"
+                            updatedAt: "2023-07-15T03:33:52.000Z"
+                        thumbnail:
+                          id: 2
+                          product_id: 2
+                          img_url: "https://ik.imagekit.io/6v306xm58/picture_aUldjsAyq"
+                          imagekit_id: 647765cd06370748f2d7dde9
+                          createdAt: "2023-07-15T03:33:52.000Z"
+                          updatedAt: "2023-07-15T03:33:52.000Z"
+                      - id: 5
+                        category_id: 1
+                        brand: Mejaku
+                        nama: Meja Penyimpanan Kabinet 2
+                        weight: 5000
+                        deskripsi: Lemari Kekinian
+                        stock: 100
+                        harga: 90000
+                        status: ACTIVE
+                        total_sold: 0
+                        createdAt: "2023-07-15T03:33:51.000Z"
+                        updatedAt: "2023-07-15T03:33:51.000Z"
+                        category:
+                          id: 1
+                          category: Meja
+                          status: ACTIVE
+                          createdAt: "2023-07-15T03:33:51.000Z"
+                          updatedAt: "2023-07-15T03:33:51.000Z"
+                        images:
+                          - id: 21
+                            product_id: 5
+                            img_url: "https://ik.imagekit.io/6v306xm58/picture_nUFxip6gB"
+                            imagekit_id: 6477658506370748f2d69f2c
+                            createdAt: "2023-07-15T03:33:52.000Z"
+                            updatedAt: "2023-07-15T03:33:52.000Z"
+                          - id: 22
+                            product_id: 5
+                            img_url: "https://ik.imagekit.io/6v306xm58/picture_RgVxhCYp0"
+                            imagekit_id: 6477658706370748f2d6a786
+                            createdAt: "2023-07-15T03:33:52.000Z"
+                            updatedAt: "2023-07-15T03:33:52.000Z"
+                          - id: 23
+                            product_id: 5
+                            img_url: "https://ik.imagekit.io/6v306xm58/picture_54KdpoLaq"
+                            imagekit_id: 6477658906370748f2d6af26
+                            createdAt: "2023-07-15T03:33:52.000Z"
+                            updatedAt: "2023-07-15T03:33:52.000Z"
+                          - id: 24
+                            product_id: 5
+                            img_url: "https://ik.imagekit.io/6v306xm58/picture_zfweC5PJ1"
+                            imagekit_id: 6477658b06370748f2d6b50d
+                            createdAt: "2023-07-15T03:33:52.000Z"
+                            updatedAt: "2023-07-15T03:33:52.000Z"
+                          - id: 25
+                            product_id: 5
+                            img_url: "https://ik.imagekit.io/6v306xm58/picture_h6DkPyYRd"
+                            imagekit_id: 6477658d06370748f2d6baf8
+                            createdAt: "2023-07-15T03:33:52.000Z"
+                            updatedAt: "2023-07-15T03:33:52.000Z"
+                        thumbnail:
+                          id: 5
+                          product_id: 5
+                          img_url: "https://ik.imagekit.io/6v306xm58/picture_aUldjsAyq"
+                          imagekit_id: 647765cd06370748f2d7dde9
+                          createdAt: "2023-07-15T03:33:52.000Z"
+                          updatedAt: "2023-07-15T03:33:52.000Z"
+                      - id: 8
+                        category_id: 1
+                        brand: Mejaku
+                        nama: Meja Penyimpanan Kabinet 2
+                        weight: 5000
+                        deskripsi: Lemari Kekinian
+                        stock: 100
+                        harga: 90000
+                        status: ACTIVE
+                        total_sold: 0
+                        createdAt: "2023-07-15T03:33:51.000Z"
+                        updatedAt: "2023-07-15T03:33:51.000Z"
+                        category:
+                          id: 1
+                          category: Meja
+                          status: ACTIVE
+                          createdAt: "2023-07-15T03:33:51.000Z"
+                          updatedAt: "2023-07-15T03:33:51.000Z"
+                        images:
+                          - id: 36
+                            product_id: 8
+                            img_url: "https://ik.imagekit.io/6v306xm58/picture_nUFxip6gB"
+                            imagekit_id: 6477658506370748f2d69f2c
+                            createdAt: "2023-07-15T03:33:52.000Z"
+                            updatedAt: "2023-07-15T03:33:52.000Z"
+                          - id: 37
+                            product_id: 8
+                            img_url: "https://ik.imagekit.io/6v306xm58/picture_RgVxhCYp0"
+                            imagekit_id: 6477658706370748f2d6a786
+                            createdAt: "2023-07-15T03:33:52.000Z"
+                            updatedAt: "2023-07-15T03:33:52.000Z"
+                          - id: 38
+                            product_id: 8
+                            img_url: "https://ik.imagekit.io/6v306xm58/picture_54KdpoLaq"
+                            imagekit_id: 6477658906370748f2d6af26
+                            createdAt: "2023-07-15T03:33:52.000Z"
+                            updatedAt: "2023-07-15T03:33:52.000Z"
+                          - id: 39
+                            product_id: 8
+                            img_url: "https://ik.imagekit.io/6v306xm58/picture_zfweC5PJ1"
+                            imagekit_id: 6477658b06370748f2d6b50d
+                            createdAt: "2023-07-15T03:33:52.000Z"
+                            updatedAt: "2023-07-15T03:33:52.000Z"
+                          - id: 40
+                            product_id: 8
+                            img_url: "https://ik.imagekit.io/6v306xm58/picture_h6DkPyYRd"
+                            imagekit_id: 6477658d06370748f2d6baf8
+                            createdAt: "2023-07-15T03:33:52.000Z"
+                            updatedAt: "2023-07-15T03:33:52.000Z"
+                        thumbnail:
+                          id: 8
+                          product_id: 8
+                          img_url: "https://ik.imagekit.io/6v306xm58/picture_aUldjsAyq"
+                          imagekit_id: 647765cd06370748f2d7dde9
+                          createdAt: "2023-07-15T03:33:52.000Z"
+                          updatedAt: "2023-07-15T03:33:52.000Z"
+              examples:
+                Example 1:
+                  value:
+                    status: true
+                    message: Success get product
+                    data:
+                      - id: 2
+                        category_id: 1
+                        brand: Mejaku
+                        nama: Meja Penyimpanan Kabinet 2
+                        weight: 5000
+                        deskripsi: Lemari Kekinian
+                        stock: 100
+                        harga: 90000
+                        status: ACTIVE
+                        total_sold: 0
+                        createdAt: "2023-07-15T03:33:51.000Z"
+                        updatedAt: "2023-07-15T03:33:51.000Z"
+                        category:
+                          id: 1
+                          category: Meja
+                          status: ACTIVE
+                          createdAt: "2023-07-15T03:33:51.000Z"
+                          updatedAt: "2023-07-15T03:33:51.000Z"
+                        images:
+                          - id: 6
+                            product_id: 2
+                            img_url: "https://ik.imagekit.io/6v306xm58/picture_nUFxip6gB"
+                            imagekit_id: 6477658506370748f2d69f2c
+                            createdAt: "2023-07-15T03:33:52.000Z"
+                            updatedAt: "2023-07-15T03:33:52.000Z"
+                          - id: 7
+                            product_id: 2
+                            img_url: "https://ik.imagekit.io/6v306xm58/picture_RgVxhCYp0"
+                            imagekit_id: 6477658706370748f2d6a786
+                            createdAt: "2023-07-15T03:33:52.000Z"
+                            updatedAt: "2023-07-15T03:33:52.000Z"
+                          - id: 8
+                            product_id: 2
+                            img_url: "https://ik.imagekit.io/6v306xm58/picture_54KdpoLaq"
+                            imagekit_id: 6477658906370748f2d6af26
+                            createdAt: "2023-07-15T03:33:52.000Z"
+                            updatedAt: "2023-07-15T03:33:52.000Z"
+                          - id: 9
+                            product_id: 2
+                            img_url: "https://ik.imagekit.io/6v306xm58/picture_zfweC5PJ1"
+                            imagekit_id: 6477658b06370748f2d6b50d
+                            createdAt: "2023-07-15T03:33:52.000Z"
+                            updatedAt: "2023-07-15T03:33:52.000Z"
+                          - id: 10
+                            product_id: 2
+                            img_url: "https://ik.imagekit.io/6v306xm58/picture_h6DkPyYRd"
+                            imagekit_id: 6477658d06370748f2d6baf8
+                            createdAt: "2023-07-15T03:33:52.000Z"
+                            updatedAt: "2023-07-15T03:33:52.000Z"
+                        thumbnail:
+                          id: 2
+                          product_id: 2
+                          img_url: "https://ik.imagekit.io/6v306xm58/picture_aUldjsAyq"
+                          imagekit_id: 647765cd06370748f2d7dde9
+                          createdAt: "2023-07-15T03:33:52.000Z"
+                          updatedAt: "2023-07-15T03:33:52.000Z"
+                      - id: 5
+                        category_id: 1
+                        brand: Mejaku
+                        nama: Meja Penyimpanan Kabinet 2
+                        weight: 5000
+                        deskripsi: Lemari Kekinian
+                        stock: 100
+                        harga: 90000
+                        status: ACTIVE
+                        total_sold: 0
+                        createdAt: "2023-07-15T03:33:51.000Z"
+                        updatedAt: "2023-07-15T03:33:51.000Z"
+                        category:
+                          id: 1
+                          category: Meja
+                          status: ACTIVE
+                          createdAt: "2023-07-15T03:33:51.000Z"
+                          updatedAt: "2023-07-15T03:33:51.000Z"
+                        images:
+                          - id: 21
+                            product_id: 5
+                            img_url: "https://ik.imagekit.io/6v306xm58/picture_nUFxip6gB"
+                            imagekit_id: 6477658506370748f2d69f2c
+                            createdAt: "2023-07-15T03:33:52.000Z"
+                            updatedAt: "2023-07-15T03:33:52.000Z"
+                          - id: 22
+                            product_id: 5
+                            img_url: "https://ik.imagekit.io/6v306xm58/picture_RgVxhCYp0"
+                            imagekit_id: 6477658706370748f2d6a786
+                            createdAt: "2023-07-15T03:33:52.000Z"
+                            updatedAt: "2023-07-15T03:33:52.000Z"
+                          - id: 23
+                            product_id: 5
+                            img_url: "https://ik.imagekit.io/6v306xm58/picture_54KdpoLaq"
+                            imagekit_id: 6477658906370748f2d6af26
+                            createdAt: "2023-07-15T03:33:52.000Z"
+                            updatedAt: "2023-07-15T03:33:52.000Z"
+                          - id: 24
+                            product_id: 5
+                            img_url: "https://ik.imagekit.io/6v306xm58/picture_zfweC5PJ1"
+                            imagekit_id: 6477658b06370748f2d6b50d
+                            createdAt: "2023-07-15T03:33:52.000Z"
+                            updatedAt: "2023-07-15T03:33:52.000Z"
+                          - id: 25
+                            product_id: 5
+                            img_url: "https://ik.imagekit.io/6v306xm58/picture_h6DkPyYRd"
+                            imagekit_id: 6477658d06370748f2d6baf8
+                            createdAt: "2023-07-15T03:33:52.000Z"
+                            updatedAt: "2023-07-15T03:33:52.000Z"
+                        thumbnail:
+                          id: 5
+                          product_id: 5
+                          img_url: "https://ik.imagekit.io/6v306xm58/picture_aUldjsAyq"
+                          imagekit_id: 647765cd06370748f2d7dde9
+                          createdAt: "2023-07-15T03:33:52.000Z"
+                          updatedAt: "2023-07-15T03:33:52.000Z"
+                      - id: 8
+                        category_id: 1
+                        brand: Mejaku
+                        nama: Meja Penyimpanan Kabinet 2
+                        weight: 5000
+                        deskripsi: Lemari Kekinian
+                        stock: 100
+                        harga: 90000
+                        status: ACTIVE
+                        total_sold: 0
+                        createdAt: "2023-07-15T03:33:51.000Z"
+                        updatedAt: "2023-07-15T03:33:51.000Z"
+                        category:
+                          id: 1
+                          category: Meja
+                          status: ACTIVE
+                          createdAt: "2023-07-15T03:33:51.000Z"
+                          updatedAt: "2023-07-15T03:33:51.000Z"
+                        images:
+                          - id: 36
+                            product_id: 8
+                            img_url: "https://ik.imagekit.io/6v306xm58/picture_nUFxip6gB"
+                            imagekit_id: 6477658506370748f2d69f2c
+                            createdAt: "2023-07-15T03:33:52.000Z"
+                            updatedAt: "2023-07-15T03:33:52.000Z"
+                          - id: 37
+                            product_id: 8
+                            img_url: "https://ik.imagekit.io/6v306xm58/picture_RgVxhCYp0"
+                            imagekit_id: 6477658706370748f2d6a786
+                            createdAt: "2023-07-15T03:33:52.000Z"
+                            updatedAt: "2023-07-15T03:33:52.000Z"
+                          - id: 38
+                            product_id: 8
+                            img_url: "https://ik.imagekit.io/6v306xm58/picture_54KdpoLaq"
+                            imagekit_id: 6477658906370748f2d6af26
+                            createdAt: "2023-07-15T03:33:52.000Z"
+                            updatedAt: "2023-07-15T03:33:52.000Z"
+                          - id: 39
+                            product_id: 8
+                            img_url: "https://ik.imagekit.io/6v306xm58/picture_zfweC5PJ1"
+                            imagekit_id: 6477658b06370748f2d6b50d
+                            createdAt: "2023-07-15T03:33:52.000Z"
+                            updatedAt: "2023-07-15T03:33:52.000Z"
+                          - id: 40
+                            product_id: 8
+                            img_url: "https://ik.imagekit.io/6v306xm58/picture_h6DkPyYRd"
+                            imagekit_id: 6477658d06370748f2d6baf8
+                            createdAt: "2023-07-15T03:33:52.000Z"
+                            updatedAt: "2023-07-15T03:33:52.000Z"
+                        thumbnail:
+                          id: 8
+                          product_id: 8
+                          img_url: "https://ik.imagekit.io/6v306xm58/picture_aUldjsAyq"
+                          imagekit_id: 647765cd06370748f2d7dde9
+                          createdAt: "2023-07-15T03:33:52.000Z"
+                          updatedAt: "2023-07-15T03:33:52.000Z"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    message: "Tidak ada category dengan id: 99"
+              examples:
+                Example 1:
+                  value:
+                    message: "Tidak ada category dengan id: 99"
+      operationId: get-product-show-category
+      description: Get Product by Category Id
+    parameters:
+      - schema:
+          type: string
+        name: category_id
+        in: path
+        required: true
+        description: Category Id
+  /referenceImg/upload:
+    post:
+      summary: Upload Reference Image
+      operationId: post-referenceImg-upload
+      description: Endpoint upload Reference Image for Custom Order
+      tags:
+        - Custom Transaction
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                transaction_id:
+                  type: integer
+                picture:
+                  type: string
+                  format: binary
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      transaction_id:
+                        type: string
+                      img_url:
+                        type: string
+                      imagekit_id:
+                        type: string
+                      updatedAt:
+                        type: string
+                      createdAt:
+                        type: string
+                x-examples:
+                  Example 1:
+                    status: true
+                    message: Success Upload Images!
+                    data:
+                      id: 4
+                      transaction_id: "1"
+                      img_url: "https://ik.imagekit.io/6v306xm58/picture_CDbu8aR80"
+                      imagekit_id: 64cc623506370748f2b060b3
+                      updatedAt: "2023-08-04T02:28:06.126Z"
+                      createdAt: "2023-08-04T02:28:06.126Z"
+              examples:
+                Example 1:
+                  value:
+                    status: true
+                    message: Success Upload Images!
+                    data:
+                      id: 4
+                      transaction_id: "1"
+                      img_url: "https://ik.imagekit.io/6v306xm58/picture_CDbu8aR80"
+                      imagekit_id: 64cc623506370748f2b060b3
+                      updatedAt: "2023-08-04T02:28:06.126Z"
+                      createdAt: "2023-08-04T02:28:06.126Z"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    message: Tidak dapat upload gambar!
+              examples:
+                Example 1:
+                  value:
+                    message: Tidak dapat upload gambar!
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    message: Tidak ada transaksi!
+              examples:
+                Example 1:
+                  value:
+                    message: Tidak ada transaksi!
 components:
   schemas:
     User:
