@@ -358,9 +358,9 @@ const inputResi = async (req) => {
     where: { id: checkTransaction.courrier_id },
   });
 
-  if (checkCourrier.courrier === "Internal Delivery") {
-    throw new BadRequestError(`Tidak dapat melakukan input resi`);
-  }
+  // if (checkCourrier.courrier === "Internal Delivery") {
+  //   throw new BadRequestError(`Tidak dapat melakukan input resi`);
+  // }
   const result = await Transaction.update(
     { nomerResi, statusOrder: "ON_DELIVERY" },
 
