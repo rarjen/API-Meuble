@@ -284,6 +284,11 @@ const getByCategory = async (req) => {
         model: Thumbnail_product_img,
         as: "thumbnail",
       },
+      {
+        model: Product_rating,
+        as: "rating",
+        attributes: [],
+      },
     ],
   });
 

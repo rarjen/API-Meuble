@@ -354,9 +354,9 @@ const inputResi = async (req) => {
     throw new BadRequestError(`Tidak dapat melakukan input resi`);
   }
 
-  const checkCourrier = await Courrier.findOne({
-    where: { id: checkTransaction.courrier_id },
-  });
+  // const checkCourrier = await Courrier.findOne({
+  //   where: { id: checkTransaction.courrier_id },
+  // });
 
   // if (checkCourrier.courrier === "Internal Delivery") {
   //   throw new BadRequestError(`Tidak dapat melakukan input resi`);
