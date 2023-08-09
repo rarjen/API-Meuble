@@ -25,7 +25,7 @@ const uploadProductImage = async (req) => {
   }
 
   if (checkProduct.images.length <= 0) {
-    checkProduct.images.forEach(async (dataImage) => {
+    await checkProduct.images.forEach(async (dataImage) => {
       idFiles.push(dataImage.imagekit_id);
 
       await deleteBulkImg(idFiles);
