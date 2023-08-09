@@ -101,7 +101,24 @@ const getAllUser = async (req) => {
   };
 };
 
+const getUser = async (req) => {
+  const user = req.user;
+
+  const result = await User.findOne({
+    where: { id: user.id },
+    include: [
+      {
+        model: Role,
+        as: "role",
+      },
+    ],
+  });
+
+  return result;
+};
+
 module.exports = {
   getAllUser,
   updateBio,
+  getUser,
 };
