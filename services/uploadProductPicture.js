@@ -25,14 +25,14 @@ const uploadProductImage = async (req) => {
   }
 
   if (checkProduct.images.length <= 0) {
-    checkProduct.images.forEach((dataImage) => {
+    checkProduct.images.forEach(async (dataImage) => {
       idFiles.push(dataImage.imagekit_id);
-    });
 
-    await deleteBulkImg(idFiles);
+      await deleteBulkImg(idFiles);
 
-    await Product_img.destroy({
-      where: { imagekit_id: idFiles },
+      await Product_img.destroy({
+        where: { imagekit_id: idFiles },
+      });
     });
 
     for (const file of req.files) {
