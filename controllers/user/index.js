@@ -1,11 +1,4 @@
-const {
-  updateBio,
-  getAllUser,
-  resetPassword,
-  createAddress,
-  editAddress,
-  getAddressUser,
-} = require("../../services/user");
+const { updateBio, getAllUser, getUser } = require("../../services/user");
 const { StatusCodes } = require("http-status-codes");
 
 const index = async (req, res, next) => {
@@ -36,13 +29,13 @@ const createBio = async (req, res, next) => {
   }
 };
 
-const resetPasswordUser = async (req, res, next) => {
+const getUserData = async (req, res, next) => {
   try {
-    const result = await resetPassword(req);
+    const result = await getUser(req);
 
     return res.status(StatusCodes.OK).json({
       status: true,
-      message: "Success reset password!",
+      message: "Success get user!",
       data: result,
     });
   } catch (error) {
@@ -53,5 +46,5 @@ const resetPasswordUser = async (req, res, next) => {
 module.exports = {
   index,
   createBio,
-  resetPasswordUser,
+  getUserData,
 };

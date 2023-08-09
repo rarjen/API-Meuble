@@ -383,12 +383,12 @@ const updateDone = async (req) => {
     );
   }
 
-  if (
-    checkTransaction.statusOrder !== CUSTOM_ORDER.ON_PROCESS ||
-    checkTransaction.statusPayment !== TRANSACTION.PAID
-  ) {
-    throw new BadRequestError("Tidak dapat melakukan update!");
-  }
+  // if (
+  //   checkTransaction.statusOrder !== CUSTOM_ORDER.ON_PROCESS ||
+  //   checkTransaction.statusPayment !== TRANSACTION.PAID
+  // ) {
+  //   throw new BadRequestError("Tidak dapat melakukan update!");
+  // }
 
   const result = await Transaction.update(
     { statusOrder: CUSTOM_ORDER.DONE },
