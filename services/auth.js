@@ -102,12 +102,16 @@ const login = async (req) => {
     last_name: user.last_name,
     email: user.email,
     role: user.role.role,
+    mobile: user.mobile,
   };
 
   if (user.avatar?.img_url) {
     payload = {
       ...payload,
-      avatar: user.avatar.img_url.split("?").length > 0 ? user.avatar.img_url.split("?")[0] : user.avatar.img_url
+      avatar:
+        user.avatar.img_url.split("?").length > 0
+          ? user.avatar.img_url.split("?")[0]
+          : user.avatar.img_url,
     };
   }
 
@@ -121,5 +125,4 @@ const user = async (req) => {
 
   return user;
 };
-
 module.exports = { register, login, user };
