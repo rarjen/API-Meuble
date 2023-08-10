@@ -24,14 +24,18 @@ const uploadProductImage = async (req) => {
     throw new NotFoundError(`Tidak ada product dengan id: ${product_id}`);
   }
 
-  if (checkProduct.images.length <= 0) {
+  if (checkProduct.images.length >= 0) {
     await checkProduct.images.forEach(async (dataImage) => {
       idFiles.push(dataImage.imagekit_id);
+    });
 
-      await deleteBulkImg(idFiles);
+    await deleteBulkImg(idFiles);
 
+    // return console.log(idFiles);
+
+    idFiles.forEach(async (element) => {
       await Product_img.destroy({
-        where: { imagekit_id: idFiles },
+        where: { imagekit_id: element, product_id },
       });
     });
 
