@@ -26,6 +26,7 @@ const dashboard = require("./dashboard");
 const saleOrder = require("./saleOrder");
 const landingPage = require("./landing_page");
 const referenceImg = require("./uploadReferencePicture");
+const dataMenu = require("./menu");
 
 router.get("/", (req, res) => {
   return res.status(200).json({
@@ -62,5 +63,6 @@ router.use("/dashboard", dashboard);
 router.use("/saleCustomOrder", saleOrder);
 router.use("/landing_page", landingPage);
 router.use("/referenceImg", referenceImg);
+router.use("/listmenu", dataMenu);
 
 module.exports = router;
