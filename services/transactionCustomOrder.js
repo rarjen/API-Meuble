@@ -354,16 +354,8 @@ const inputResi = async (req) => {
     throw new BadRequestError(`Tidak dapat melakukan input resi`);
   }
 
-  // const checkCourrier = await Courrier.findOne({
-  //   where: { id: checkTransaction.courrier_id },
-  // });
-
-  // if (checkCourrier.courrier === "Internal Delivery") {
-  //   throw new BadRequestError(`Tidak dapat melakukan input resi`);
-  // }
   const result = await Transaction.update(
     { nomerResi, statusOrder: "ON_DELIVERY" },
-
     { where: { id: transaction_custom_order_id } }
   );
 
@@ -382,14 +374,6 @@ const updateDone = async (req) => {
       `Tidak ada custom transaksi dengan id: ${transaction_custom_order_id}`
     );
   }
-
-  // if (
-  //   checkTransaction.statusOrder !== CUSTOM_ORDER.ON_PROCESS ||
-  //   checkTransaction.statusPayment !== TRANSACTION.PAID
-  // ) {
-  //   throw new BadRequestError("Tidak dapat melakukan update!");
-  // }
-
   const result = await Transaction.update(
     { statusOrder: CUSTOM_ORDER.DONE },
     { where: { id: transaction_custom_order_id } }

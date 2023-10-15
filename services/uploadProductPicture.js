@@ -31,8 +31,6 @@ const uploadProductImage = async (req) => {
 
     await deleteBulkImg(idFiles);
 
-    // return console.log(idFiles);
-
     idFiles.forEach(async (element) => {
       await Product_img.destroy({
         where: { imagekit_id: element, product_id },
