@@ -28,6 +28,7 @@ const landingPage = require("./landing_page");
 const referenceImg = require("./uploadReferencePicture");
 const dataMenu = require("./menu");
 const categoryMenu = require("./menuCategory");
+const orderUser = require("./orderUser");
 
 router.get("/", (req, res) => {
   return res.status(200).json({
@@ -66,5 +67,6 @@ router.use("/landing_page", landingPage);
 router.use("/referenceImg", referenceImg);
 router.use("/listmenu", dataMenu);
 router.use("/category-menu", categoryMenu);
+router.use("/order-menu", orderUser);
 
 module.exports = router;
